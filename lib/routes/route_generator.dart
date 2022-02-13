@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../screens/suras/screen_suras.dart';
+
 import '../screens/home/screen_home.dart';
 import '../screens/welcome/screens_welcome.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
+    dynamic args = routeSettings.arguments;
     switch (routeSettings.name) {
+      case '/':
+        return MaterialPageRoute(
+          builder: (_) => const ScreenHome(),
+        );
       case '/screen_welcome':
         return MaterialPageRoute(
           builder: (_) => const ScreenWelcome(),
         );
-      case '/':
+      case '/screen_suras':
         return MaterialPageRoute(
-          builder: (_) => const ScreenHome(),
+          builder: (_) => ScreenSuras(
+            modelSuras: args,
+          ),
         );
       default:
         return _errorRoute();

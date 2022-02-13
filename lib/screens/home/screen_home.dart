@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kuranikerim/screens/home/components/widget_my_list.dart';
 
-import 'components/control_buttons.dart';
-
 class ScreenHome extends StatefulWidget {
   static String routeName = '/';
   const ScreenHome({Key? key}) : super(key: key);

@@ -1,24 +1,20 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:kuranikerim/screens/home/components/widget_my_list.dart';
+import 'package:kuranikerim/models/model_suras.dart';
+import 'package:kuranikerim/screens/suras/components/widget_my_list.dart';
 
-class ScreenSuras extends StatefulWidget {
+class ScreenSuras extends StatelessWidget {
   static String routeName = '/screen_suras';
-  const ScreenSuras({Key? key}) : super(key: key);
+  final ModelSuras modelSuras;
 
-  @override
-  _ScreenSurasState createState() => _ScreenSurasState();
-}
+  ScreenSuras({required this.modelSuras});
 
-class _ScreenSurasState extends State<ScreenSuras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sureler'),
       ),
-      body: WidgetMyList(),
+      body: WidgetMyList(modelSuras: modelSuras),
     );
   }
 }

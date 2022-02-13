@@ -20,7 +20,8 @@ import 'common.dart';
 import 'control_buttons.dart';
 
 class WidgetMyList extends StatefulWidget {
-  const WidgetMyList({Key? key}) : super(key: key);
+  ModelSuras modelSuras;
+  WidgetMyList({required this.modelSuras});
 
   @override
   State<WidgetMyList> createState() => _WidgetMyListState();
@@ -64,13 +65,31 @@ class _WidgetMyListState extends State<WidgetMyList>
   Future<void> _init() async {
     // Try to load audio from a source and catch any errors.
     try {
+      print(
+          'screen_suras:::init:::widget.modalSuras:::${widget.modelSuras.surasId}');
+
       _modelHafizlar = getModelHafizlar();
       _modelMealPerson = getModelMealPersons();
       _modelMeal = getModelMealList();
       _modelPart = getModelParts();
       _modelSound = getModelSoundList();
       _modelSuras = getModelSuras();
-      _modelVerses = getModelVerses();
+
+      final _findModelVerses = getModelVerses()
+          .where((element) => element.surasId == widget.modelSuras.surasId);
+
+      for (final element in _findModelVerses) {
+        _modelVerses.add(element);
+        _modelSound.add(getModelSoundList()
+            .where((item) => item.versesId == element.versesId)
+            .first);
+        _modelMeal.add(getModelMealList()
+            .where((item) => item.versesId == element.versesId)
+            .first);
+      }
+
+      print('screen_suras:::init:::findModelVerses:::${_modelVerses.length}');
+
       for (var i = 0; i < 7; i++) {
         _players.add(AudioPlayer());
         await _players[i].setAsset('${_modelSound[i].getSoundPath()}');
@@ -216,18 +235,17 @@ class _WidgetMyListState extends State<WidgetMyList>
                             Icons.play_circle,
                             color: cAccentColor,
                           )
-                        : const Icon(
-                            Icons.stop_circle_outlined,
-                            color: cAccentColor,
-                          ),
+                        : const CircularProgressIndicator(),
                     onPressed: () {
-                      _timerStart(index);
+                      if (_selected[index] == false) {
+                        _timerStart(index);
+                      }
                     },
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(
+                      const Divider(
                         height: 10,
                         color: cDividerColor,
                       ),

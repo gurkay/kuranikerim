@@ -117,7 +117,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setVersesId(7);
   model.setSoundPath('assets/sounds/7.mp3');
-  model.setRightPositionIncrease(8.4);
+  model.setRightPositionIncrease(6.9);
   list.add(model);
 
   model = ModelSound();
