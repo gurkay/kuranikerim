@@ -12,7 +12,7 @@ class ScreenSuras extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sureler'),
+        title: Text('${modelSuras.surasName}'),
       ),
       body: WidgetMyList(modelSuras: modelSuras),
     );

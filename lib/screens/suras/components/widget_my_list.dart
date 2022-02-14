@@ -70,9 +70,9 @@ class _WidgetMyListState extends State<WidgetMyList>
 
       _modelHafizlar = getModelHafizlar();
       _modelMealPerson = getModelMealPersons();
-      _modelMeal = getModelMealList();
+
       _modelPart = getModelParts();
-      _modelSound = getModelSoundList();
+
       _modelSuras = getModelSuras();
 
       final _findModelVerses = getModelVerses()
@@ -83,9 +83,12 @@ class _WidgetMyListState extends State<WidgetMyList>
         _modelSound.add(getModelSoundList()
             .where((item) => item.versesId == element.versesId)
             .first);
+
         _modelMeal.add(getModelMealList()
             .where((item) => item.versesId == element.versesId)
             .first);
+        print('screen_suras:::init:::element.versesId:::${element.versesId}');
+        print('screen_suras:::init:::_modelMeal:::${_modelMeal[0].meal}');
       }
 
       print('screen_suras:::init:::findModelVerses:::${_modelVerses.length}');
@@ -214,6 +217,29 @@ class _WidgetMyListState extends State<WidgetMyList>
                     ),
                   ],
                 ),
+                Container(
+                  margin: const EdgeInsets.only(left: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          '${widget.modelSuras.surasName} ${_modelVerses[index].versesId}. Ayet'),
+                      IconButton(
+                        icon: _selected[index] == false
+                            ? const Icon(
+                                Icons.play_circle,
+                                color: cAccentColor,
+                              )
+                            : const CircularProgressIndicator(),
+                        onPressed: () {
+                          if (_selected[index] == false) {
+                            _timerStart(index);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 ListTile(
                   tileColor: _selected[index] ? Colors.green[100] : null,
                   title: Column(
@@ -228,19 +254,6 @@ class _WidgetMyListState extends State<WidgetMyList>
                         style: Theme.of(context).primaryTextTheme.headline2,
                       ),
                     ],
-                  ),
-                  trailing: IconButton(
-                    icon: _selected[index] == false
-                        ? const Icon(
-                            Icons.play_circle,
-                            color: cAccentColor,
-                          )
-                        : const CircularProgressIndicator(),
-                    onPressed: () {
-                      if (_selected[index] == false) {
-                        _timerStart(index);
-                      }
-                    },
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

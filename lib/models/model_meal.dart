@@ -109,7 +109,6 @@ List<ModelMeal> getModelMealList() {
   model.setVersesId(7);
   model.setMeal(
       'O kendilerine in\'am ettigin mesutlarin yoluna. Ne o gazap olunanların ne de sapkinlarin.');
-
   list.add(model);
 
   model = ModelMeal();
@@ -117,7 +116,9 @@ List<ModelMeal> getModelMealList() {
   model.setMealPersonId(1);
   model.setVersesId(8);
   model.setMeal('(Elm )Elif, lâm, mim.');
+
   list.add(model);
+
   model = ModelMeal();
   model.setMealId(9);
   model.setMealPersonId(1);
