@@ -10,6 +10,7 @@ import 'package:kuranikerim/models/model_part.dart';
 import 'package:kuranikerim/models/model_sound.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/models/model_verses.dart';
+import 'package:kuranikerim/screens/suras/components/arrow_read.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:audio_session/audio_session.dart';
@@ -19,16 +20,15 @@ import 'package:flutter/services.dart';
 import 'common.dart';
 import 'control_buttons.dart';
 
-class WidgetMyList extends StatefulWidget {
+class MyPlayer extends StatefulWidget {
   ModelSuras modelSuras;
-  WidgetMyList({required this.modelSuras});
+  MyPlayer({required this.modelSuras});
 
   @override
-  State<WidgetMyList> createState() => _WidgetMyListState();
+  State<MyPlayer> createState() => _MyPlayerState();
 }
 
-class _WidgetMyListState extends State<WidgetMyList>
-    with WidgetsBindingObserver {
+class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   double _rightPosition = 0.0;
   double _bottomPosition = 0.0;
   int _floor = 0;
@@ -46,6 +46,7 @@ class _WidgetMyListState extends State<WidgetMyList>
   List<bool> _selected = [];
 
   final List<AudioPlayer> _players = <AudioPlayer>[];
+  final _player = AudioPlayer();
 
   List<bool> _isGreenUpArrow = [];
 
@@ -53,7 +54,7 @@ class _WidgetMyListState extends State<WidgetMyList>
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
+      statusBarColor: Colors.green,
     ));
     _init();
 
@@ -61,6 +62,9 @@ class _WidgetMyListState extends State<WidgetMyList>
   }
 
   Future<void> _init() async {
+    // Inform the operating system of our app's audio attributes etc.
+    // We pick a reasonable default for an app that plays speech.
+
     // Try to load audio from a source and catch any errors.
     try {
       _modelHafizlar = getModelHafizlar();
@@ -89,6 +93,8 @@ class _WidgetMyListState extends State<WidgetMyList>
         _players.add(AudioPlayer());
         await _players[i].setAsset('${_modelSound[i].getSoundPath()}');
       }
+
+      await _player.setAsset('assets/sounds/fatiha.mp3');
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -102,7 +108,7 @@ class _WidgetMyListState extends State<WidgetMyList>
     for (var i = 0; i < _modelVerses.length; i++) {
       _players[i].dispose();
     }
-
+    _player.dispose();
     super.dispose();
   }
 
@@ -116,8 +122,19 @@ class _WidgetMyListState extends State<WidgetMyList>
       for (var i = 0; i < 7; i++) {
         _players[i].stop();
       }
+      _player.stop();
     }
   }
+
+  /// Collects the data useful for displaying in a seek bar, using a handy
+  /// feature of rx_dart to combine the 3 streams of interest into one.
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          _player.positionStream,
+          _player.bufferedPositionStream,
+          _player.durationStream,
+          (position, bufferedPosition, duration) => PositionData(
+              position, bufferedPosition, duration ?? Duration.zero));
 
   void _timerStart(int index) {
     if (_selected[index]) {
@@ -246,103 +263,45 @@ class _WidgetMyListState extends State<WidgetMyList>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      height: size.height * 0.85,
-      child: ListView.builder(
-        itemCount: _modelVerses.length,
-        itemBuilder: (ctx, index) {
-          return Card(
-            elevation: 7,
-            margin: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 5,
-            ),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child:
-                          Image.asset('${_modelVerses[index].getImagePath()}'),
-                    ),
-                    AnimatedPositioned(
-                      bottom: _bottomPosition,
-                      right: _rightPosition,
-                      child: _isGreenUpArrow[index] == true
-                          ? Image.asset(
-                              'assets/icons/up_arrow.png',
-                              height: size.height * 0.020,
-                            )
-                          : Container(),
-                      duration: Duration(milliseconds: 200),
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          '${_modelPart[(_modelVerses[index].partId)! - 1].partName}'),
-                      Text(
-                          '${index + 1}. ${widget.modelSuras.surasName} ${_modelVerses[index].versesId}. Ayet'),
-                      IconButton(
-                        icon: _selected[index] == false
-                            ? const Icon(
-                                Icons.play_circle,
-                                color: cAccentColor,
-                              )
-                            : const Icon(
-                                Icons.stop_circle_outlined,
-                                color: cAccentColor,
-                              ),
-                        onPressed: () {
-                          _timerStart(index);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  tileColor: _selected[index] ? Colors.green[100] : null,
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Türkçe Okunuşu',
-                        style: Theme.of(context).primaryTextTheme.headline1,
-                      ),
-                      Text(
-                        '${_modelVerses[index].getTrRead()}',
-                        style: Theme.of(context).primaryTextTheme.headline2,
-                      ),
-                    ],
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(
-                        height: 10,
-                        color: cDividerColor,
-                      ),
-                      Text(
-                        '${_modelMealPerson[(_modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
-                      ),
-                      Text(
-                        '${_modelMeal[index].getMeal()}',
-                        style: Theme.of(context).primaryTextTheme.subtitle2,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+    return SingleChildScrollView(
+      physics: ScrollPhysics(),
+      child: Column(
+        children: [
+          ControlButtons(_player),
+          // Display seek bar. Using StreamBuilder, this widget rebuilds
+          // each time the position, buffered position or duration changes.
+          StreamBuilder<PositionData>(
+            stream: _positionDataStream,
+            builder: (context, snapshot) {
+              final positionData = snapshot.data;
+              return SeekBar(
+                duration: positionData?.duration ?? Duration.zero,
+                position: positionData?.position ?? Duration.zero,
+                bufferedPosition:
+                    positionData?.bufferedPosition ?? Duration.zero,
+                onChangeEnd: _player.seek,
+              );
+            },
+          ),
+          StreamBuilder<PositionData>(
+            stream: _positionDataStream,
+            builder: (context, snapshot) {
+              final positionData = snapshot.data;
+              return ArrowRead(
+                duration: positionData?.duration ?? Duration.zero,
+                position: positionData?.position ?? Duration.zero,
+                bufferedPosition:
+                    positionData?.bufferedPosition ?? Duration.zero,
+                onChangeEnd: _player.seek,
+                modelVerses: _modelVerses,
+                modelPart: _modelPart,
+                modelMeal: _modelMeal,
+                modelMealPerson: _modelMealPerson,
+                modelSuras: widget.modelSuras,
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/screens/suras/components/widget_my_list.dart';
+import './components/my_player.dart';
 
 class ScreenSuras extends StatelessWidget {
   static String routeName = '/screen_suras';
@@ -14,7 +15,7 @@ class ScreenSuras extends StatelessWidget {
       appBar: AppBar(
         title: Text('${modelSuras.surasName}'),
       ),
-      body: WidgetMyList(modelSuras: modelSuras),
+      body: MyPlayer(modelSuras: modelSuras),
     );
   }
 }
