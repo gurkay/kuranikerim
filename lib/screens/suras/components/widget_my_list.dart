@@ -30,8 +30,8 @@ class WidgetMyList extends StatefulWidget {
 class _WidgetMyListState extends State<WidgetMyList>
     with WidgetsBindingObserver {
   double _rightPosition = 0.0;
-
   double _bottomPosition = 0.0;
+  int _floor = 0;
 
   List<ModelHafizlar> _modelHafizlar = <ModelHafizlar>[];
   List<ModelMealPerson> _modelMealPerson = <ModelMealPerson>[];
@@ -43,13 +43,11 @@ class _WidgetMyListState extends State<WidgetMyList>
 
   Timer? _timer;
 
-  double _beginPositionInMillisecond = 0;
-
-  final List<bool> _selected = List.generate(20, (index) => false);
+  List<bool> _selected = [];
 
   final List<AudioPlayer> _players = <AudioPlayer>[];
 
-  final List<bool> _isGreenUpArrow = List.generate(7, (index) => false);
+  List<bool> _isGreenUpArrow = [];
 
   @override
   void initState() {
@@ -65,14 +63,9 @@ class _WidgetMyListState extends State<WidgetMyList>
   Future<void> _init() async {
     // Try to load audio from a source and catch any errors.
     try {
-      print(
-          'screen_suras:::init:::widget.modalSuras:::${widget.modelSuras.surasId}');
-
       _modelHafizlar = getModelHafizlar();
       _modelMealPerson = getModelMealPersons();
-
       _modelPart = getModelParts();
-
       _modelSuras = getModelSuras();
 
       final _findModelVerses = getModelVerses()
@@ -87,13 +80,12 @@ class _WidgetMyListState extends State<WidgetMyList>
         _modelMeal.add(getModelMealList()
             .where((item) => item.versesId == element.versesId)
             .first);
-        print('screen_suras:::init:::element.versesId:::${element.versesId}');
-        print('screen_suras:::init:::_modelMeal:::${_modelMeal[0].meal}');
       }
 
-      print('screen_suras:::init:::findModelVerses:::${_modelVerses.length}');
+      _isGreenUpArrow = List.generate(_modelVerses.length, (index) => false);
+      _selected = List.generate(_modelVerses.length, (index) => false);
 
-      for (var i = 0; i < 7; i++) {
+      for (var i = 0; i < _modelSound.length; i++) {
         _players.add(AudioPlayer());
         await _players[i].setAsset('${_modelSound[i].getSoundPath()}');
       }
@@ -131,17 +123,50 @@ class _WidgetMyListState extends State<WidgetMyList>
     _players[index].load();
     _players[index].play();
 
+    double _beginPositionInMillisecond =
+        _players[index].position.inMilliseconds.toDouble();
+    double _totalMillisecond =
+        _players[index].duration!.inMilliseconds.toDouble();
+
+    int? _floor = _modelVerses[index].getFloor();
+    double? _rightPositionIncrease =
+        _modelSound[index].getRightPositionIncrease();
+
+    int? _versesId = _modelVerses[index].getVersesId();
+
     print(
-        'widget_my_list:::_timerStart:::modelSoundRight:::${_modelSound[index].getRightPositionIncrease()}');
+        'widget_my_list:::_timerStart:::getRightPositionIncrease:::${_modelSound[index].getRightPositionIncrease()}');
+    print(
+        'widget_my_list:::_timerStart:::_beginPositionInMillisecond:::$_beginPositionInMillisecond');
+    print(
+        'widget_my_list:::_timerStart:::_totalMillisecond:::$_totalMillisecond');
 
-    if (index == 6) {
-      _bottomPosition = 100;
+    if (_modelVerses[index].getVersesId() == 7) {
+      _totalMillisecond = _totalMillisecond - 1000;
     }
-
     _isGreenUpArrow[index] = !_isGreenUpArrow[index];
 
     setState(() {
       _selected[index] = !_selected[index];
+      switch (_floor) {
+        case 1:
+          _bottomPosition = 70;
+          if (index == 0) {
+            _rightPosition = 80;
+            _bottomPosition = 40;
+          }
+          break;
+        case 2:
+          _bottomPosition = 130;
+          break;
+        case 3:
+          _bottomPosition = 200;
+          break;
+        case 4:
+          _bottomPosition = 260;
+          break;
+        default:
+      }
     });
 
     if (_timer != null) {
@@ -151,30 +176,61 @@ class _WidgetMyListState extends State<WidgetMyList>
       const Duration(milliseconds: 200),
       (timer) {
         setState(() {
-          print(
-              'widget_my_list:::_timerStart:::_players[index].position.inMilliseconds.toDouble():::${_players[index].position.inMilliseconds.toDouble()}');
-          print(
-              'widget_my_list:::_timerStart:::_players[index].duration.inMilliseconds.toDouble():::${_players[index].duration!.inMilliseconds.toDouble()}');
+          if (widget.modelSuras.surasId == 1) {
+            if (_beginPositionInMillisecond < _totalMillisecond) {
+              _rightPosition += _rightPositionIncrease!;
+              _beginPositionInMillisecond += 200;
 
-          if (_beginPositionInMillisecond <
-              _players[index].duration!.inMilliseconds.toDouble()) {
-            _rightPosition += _modelSound[index].getRightPositionIncrease()!;
-            _beginPositionInMillisecond += 200;
+              if (_rightPosition > 360) {
+                _bottomPosition = 0;
+                _rightPosition = 0;
+              }
+            } else {
+              timer.cancel();
+              _beginPositionInMillisecond = 0;
+              _players[index].stop();
+              _players[index].load();
 
-            if (_rightPosition > 360) {
-              _bottomPosition = 0;
-              _rightPosition = 0;
+              _rightPosition = 0.0;
+              _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+              _selected[index] = !_selected[index];
             }
-            if (_bottomPosition < 100) {}
           } else {
-            timer.cancel();
-            _beginPositionInMillisecond = 0;
-            _players[index].stop();
-            _players[index].load();
+            if (_beginPositionInMillisecond < _totalMillisecond) {
+              _rightPosition += _rightPositionIncrease!;
+              _beginPositionInMillisecond += 200;
 
-            _rightPosition = 0.0;
-            _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-            _selected[index] = !_selected[index];
+              if (_floor == 4 && _rightPosition > 360) {
+                _floor = (_floor! - 1);
+                _bottomPosition = 200;
+                _rightPosition = 0;
+              } else if (_floor == 3 && _rightPosition > 360) {
+                _floor = (_floor! - 1);
+                _bottomPosition = 130;
+                _rightPosition = 0;
+              } else if (_floor == 2 && _rightPosition > 360) {
+                _floor = (_floor! - 1);
+                _bottomPosition = 70;
+                _rightPosition = 0;
+              } else if (_floor == 1 && _rightPosition > 260 && index == 0) {
+                _floor = (_floor! - 1);
+                _bottomPosition = 0;
+                _rightPosition = 0;
+              } else if (_floor == 1 && _rightPosition > 360) {
+                _floor = (_floor! - 1);
+                _bottomPosition = 0;
+                _rightPosition = 0;
+              }
+            } else {
+              timer.cancel();
+              _beginPositionInMillisecond = 0;
+              _players[index].stop();
+              _players[index].load();
+
+              _rightPosition = 0.0;
+              _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+              _selected[index] = !_selected[index];
+            }
           }
         });
       },
@@ -187,7 +243,7 @@ class _WidgetMyListState extends State<WidgetMyList>
     return Container(
       height: size.height * 0.85,
       child: ListView.builder(
-        itemCount: 7,
+        itemCount: _modelVerses.length,
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 7,

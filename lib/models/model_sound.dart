@@ -117,7 +117,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setVersesId(7);
   model.setSoundPath('assets/sounds/7.mp3');
-  model.setRightPositionIncrease(6.9);
+  model.setRightPositionIncrease(8.2);
   list.add(model);
 
   model = ModelSound();
@@ -167,7 +167,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setVersesId(14);
   model.setSoundPath('assets/sounds/14.mp3');
-  model.setRightPositionIncrease(6.4);
+  model.setRightPositionIncrease(9.2);
   list.add(model);
   model = ModelSound();
   model.setSoundId(15);
@@ -216,21 +216,21 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setVersesId(21);
   model.setSoundPath('assets/sounds/21.mp3');
-  model.setRightPositionIncrease(6.4);
+  model.setRightPositionIncrease(7.4);
   list.add(model);
   model = ModelSound();
   model.setSoundId(22);
   model.setHafizId(1);
   model.setVersesId(22);
   model.setSoundPath('assets/sounds/22.mp3');
-  model.setRightPositionIncrease(6.4);
+  model.setRightPositionIncrease(9.2);
   list.add(model);
   model = ModelSound();
   model.setSoundId(23);
   model.setHafizId(1);
   model.setVersesId(23);
   model.setSoundPath('assets/sounds/23.mp3');
-  model.setRightPositionIncrease(6.4);
+  model.setRightPositionIncrease(8.8);
   list.add(model);
 
   return list;
