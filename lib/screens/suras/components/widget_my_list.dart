@@ -246,7 +246,7 @@ class _WidgetMyListState extends State<WidgetMyList>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Türkçe Okunuşu :',
+                        'Türkçe Okunuşu',
                         style: Theme.of(context).primaryTextTheme.headline1,
                       ),
                       Text(
