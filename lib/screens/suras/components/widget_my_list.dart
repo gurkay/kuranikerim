@@ -99,7 +99,7 @@ class _WidgetMyListState extends State<WidgetMyList>
     WidgetsBinding.instance?.removeObserver(this);
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < _modelVerses.length; i++) {
       _players[i].dispose();
     }
 
@@ -120,121 +120,131 @@ class _WidgetMyListState extends State<WidgetMyList>
   }
 
   void _timerStart(int index) {
-    _players[index].load();
-    _players[index].play();
+    if (_selected[index]) {
+      print(
+          'widget_my_list:::_timerStart:::getRightPositionIncrease:::${_modelSound[index].getRightPositionIncrease()}');
 
-    double _beginPositionInMillisecond =
-        _players[index].position.inMilliseconds.toDouble();
-    double _totalMillisecond =
-        _players[index].duration!.inMilliseconds.toDouble();
+      _players[index].stop();
+      _players[index].load();
 
-    int? _floor = _modelVerses[index].getFloor();
-    double? _rightPositionIncrease =
-        _modelSound[index].getRightPositionIncrease();
-
-    int? _versesId = _modelVerses[index].getVersesId();
-
-    print(
-        'widget_my_list:::_timerStart:::getRightPositionIncrease:::${_modelSound[index].getRightPositionIncrease()}');
-    print(
-        'widget_my_list:::_timerStart:::_beginPositionInMillisecond:::$_beginPositionInMillisecond');
-    print(
-        'widget_my_list:::_timerStart:::_totalMillisecond:::$_totalMillisecond');
-
-    if (_modelVerses[index].getVersesId() == 7) {
-      _totalMillisecond = _totalMillisecond - 1000;
-    }
-    _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-
-    setState(() {
-      _selected[index] = !_selected[index];
-      switch (_floor) {
-        case 1:
-          _bottomPosition = 70;
-          if (index == 0) {
-            _rightPosition = 80;
-            _bottomPosition = 40;
-          }
-          break;
-        case 2:
-          _bottomPosition = 130;
-          break;
-        case 3:
-          _bottomPosition = 200;
-          break;
-        case 4:
-          _bottomPosition = 260;
-          break;
-        default:
+      _rightPosition = 0.0;
+      _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+      setState(() {
+        _selected[index] = !_selected[index];
+      });
+      if (_timer != null) {
+        _timer!.cancel();
       }
-    });
+    } else {
+      _players[index].load();
+      _players[index].play();
 
-    if (_timer != null) {
-      _timer!.cancel();
+      double _beginPositionInMillisecond =
+          _players[index].position.inMilliseconds.toDouble();
+      double _totalMillisecond =
+          _players[index].duration!.inMilliseconds.toDouble();
+
+      int? _floor = _modelVerses[index].getFloor();
+      double? _rightPositionIncrease =
+          _modelSound[index].getRightPositionIncrease();
+
+      int? _versesId = _modelVerses[index].getVersesId();
+
+      _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+
+      setState(() {
+        _selected[index] = !_selected[index];
+
+        switch (_floor) {
+          case 1:
+            _bottomPosition = 70;
+            if (index == 0) {
+              _rightPosition = 80;
+              _bottomPosition = 40;
+            }
+            break;
+          case 2:
+            _bottomPosition = 150;
+            break;
+          case 3:
+            _bottomPosition = 200;
+            break;
+          case 4:
+            _bottomPosition = 260;
+            break;
+          default:
+            _rightPosition = 0;
+            _bottomPosition = 0;
+        }
+      });
+
+      if (_timer != null) {
+        _timer!.cancel();
+      }
+      _timer = Timer.periodic(
+        const Duration(milliseconds: 200),
+        (timer) {
+          setState(() {
+            if (widget.modelSuras.surasId == 1) {
+              if (_beginPositionInMillisecond < _totalMillisecond) {
+                _rightPosition += _rightPositionIncrease!;
+                _beginPositionInMillisecond += 200;
+
+                if (_rightPosition > 360) {
+                  _bottomPosition = 0;
+                  _rightPosition = 0;
+                }
+              } else {
+                timer.cancel();
+                _beginPositionInMillisecond = 0;
+                _players[index].stop();
+                _players[index].load();
+
+                _rightPosition = 0.0;
+                _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+                _selected[index] = !_selected[index];
+              }
+            } else {
+              if (_beginPositionInMillisecond < _totalMillisecond) {
+                _rightPosition += _rightPositionIncrease!;
+                _beginPositionInMillisecond += 200;
+
+                if (_floor == 4 && _rightPosition > 360) {
+                  _floor = (_floor! - 1);
+                  _bottomPosition = 200;
+                  _rightPosition = 0;
+                } else if (_floor == 3 && _rightPosition > 360) {
+                  _floor = (_floor! - 1);
+                  _bottomPosition = 130;
+                  _rightPosition = 0;
+                } else if (_floor == 2 && _rightPosition > 360) {
+                  _floor = (_floor! - 1);
+                  _bottomPosition = 70;
+                  _rightPosition = 0;
+                } else if (_floor == 1 && _rightPosition > 280 && index == 0) {
+                  _floor = (_floor! - 1);
+                  _bottomPosition = 0;
+                  _rightPosition = 0;
+                } else if (_floor == 1 && _rightPosition > 360) {
+                  _floor = (_floor! - 1);
+                  _bottomPosition = 0;
+                  _rightPosition = 0;
+                }
+              } else {
+                timer.cancel();
+                _beginPositionInMillisecond = 0;
+                _players[index].stop();
+                _players[index].load();
+
+                _rightPosition = 0.0;
+                _isGreenUpArrow[index] = !_isGreenUpArrow[index];
+                _selected[index] = !_selected[index];
+              }
+            }
+          });
+        },
+      );
     }
-    _timer = Timer.periodic(
-      const Duration(milliseconds: 200),
-      (timer) {
-        setState(() {
-          if (widget.modelSuras.surasId == 1) {
-            if (_beginPositionInMillisecond < _totalMillisecond) {
-              _rightPosition += _rightPositionIncrease!;
-              _beginPositionInMillisecond += 200;
-
-              if (_rightPosition > 360) {
-                _bottomPosition = 0;
-                _rightPosition = 0;
-              }
-            } else {
-              timer.cancel();
-              _beginPositionInMillisecond = 0;
-              _players[index].stop();
-              _players[index].load();
-
-              _rightPosition = 0.0;
-              _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-              _selected[index] = !_selected[index];
-            }
-          } else {
-            if (_beginPositionInMillisecond < _totalMillisecond) {
-              _rightPosition += _rightPositionIncrease!;
-              _beginPositionInMillisecond += 200;
-
-              if (_floor == 4 && _rightPosition > 360) {
-                _floor = (_floor! - 1);
-                _bottomPosition = 200;
-                _rightPosition = 0;
-              } else if (_floor == 3 && _rightPosition > 360) {
-                _floor = (_floor! - 1);
-                _bottomPosition = 130;
-                _rightPosition = 0;
-              } else if (_floor == 2 && _rightPosition > 360) {
-                _floor = (_floor! - 1);
-                _bottomPosition = 70;
-                _rightPosition = 0;
-              } else if (_floor == 1 && _rightPosition > 260 && index == 0) {
-                _floor = (_floor! - 1);
-                _bottomPosition = 0;
-                _rightPosition = 0;
-              } else if (_floor == 1 && _rightPosition > 360) {
-                _floor = (_floor! - 1);
-                _bottomPosition = 0;
-                _rightPosition = 0;
-              }
-            } else {
-              timer.cancel();
-              _beginPositionInMillisecond = 0;
-              _players[index].stop();
-              _players[index].load();
-
-              _rightPosition = 0.0;
-              _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-              _selected[index] = !_selected[index];
-            }
-          }
-        });
-      },
-    );
   }
 
   @override
@@ -279,18 +289,21 @@ class _WidgetMyListState extends State<WidgetMyList>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          '${widget.modelSuras.surasName} ${_modelVerses[index].versesId}. Ayet'),
+                          '${_modelPart[(_modelVerses[index].partId)! - 1].partName}'),
+                      Text(
+                          '${index + 1}. ${widget.modelSuras.surasName} ${_modelVerses[index].versesId}. Ayet'),
                       IconButton(
                         icon: _selected[index] == false
                             ? const Icon(
                                 Icons.play_circle,
                                 color: cAccentColor,
                               )
-                            : const CircularProgressIndicator(),
+                            : const Icon(
+                                Icons.stop_circle_outlined,
+                                color: cAccentColor,
+                              ),
                         onPressed: () {
-                          if (_selected[index] == false) {
-                            _timerStart(index);
-                          }
+                          _timerStart(index);
                         },
                       ),
                     ],
