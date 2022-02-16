@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
@@ -39,8 +41,9 @@ class ArrowRead extends StatefulWidget {
 class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   bool _selected = false;
-  double bottomGreenArrow = 0;
-  double _rightGreenArrow = 0;
+  List<double> _bottomGreenArrow = [];
+  List<double> _rightGreenArrow = [];
+  Timer? _timer;
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -52,13 +55,16 @@ class _ArrowReadState extends State<ArrowRead> {
   Future<void> _init() async {
     _isGreenUpArrow =
         List.generate(widget.modelVerses.length, (index) => false);
+    _rightGreenArrow = List.generate(widget.modelVerses.length, (index) => 0.0);
+    _bottomGreenArrow =
+        List.generate(widget.modelVerses.length, (index) => 0.0);
   }
 
   // This is what you're looking for!
   void _scrollDown() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       curve: Curves.fastOutSlowIn,
     );
   }
@@ -66,42 +72,34 @@ class _ArrowReadState extends State<ArrowRead> {
   @override
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
-      print('duration: ${widget.duration.inMilliseconds.toDouble()}');
-      print('position: ${widget.position.inMilliseconds.toDouble()}');
-
-      if (widget.position.inMilliseconds.toDouble() < 5830 &&
-          widget.position.inMilliseconds.toDouble() > 0) {
-        _rightGreenArrow = _rightGreenArrow + 6.4;
-        _isGreenUpArrow[0] = true;
-        bottomGreenArrow = 0;
+      if (widget.position.inMilliseconds.toDouble() < 6380) {
+        print('duration: ${widget.duration.inMilliseconds.toDouble()}');
+        print('position: ${widget.position.inMilliseconds.toDouble()}');
+        print(
+            'bufferedPosition: ${widget.bufferedPosition.inSeconds.toDouble()}');
+        print('_remaining: ${_remaining}');
+        if (widget.position.inMilliseconds.toDouble() != 0) {
+          setState(() {
+            _isGreenUpArrow[0] = true;
+            _rightGreenArrow[0] += 2.0;
+          });
+        }
 
         print('rightGreenArrow: ${_rightGreenArrow}');
-      } else {
+        print('rightGreenArrow: ${_bottomGreenArrow}');
+      } else if (widget.position.inMilliseconds.toDouble() < 12380) {
+        _rightGreenArrow[0] = 0;
+        _isGreenUpArrow[0] = false;
+        _bottomGreenArrow[0] = 0;
         setState(() {
-          _rightGreenArrow = 0;
-          _isGreenUpArrow[0] = false;
-          bottomGreenArrow = 0;
-        });
-      }
-
-      if (widget.position.inMilliseconds.toDouble() < 11462 &&
-          widget.position.inMilliseconds.toDouble() > 5836) {
-        setState(() {
-          _rightGreenArrow += 6.4;
           _isGreenUpArrow[1] = true;
-          bottomGreenArrow = 0;
-        });
-      } else {
-        setState(() {
-          _rightGreenArrow = 0;
-          _isGreenUpArrow[1] = false;
-          bottomGreenArrow = 0;
+          _rightGreenArrow[1] += 2.0;
         });
       }
     }
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.85,
+      height: size.height * 0.80,
       child: ListView.builder(
         controller: _scrollController,
         itemCount: widget.modelVerses.length,
@@ -122,8 +120,8 @@ class _ArrowReadState extends State<ArrowRead> {
                           '${widget.modelVerses[index].getImagePath()}'),
                     ),
                     AnimatedPositioned(
-                      bottom: bottomGreenArrow,
-                      right: _rightGreenArrow,
+                      bottom: _bottomGreenArrow[index],
+                      right: _rightGreenArrow[index],
                       child: _isGreenUpArrow[index] == true
                           ? Image.asset(
                               'assets/icons/up_arrow.png',

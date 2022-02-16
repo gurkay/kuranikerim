@@ -11,6 +11,7 @@ import 'package:kuranikerim/models/model_sound.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/models/model_verses.dart';
 import 'package:kuranikerim/screens/suras/components/arrow_read.dart';
+import 'package:kuranikerim/screens/suras/components/remaind_text.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:audio_session/audio_session.dart';
@@ -136,153 +137,12 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  void _timerStart(int index) {
-    if (_selected[index]) {
-      _players[index].stop();
-      _players[index].load();
-
-      _rightPosition = 0.0;
-      _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-      setState(() {
-        _selected[index] = !_selected[index];
-      });
-      if (_timer != null) {
-        _timer!.cancel();
-      }
-    } else {
-      _players[index].load();
-      _players[index].play();
-
-      double _beginPositionInMillisecond =
-          _players[index].position.inMilliseconds.toDouble();
-      double _totalMillisecond =
-          _players[index].duration!.inMilliseconds.toDouble();
-
-      int? _floor = _modelVerses[index].getFloor();
-      double? _rightPositionIncrease =
-          _modelSound[index].getRightPositionIncrease();
-
-      int? _versesId = _modelVerses[index].getVersesId();
-
-      _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-
-      setState(() {
-        _selected[index] = !_selected[index];
-
-        switch (_floor) {
-          case 1:
-            _bottomPosition = 70;
-            if (index == 0) {
-              _rightPosition = 80;
-              _bottomPosition = 40;
-            }
-            break;
-          case 2:
-            _bottomPosition = 150;
-            break;
-          case 3:
-            _bottomPosition = 200;
-            break;
-          case 4:
-            _bottomPosition = 260;
-            break;
-          default:
-            _rightPosition = 0;
-            _bottomPosition = 0;
-        }
-      });
-
-      if (_timer != null) {
-        _timer!.cancel();
-      }
-      _timer = Timer.periodic(
-        const Duration(milliseconds: 200),
-        (timer) {
-          setState(() {
-            if (widget.modelSuras.surasId == 1) {
-              if (_beginPositionInMillisecond < _totalMillisecond) {
-                _rightPosition += _rightPositionIncrease!;
-                _beginPositionInMillisecond += 200;
-
-                if (_rightPosition > 360) {
-                  _bottomPosition = 0;
-                  _rightPosition = 0;
-                }
-              } else {
-                timer.cancel();
-                _beginPositionInMillisecond = 0;
-                _players[index].stop();
-                _players[index].load();
-
-                _rightPosition = 0.0;
-                _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-                _selected[index] = !_selected[index];
-              }
-            } else {
-              if (_beginPositionInMillisecond < _totalMillisecond) {
-                _rightPosition += _rightPositionIncrease!;
-                _beginPositionInMillisecond += 200;
-
-                if (_floor == 4 && _rightPosition > 360) {
-                  _floor = (_floor! - 1);
-                  _bottomPosition = 200;
-                  _rightPosition = 0;
-                } else if (_floor == 3 && _rightPosition > 360) {
-                  _floor = (_floor! - 1);
-                  _bottomPosition = 130;
-                  _rightPosition = 0;
-                } else if (_floor == 2 && _rightPosition > 360) {
-                  _floor = (_floor! - 1);
-                  _bottomPosition = 70;
-                  _rightPosition = 0;
-                } else if (_floor == 1 && _rightPosition > 280 && index == 0) {
-                  _floor = (_floor! - 1);
-                  _bottomPosition = 0;
-                  _rightPosition = 0;
-                } else if (_floor == 1 && _rightPosition > 360) {
-                  _floor = (_floor! - 1);
-                  _bottomPosition = 0;
-                  _rightPosition = 0;
-                }
-              } else {
-                timer.cancel();
-                _beginPositionInMillisecond = 0;
-                _players[index].stop();
-                _players[index].load();
-
-                _rightPosition = 0.0;
-                _isGreenUpArrow[index] = !_isGreenUpArrow[index];
-                _selected[index] = !_selected[index];
-              }
-            }
-          });
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: ScrollPhysics(),
       child: Column(
         children: [
-          ControlButtons(_player),
-          // Display seek bar. Using StreamBuilder, this widget rebuilds
-          // each time the position, buffered position or duration changes.
-          StreamBuilder<PositionData>(
-            stream: _positionDataStream,
-            builder: (context, snapshot) {
-              final positionData = snapshot.data;
-              return SeekBar(
-                duration: positionData?.duration ?? Duration.zero,
-                position: positionData?.position ?? Duration.zero,
-                bufferedPosition:
-                    positionData?.bufferedPosition ?? Duration.zero,
-                onChangeEnd: _player.seek,
-              );
-            },
-          ),
           StreamBuilder<PositionData>(
             stream: _positionDataStream,
             builder: (context, snapshot) {
@@ -298,6 +158,20 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                 modelMeal: _modelMeal,
                 modelMealPerson: _modelMealPerson,
                 modelSuras: widget.modelSuras,
+              );
+            },
+          ),
+          ControlButtons(_player),
+          StreamBuilder<PositionData>(
+            stream: _positionDataStream,
+            builder: (context, snapshot) {
+              final positionData = snapshot.data;
+              return RemaindText(
+                duration: positionData?.duration ?? Duration.zero,
+                position: positionData?.position ?? Duration.zero,
+                bufferedPosition:
+                    positionData?.bufferedPosition ?? Duration.zero,
+                onChangeEnd: _player.seek,
               );
             },
           ),
