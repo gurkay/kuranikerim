@@ -71,11 +71,10 @@ class _ArrowReadState extends State<ArrowRead> {
 
       if (widget.position.inMilliseconds.toDouble() < 5830 &&
           widget.position.inMilliseconds.toDouble() > 0) {
-        setState(() {
-          _rightGreenArrow = _rightGreenArrow + 6.4;
-          _isGreenUpArrow[0] = true;
-          bottomGreenArrow = 0;
-        });
+        _rightGreenArrow = _rightGreenArrow + 6.4;
+        _isGreenUpArrow[0] = true;
+        bottomGreenArrow = 0;
+
         print('rightGreenArrow: ${_rightGreenArrow}');
       } else {
         setState(() {
