@@ -37,14 +37,74 @@ class ArrowRead extends StatefulWidget {
 }
 
 class _ArrowReadState extends State<ArrowRead> {
-  bool _isGreenUpArrow = false;
+  List<bool> _isGreenUpArrow = [];
   bool _selected = false;
+  double bottomGreenArrow = 0;
+  double _rightGreenArrow = 0;
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  Future<void> _init() async {
+    _isGreenUpArrow =
+        List.generate(widget.modelVerses.length, (index) => false);
+  }
+
+  // This is what you're looking for!
+  void _scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (widget.onChangeEnd != null) {
+      print('duration: ${widget.duration.inMilliseconds.toDouble()}');
+      print('position: ${widget.position.inMilliseconds.toDouble()}');
+
+      if (widget.position.inMilliseconds.toDouble() < 5830 &&
+          widget.position.inMilliseconds.toDouble() > 0) {
+        setState(() {
+          _rightGreenArrow = _rightGreenArrow + 6.4;
+          _isGreenUpArrow[0] = true;
+          bottomGreenArrow = 0;
+        });
+        print('rightGreenArrow: ${_rightGreenArrow}');
+      } else {
+        setState(() {
+          _rightGreenArrow = 0;
+          _isGreenUpArrow[0] = false;
+          bottomGreenArrow = 0;
+        });
+      }
+
+      if (widget.position.inMilliseconds.toDouble() < 11462 &&
+          widget.position.inMilliseconds.toDouble() > 5836) {
+        setState(() {
+          _rightGreenArrow += 6.4;
+          _isGreenUpArrow[1] = true;
+          bottomGreenArrow = 0;
+        });
+      } else {
+        setState(() {
+          _rightGreenArrow = 0;
+          _isGreenUpArrow[1] = false;
+          bottomGreenArrow = 0;
+        });
+      }
+    }
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.85,
       child: ListView.builder(
+        controller: _scrollController,
         itemCount: widget.modelVerses.length,
         itemBuilder: (ctx, index) {
           return Card(
@@ -63,9 +123,9 @@ class _ArrowReadState extends State<ArrowRead> {
                           '${widget.modelVerses[index].getImagePath()}'),
                     ),
                     AnimatedPositioned(
-                      bottom: 0,
-                      right: 0,
-                      child: _isGreenUpArrow == true
+                      bottom: bottomGreenArrow,
+                      right: _rightGreenArrow,
+                      child: _isGreenUpArrow[index] == true
                           ? Image.asset(
                               'assets/icons/up_arrow.png',
                               height: size.height * 0.020,
@@ -94,7 +154,9 @@ class _ArrowReadState extends State<ArrowRead> {
                                 Icons.stop_circle_outlined,
                                 color: cAccentColor,
                               ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _scrollDown;
+                        },
                       ),
                     ],
                   ),
@@ -139,4 +201,6 @@ class _ArrowReadState extends State<ArrowRead> {
       ),
     );
   }
+
+  Duration get _remaining => widget.duration - widget.position;
 }
