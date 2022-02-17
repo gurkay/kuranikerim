@@ -29,7 +29,7 @@ class _RemaindTextState extends State<RemaindText> {
               .firstMatch("$_remaining")
               ?.group(1) ??
           '$_remaining',
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).primaryTextTheme.headline1,
     );
   }
 

@@ -161,19 +161,24 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
               );
             },
           ),
-          ControlButtons(_player),
-          StreamBuilder<PositionData>(
-            stream: _positionDataStream,
-            builder: (context, snapshot) {
-              final positionData = snapshot.data;
-              return RemaindText(
-                duration: positionData?.duration ?? Duration.zero,
-                position: positionData?.position ?? Duration.zero,
-                bufferedPosition:
-                    positionData?.bufferedPosition ?? Duration.zero,
-                onChangeEnd: _player.seek,
-              );
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ControlButtons(_player),
+              StreamBuilder<PositionData>(
+                stream: _positionDataStream,
+                builder: (context, snapshot) {
+                  final positionData = snapshot.data;
+                  return RemaindText(
+                    duration: positionData?.duration ?? Duration.zero,
+                    position: positionData?.position ?? Duration.zero,
+                    bufferedPosition:
+                        positionData?.bufferedPosition ?? Duration.zero,
+                    onChangeEnd: _player.seek,
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),
