@@ -29,7 +29,7 @@ List<ModelHafizlar> getModelHafizlar() {
 
   ModelHafizlar model = ModelHafizlar();
   model.setHafizId(1);
-  model.setHafizName('AbuBakr Ash-Shatree');
+  model.setHafizName('Ahmed Al Ajmi');
   list.add(model);
 
   return list;

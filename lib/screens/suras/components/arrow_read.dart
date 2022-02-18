@@ -51,7 +51,7 @@ class _ArrowReadState extends State<ArrowRead> {
     42000
   ];
 
-  final Map<int, double> _versesDurationPositions = {
+  final Map _versesDurationPositions = {
     1: 6380,
     2: 11066,
     3: 15618,
@@ -61,12 +61,13 @@ class _ArrowReadState extends State<ArrowRead> {
     7: 52088,
   };
 
-  int _versesLenght = 0;
+  int _modelVersesIndex = 0;
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
   Timer? _timer;
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
+  List<double> _scrollSize = [0.50, 100, 300, 400, 600, 700, 1000];
 
   @override
   void initState() {
@@ -75,12 +76,12 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   Future<void> _init() async {
-    _versesLenght = widget.modelVerses.length;
-
-    _isGreenUpArrow = List.generate(_versesLenght, (index) => false);
-    _selected = List.generate(_versesLenght, (index) => false);
-    _rightGreenArrow = List.generate(_versesLenght, (index) => 0.0);
-    _bottomGreenArrow = List.generate(_versesLenght, (index) => 0.0);
+    _isGreenUpArrow =
+        List.generate(widget.modelVerses.length, (index) => false);
+    _selected = List.generate(widget.modelVerses.length, (index) => false);
+    _rightGreenArrow = List.generate(widget.modelVerses.length, (index) => 0.0);
+    _bottomGreenArrow =
+        List.generate(widget.modelVerses.length, (index) => 0.0);
     _scrollController.addListener(() {
       _scrollListener();
     });
@@ -106,7 +107,7 @@ class _ArrowReadState extends State<ArrowRead> {
     _scrollController.jumpTo(jump);
   }
 
-  void getArrowUp() {
+  void getArrowUp(int index) {
     if (widget.onChangeEnd != null) {
       print('onChangeEnd:::${widget.onChangeEnd}');
     } else {
@@ -114,115 +115,157 @@ class _ArrowReadState extends State<ArrowRead> {
     }
 
     // print('duration: ${widget.duration.inMilliseconds.toDouble()}');
-    print('position: ${widget.position.inMilliseconds.toDouble()}');
+    //print('position: ${widget.position.inMilliseconds.toDouble()}');
     // print('bufferedPosition: ${widget.bufferedPosition.inSeconds.toDouble()}');
 
     // print('rightGreenArrow: ${_rightGreenArrow}');
     // print('rightGreenArrow: ${_bottomGreenArrow}');
 
-    Size size = MediaQuery.of(context).size;
-
-    if (widget.position.inMilliseconds.toDouble() < 6380) {
+    if (index == 0) {
       setState(() {
-        _selected[0] = true;
-        _isGreenUpArrow[0] = true;
-        _rightGreenArrow[0] += 2.0;
+        _selected[index] = true;
+        _isGreenUpArrow[index] = true;
+        _rightGreenArrow[index] += 2.0;
       });
-    } else if (widget.position.inMilliseconds.toDouble() < 12380) {
+    } else {
       setState(() {
-        _isGreenUpArrow[0] = false;
-        _selected[0] = false;
-        _bottomGreenArrow[0] = 0;
-        _rightGreenArrow[0] = 0;
+        _isGreenUpArrow[index - 1] = false;
+        _selected[index - 1] = false;
+        _bottomGreenArrow[index - 1] = 0;
+        _rightGreenArrow[index - 1] = 0;
       });
 
       setState(() {
-        _selected[1] = true;
-        _isGreenUpArrow[1] = true;
-        _rightGreenArrow[1] += 2.0;
-        print('1 size:::${(size.height * 0.050)}');
-        _scrollJumpTo(size.height * 0.050);
+        _selected[index] = true;
+        _isGreenUpArrow[index] = true;
+        _rightGreenArrow[index] += 2.0;
       });
-    } else if (widget.position.inMilliseconds.toDouble() < 18380) {
-      setState(() {
-        _isGreenUpArrow[1] = false;
-        _selected[1] = false;
-        _bottomGreenArrow[1] = 0;
-        _rightGreenArrow[1] = 0;
-      });
-
-      setState(() {
-        _selected[2] = true;
-        _isGreenUpArrow[2] = true;
-        _rightGreenArrow[2] += 2.0;
-        print('2 size:::${(size.height * 0.10)}');
-        _scrollJumpTo(size.height * 0.10);
-      });
-    } else if (widget.position.inMilliseconds.toDouble() < 24380) {
-      setState(() {
-        _isGreenUpArrow[2] = false;
-        _selected[2] = false;
-        _bottomGreenArrow[2] = 0;
-        _rightGreenArrow[2] = 0;
-      });
-
-      setState(() {
-        _selected[3] = true;
-        _isGreenUpArrow[3] = true;
-        _rightGreenArrow[3] += 2.0;
-        print('3 size:::${(size.height * 0.450)}');
-        _scrollJumpTo(size.height * 0.450);
-      });
-    } else if (widget.position.inMilliseconds.toDouble() < 30380) {
-      setState(() {
-        _isGreenUpArrow[3] = false;
-        _selected[3] = false;
-        _bottomGreenArrow[3] = 0;
-        _rightGreenArrow[3] = 0;
-      });
-
-      setState(() {
-        _selected[4] = true;
-        _isGreenUpArrow[4] = true;
-        _rightGreenArrow[4] += 2.0;
-        print('4 size:::${(size.height * 0.650)}');
-        _scrollJumpTo(size.height * 0.650);
-      });
-    } else if (widget.position.inMilliseconds.toDouble() < 36380) {
-      setState(() {
-        _isGreenUpArrow[4] = false;
-        _selected[4] = false;
-        _bottomGreenArrow[4] = 0;
-        _rightGreenArrow[4] = 0;
-      });
-
-      setState(() {
-        _selected[5] = true;
-        _isGreenUpArrow[5] = true;
-        _rightGreenArrow[5] += 2.0;
-      });
-      _scrollJumpTo(_scrollController.position.maxScrollExtent);
-    } else if (widget.position.inMilliseconds.toDouble() < 42380) {
-      setState(() {
-        _isGreenUpArrow[5] = false;
-        _selected[5] = false;
-        _bottomGreenArrow[5] = 0;
-        _rightGreenArrow[5] = 0;
-      });
-
-      setState(() {
-        _selected[6] = true;
-        _isGreenUpArrow[6] = true;
-        _rightGreenArrow[6] += 2.0;
-      });
+      print('$index size:::${_scrollSize[index]}');
+      _scrollJumpTo(_scrollSize[index]);
     }
+
+    // if (widget.position.inMilliseconds.toDouble() < 6380) {
+    //   setState(() {
+    //     _selected[0] = true;
+    //     _isGreenUpArrow[0] = true;
+    //     _rightGreenArrow[0] += 2.0;
+    //   });
+    // } else if (widget.position.inMilliseconds.toDouble() < 12380) {
+    //   setState(() {
+    //     _isGreenUpArrow[0] = false;
+    //     _selected[0] = false;
+    //     _bottomGreenArrow[0] = 0;
+    //     _rightGreenArrow[0] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[1] = true;
+    //     _isGreenUpArrow[1] = true;
+    //     _rightGreenArrow[1] += 2.0;
+    //     print('1 size:::${(size.height * 0.050)}');
+    //     _scrollJumpTo(size.height * 0.050);
+    //   });
+    // } else if (widget.position.inMilliseconds.toDouble() < 18380) {
+    //   setState(() {
+    //     _isGreenUpArrow[1] = false;
+    //     _selected[1] = false;
+    //     _bottomGreenArrow[1] = 0;
+    //     _rightGreenArrow[1] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[2] = true;
+    //     _isGreenUpArrow[2] = true;
+    //     _rightGreenArrow[2] += 2.0;
+    //     print('2 size:::${(size.height * 0.10)}');
+    //     _scrollJumpTo(size.height * 0.10);
+    //   });
+    // } else if (widget.position.inMilliseconds.toDouble() < 24380) {
+    //   setState(() {
+    //     _isGreenUpArrow[2] = false;
+    //     _selected[2] = false;
+    //     _bottomGreenArrow[2] = 0;
+    //     _rightGreenArrow[2] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[3] = true;
+    //     _isGreenUpArrow[3] = true;
+    //     _rightGreenArrow[3] += 2.0;
+    //     print('3 size:::${(size.height * 0.450)}');
+    //     _scrollJumpTo(size.height * 0.450);
+    //   });
+    // } else if (widget.position.inMilliseconds.toDouble() < 30380) {
+    //   setState(() {
+    //     _isGreenUpArrow[3] = false;
+    //     _selected[3] = false;
+    //     _bottomGreenArrow[3] = 0;
+    //     _rightGreenArrow[3] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[4] = true;
+    //     _isGreenUpArrow[4] = true;
+    //     _rightGreenArrow[4] += 2.0;
+    //     print('4 size:::${(size.height * 0.650)}');
+    //     _scrollJumpTo(size.height * 0.650);
+    //   });
+    // } else if (widget.position.inMilliseconds.toDouble() < 36380) {
+    //   setState(() {
+    //     _isGreenUpArrow[4] = false;
+    //     _selected[4] = false;
+    //     _bottomGreenArrow[4] = 0;
+    //     _rightGreenArrow[4] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[5] = true;
+    //     _isGreenUpArrow[5] = true;
+    //     _rightGreenArrow[5] += 2.0;
+    //   });
+    //   _scrollJumpTo(_scrollController.position.maxScrollExtent);
+    // } else if (widget.position.inMilliseconds.toDouble() < 42380) {
+    //   setState(() {
+    //     _isGreenUpArrow[5] = false;
+    //     _selected[5] = false;
+    //     _bottomGreenArrow[5] = 0;
+    //     _rightGreenArrow[5] = 0;
+    //   });
+
+    //   setState(() {
+    //     _selected[6] = true;
+    //     _isGreenUpArrow[6] = true;
+    //     _rightGreenArrow[6] += 2.0;
+    //   });
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
       if (widget.position.inMilliseconds.toDouble() != 0) {
-        getArrowUp();
+        if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[1]) {
+          getArrowUp(0);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[2]) {
+          getArrowUp(1);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[3]) {
+          getArrowUp(2);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[4]) {
+          getArrowUp(3);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[5]) {
+          getArrowUp(4);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[6]) {
+          getArrowUp(5);
+        } else if (widget.position.inMilliseconds.toDouble() <
+            _versesDurationPositions[7]) {
+          getArrowUp(6);
+        }
       }
     }
     Size size = MediaQuery.of(context).size;
@@ -230,7 +273,7 @@ class _ArrowReadState extends State<ArrowRead> {
       height: size.height * 0.80,
       child: ListView.builder(
         controller: _scrollController,
-        itemCount: _versesLenght,
+        itemCount: widget.modelVerses.length,
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 7,

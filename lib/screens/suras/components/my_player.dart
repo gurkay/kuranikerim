@@ -95,7 +95,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
         await _players[i].setAsset('${_modelSound[i].getSoundPath()}');
       }
 
-      await _player.setAsset('assets/sounds/fatiha.mp3');
+      await _player
+          .setAsset('assets/sounds/${widget.modelSuras.getSurasId()}.mp3');
     } catch (e) {
       print("Error loading audio source: $e");
     }
