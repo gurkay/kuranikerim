@@ -3,14 +3,12 @@ class ModelSound {
   int? hafizId;
   int? surasId;
   String? soundPath;
-  double? rightPositionIncrease;
 
   ModelSound({
     this.soundId,
     this.hafizId,
     this.surasId,
     this.soundPath,
-    this.rightPositionIncrease,
   });
 
   void setSoundId(int id) {
@@ -29,10 +27,6 @@ class ModelSound {
     this.soundPath = sndPath;
   }
 
-  void setRightPositionIncrease(double rightPosition) {
-    this.rightPositionIncrease = rightPosition;
-  }
-
   int? getSoundId() {
     return soundId;
   }
@@ -48,10 +42,6 @@ class ModelSound {
   String? getSoundPath() {
     return soundPath;
   }
-
-  double? getRightPositionIncrease() {
-    return rightPositionIncrease;
-  }
 }
 
 List<ModelSound> getModelSoundList() {
@@ -63,7 +53,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setSurasId(1);
   model.setSoundPath('assets/sounds/1.mp3');
-  model.setRightPositionIncrease(2.0);
+
   list.add(model);
 
   // Bakara
@@ -72,7 +62,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setSurasId(2);
   model.setSoundPath('assets/sounds/2.mp3');
-  model.setRightPositionIncrease(2.0);
+
   list.add(model);
 
   // Âl-i İmrân Sûresi
@@ -81,7 +71,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setSurasId(3);
   model.setSoundPath('assets/sounds/3.mp3');
-  model.setRightPositionIncrease(2.0);
+
   list.add(model);
 
   // Nisa
@@ -90,7 +80,7 @@ List<ModelSound> getModelSoundList() {
   model.setHafizId(1);
   model.setSurasId(4);
   model.setSoundPath('assets/sounds/4.mp3');
-  model.setRightPositionIncrease(2.0);
+
   list.add(model);
 
   return list;

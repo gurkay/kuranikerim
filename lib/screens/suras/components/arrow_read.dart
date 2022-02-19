@@ -43,31 +43,34 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _selected = [];
   final List<int> _secondPosition = [
     1,
-    7000,
-    12380,
-    21000,
-    28000,
-    35000,
-    42000
+    5750,
+    10300,
+    13940,
+    17230,
+    22180,
+    25880,
   ];
 
   final Map _versesDurationPositions = {
-    1: 6380,
-    2: 11066,
-    3: 15618,
-    4: 19924,
-    5: 27501,
-    6: 33057,
-    7: 52088,
+    0: 0,
+    1: 5743,
+    2: 10291,
+    3: 13937,
+    4: 17220,
+    5: 22176,
+    6: 25869,
+    7: 36684,
   };
 
   int _modelVersesIndex = 0;
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
+  int _versesFloor = 0;
   Timer? _timer;
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
   List<double> _scrollSize = [0.50, 100, 300, 400, 600, 700, 1000];
+  int _generalIndex = 0;
 
   @override
   void initState() {
@@ -97,10 +100,8 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   _scrollListener() {
-    setState(() {
-      _scrollPosition = _scrollController.position.pixels;
-      print('_scrollListener:::_scrollPosition:::$_scrollPosition');
-    });
+    _scrollPosition = _scrollController.position.pixels;
+    print('_scrollListener:::_scrollPosition:::$_scrollPosition');
   }
 
   _scrollJumpTo(double jump) {
@@ -108,38 +109,66 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   void getArrowUp(int index) {
-    if (widget.onChangeEnd != null) {
-      print('onChangeEnd:::${widget.onChangeEnd}');
-    } else {
-      print('start');
-    }
-
     // print('duration: ${widget.duration.inMilliseconds.toDouble()}');
-    //print('position: ${widget.position.inMilliseconds.toDouble()}');
+    print('position: ${widget.position.inMilliseconds.toDouble()}');
     // print('bufferedPosition: ${widget.bufferedPosition.inSeconds.toDouble()}');
-
     // print('rightGreenArrow: ${_rightGreenArrow}');
     // print('rightGreenArrow: ${_bottomGreenArrow}');
-
+    Size size = MediaQuery.of(context).size;
     if (index == 0) {
-      setState(() {
-        _selected[index] = true;
-        _isGreenUpArrow[index] = true;
-        _rightGreenArrow[index] += 2.0;
-      });
+      _selected[index] = true;
+      _isGreenUpArrow[index] = true;
+      _rightGreenArrow[index] += 2.0;
     } else {
-      setState(() {
-        _isGreenUpArrow[index - 1] = false;
-        _selected[index - 1] = false;
-        _bottomGreenArrow[index - 1] = 0;
-        _rightGreenArrow[index - 1] = 0;
-      });
+      switch (widget.modelVerses[index].getFloor()) {
+        case 0:
+          _isGreenUpArrow[index - 1] = false;
+          _selected[index - 1] = false;
+          _bottomGreenArrow[index - 1] = 0;
+          _rightGreenArrow[index - 1] = 0;
 
-      setState(() {
-        _selected[index] = true;
-        _isGreenUpArrow[index] = true;
-        _rightGreenArrow[index] += 2.0;
-      });
+          _selected[index] = true;
+          _isGreenUpArrow[index] = true;
+          _rightGreenArrow[index] += 2.0;
+          break;
+        case 1:
+          _isGreenUpArrow[index - 1] = false;
+          _selected[index - 1] = false;
+          _bottomGreenArrow[index - 1] = 0;
+          _rightGreenArrow[index - 1] = 0;
+
+          if (_versesFloor == 0) {
+            if (_rightGreenArrow[index] < size.width * 0.86) {
+              _bottomGreenArrow[index] = 80;
+            } else {
+              _bottomGreenArrow[index] = 0;
+              _rightGreenArrow[index] = 0;
+              _versesFloor++;
+            }
+          } else if (_versesFloor == 1) {
+            if (_rightGreenArrow[index] < size.width * 0.86) {
+              _bottomGreenArrow[index] = 0;
+            } else {
+              _bottomGreenArrow[index] = 0;
+              _rightGreenArrow[index] = 0;
+              _versesFloor++;
+            }
+          }
+
+          _selected[index] = true;
+          _isGreenUpArrow[index] = true;
+          _rightGreenArrow[index] += 2.0;
+          if (widget.position.inMilliseconds.toDouble() ==
+              widget.duration.inMilliseconds.toDouble()) {
+            _selected[index] = false;
+            _isGreenUpArrow[index] = false;
+            _rightGreenArrow[index] = 0;
+            _versesFloor = 0;
+          }
+          break;
+        default:
+      }
+
       print('$index size:::${_scrollSize[index]}');
       _scrollJumpTo(_scrollSize[index]);
     }
@@ -149,27 +178,17 @@ class _ArrowReadState extends State<ArrowRead> {
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
       if (widget.position.inMilliseconds.toDouble() != 0) {
-        if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[1]) {
-          getArrowUp(0);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[2]) {
-          getArrowUp(1);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[3]) {
-          getArrowUp(2);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[4]) {
-          getArrowUp(3);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[5]) {
-          getArrowUp(4);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[6]) {
-          getArrowUp(5);
-        } else if (widget.position.inMilliseconds.toDouble() <
-            _versesDurationPositions[7]) {
-          getArrowUp(6);
+        if (_generalIndex < widget.modelVerses.length) {
+          if (widget.position.inMilliseconds.toDouble() >
+                  _versesDurationPositions[_generalIndex] &&
+              widget.position.inMilliseconds.toDouble() <
+                  _versesDurationPositions[_generalIndex + 1]) {
+            getArrowUp(_generalIndex);
+          } else {
+            _generalIndex++;
+          }
+        } else {
+          _generalIndex = 0;
         }
       }
     }
@@ -222,6 +241,18 @@ class _ArrowReadState extends State<ArrowRead> {
                 ),
                 ListTile(
                   onTap: () {
+                    for (var i = 0; i < _selected.length; i++) {
+                      if (i == index) {
+                        setState(() {
+                          _selected[index] = true;
+                        });
+                      } else {
+                        setState(() {
+                          _selected[i] = false;
+                        });
+                      }
+                    }
+                    print('_selected:::[$index]:::${_selected[index]}');
                     widget.onChangeEnd!(
                         Duration(milliseconds: _secondPosition[index].round()));
                   },

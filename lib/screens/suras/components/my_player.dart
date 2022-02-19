@@ -47,7 +47,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 
   List<bool> _selected = [];
 
-  final List<AudioPlayer> _players = <AudioPlayer>[];
   final _player = AudioPlayer();
 
   List<bool> _isGreenUpArrow = [];
@@ -105,9 +104,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     WidgetsBinding.instance?.removeObserver(this);
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
-    for (var i = 0; i < _modelVerses.length; i++) {
-      _players[i].dispose();
-    }
+
     _player.dispose();
     super.dispose();
   }
@@ -119,9 +116,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       // if the app resumes later, it will still remember what position to
       // resume from.
 
-      for (var i = 0; i < _modelVerses.length; i++) {
-        _players[i].stop();
-      }
       _player.stop();
     }
   }
