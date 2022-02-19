@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kuranikerim/models/model_suras.dart';
-import 'package:kuranikerim/screens/suras/components/widget_my_list.dart';
 import './components/my_player.dart';
 
 class ScreenSuras extends StatelessWidget {

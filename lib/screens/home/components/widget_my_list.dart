@@ -26,8 +26,6 @@ class _WidgetMyListState extends State<WidgetMyList> {
   List<ModelSuras> _modelSuras = <ModelSuras>[];
   List<ModelVerses> _modelVerses = <ModelVerses>[];
 
-  final List<bool> _selected = List.generate(20, (index) => false);
-
   @override
   void initState() {
     _init();
@@ -69,7 +67,7 @@ class _WidgetMyListState extends State<WidgetMyList> {
     return Container(
       height: size.height * 0.85,
       child: ListView.builder(
-        itemCount: _modelSuras.length,
+        itemCount: 2,
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 7,
@@ -92,7 +90,6 @@ class _WidgetMyListState extends State<WidgetMyList> {
                     child: Image.asset(getImagePath(index)),
                   ),
                   ListTile(
-                    tileColor: _selected[index] ? Colors.green[100] : null,
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

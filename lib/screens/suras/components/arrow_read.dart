@@ -143,101 +143,6 @@ class _ArrowReadState extends State<ArrowRead> {
       print('$index size:::${_scrollSize[index]}');
       _scrollJumpTo(_scrollSize[index]);
     }
-
-    // if (widget.position.inMilliseconds.toDouble() < 6380) {
-    //   setState(() {
-    //     _selected[0] = true;
-    //     _isGreenUpArrow[0] = true;
-    //     _rightGreenArrow[0] += 2.0;
-    //   });
-    // } else if (widget.position.inMilliseconds.toDouble() < 12380) {
-    //   setState(() {
-    //     _isGreenUpArrow[0] = false;
-    //     _selected[0] = false;
-    //     _bottomGreenArrow[0] = 0;
-    //     _rightGreenArrow[0] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[1] = true;
-    //     _isGreenUpArrow[1] = true;
-    //     _rightGreenArrow[1] += 2.0;
-    //     print('1 size:::${(size.height * 0.050)}');
-    //     _scrollJumpTo(size.height * 0.050);
-    //   });
-    // } else if (widget.position.inMilliseconds.toDouble() < 18380) {
-    //   setState(() {
-    //     _isGreenUpArrow[1] = false;
-    //     _selected[1] = false;
-    //     _bottomGreenArrow[1] = 0;
-    //     _rightGreenArrow[1] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[2] = true;
-    //     _isGreenUpArrow[2] = true;
-    //     _rightGreenArrow[2] += 2.0;
-    //     print('2 size:::${(size.height * 0.10)}');
-    //     _scrollJumpTo(size.height * 0.10);
-    //   });
-    // } else if (widget.position.inMilliseconds.toDouble() < 24380) {
-    //   setState(() {
-    //     _isGreenUpArrow[2] = false;
-    //     _selected[2] = false;
-    //     _bottomGreenArrow[2] = 0;
-    //     _rightGreenArrow[2] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[3] = true;
-    //     _isGreenUpArrow[3] = true;
-    //     _rightGreenArrow[3] += 2.0;
-    //     print('3 size:::${(size.height * 0.450)}');
-    //     _scrollJumpTo(size.height * 0.450);
-    //   });
-    // } else if (widget.position.inMilliseconds.toDouble() < 30380) {
-    //   setState(() {
-    //     _isGreenUpArrow[3] = false;
-    //     _selected[3] = false;
-    //     _bottomGreenArrow[3] = 0;
-    //     _rightGreenArrow[3] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[4] = true;
-    //     _isGreenUpArrow[4] = true;
-    //     _rightGreenArrow[4] += 2.0;
-    //     print('4 size:::${(size.height * 0.650)}');
-    //     _scrollJumpTo(size.height * 0.650);
-    //   });
-    // } else if (widget.position.inMilliseconds.toDouble() < 36380) {
-    //   setState(() {
-    //     _isGreenUpArrow[4] = false;
-    //     _selected[4] = false;
-    //     _bottomGreenArrow[4] = 0;
-    //     _rightGreenArrow[4] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[5] = true;
-    //     _isGreenUpArrow[5] = true;
-    //     _rightGreenArrow[5] += 2.0;
-    //   });
-    //   _scrollJumpTo(_scrollController.position.maxScrollExtent);
-    // } else if (widget.position.inMilliseconds.toDouble() < 42380) {
-    //   setState(() {
-    //     _isGreenUpArrow[5] = false;
-    //     _selected[5] = false;
-    //     _bottomGreenArrow[5] = 0;
-    //     _rightGreenArrow[5] = 0;
-    //   });
-
-    //   setState(() {
-    //     _selected[6] = true;
-    //     _isGreenUpArrow[6] = true;
-    //     _rightGreenArrow[6] += 2.0;
-    //   });
-    // }
   }
 
   @override
@@ -311,7 +216,7 @@ class _ArrowReadState extends State<ArrowRead> {
                       Text(
                           '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
                       Text(
-                          '${index + 1}. ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                          ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
                     ],
                   ),
                 ),

@@ -37,9 +37,10 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   List<ModelHafizlar> _modelHafizlar = <ModelHafizlar>[];
   List<ModelMealPerson> _modelMealPerson = <ModelMealPerson>[];
   List<ModelMeal> _modelMeal = <ModelMeal>[];
+
   List<ModelPart> _modelPart = <ModelPart>[];
-  List<ModelSound> _modelSound = <ModelSound>[];
-  List<ModelSuras> _modelSuras = <ModelSuras>[];
+  ModelSound _modelSound = ModelSound();
+
   List<ModelVerses> _modelVerses = <ModelVerses>[];
 
   Timer? _timer;
@@ -71,32 +72,29 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       _modelHafizlar = getModelHafizlar();
       _modelMealPerson = getModelMealPersons();
       _modelPart = getModelParts();
-      _modelSuras = getModelSuras();
 
       final _findModelVerses = getModelVerses()
           .where((element) => element.surasId == widget.modelSuras.surasId);
 
       for (final element in _findModelVerses) {
         _modelVerses.add(element);
-        _modelSound.add(getModelSoundList()
-            .where((item) => item.versesId == element.versesId)
-            .first);
 
         _modelMeal.add(getModelMealList()
             .where((item) => item.versesId == element.versesId)
             .first);
       }
 
+      final _findModelSound = getModelSoundList()
+          .where((element) => element.surasId == widget.modelSuras.surasId);
+
+      for (final element in _findModelSound) {
+        _modelSound = element;
+      }
+
       _isGreenUpArrow = List.generate(_modelVerses.length, (index) => false);
       _selected = List.generate(_modelVerses.length, (index) => false);
 
-      for (var i = 0; i < _modelSound.length; i++) {
-        _players.add(AudioPlayer());
-        await _players[i].setAsset('${_modelSound[i].getSoundPath()}');
-      }
-
-      await _player
-          .setAsset('assets/sounds/${widget.modelSuras.getSurasId()}.mp3');
+      await _player.setAsset('${_modelSound.getSoundPath()}');
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -121,7 +119,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       // if the app resumes later, it will still remember what position to
       // resume from.
 
-      for (var i = 0; i < 7; i++) {
+      for (var i = 0; i < _modelVerses.length; i++) {
         _players[i].stop();
       }
       _player.stop();
