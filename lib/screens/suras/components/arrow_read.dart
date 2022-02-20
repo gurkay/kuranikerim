@@ -114,116 +114,149 @@ class _ArrowReadState extends State<ArrowRead> {
     _scrollController.jumpTo(jump);
   }
 
+  void setResetPastPosition(int index) {
+    _isGreenUpArrow[index - 1] = false;
+    _selected[index - 1] = false;
+
+    _bottomGreenArrow[index - 1] = 0;
+    _rightGreenArrow[index - 1] = 0;
+  }
+
+  void setResetNowPosition(int index) {
+    _bottomGreenArrow[index] = 0;
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setNewPosition(
+    int index,
+    double bottomGreenArrowPosition,
+  ) {
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = bottomGreenArrowPosition;
+    _rightGreenArrow[index] += _speedDuration![index];
+  }
+
   void getArrowUp(int index) {
     // print('duration: ${widget.duration.inMilliseconds.toDouble()}');
-    print('position: ${widget.position.inMilliseconds.toDouble()}');
-    print('_secondPosition:::${_secondPosition![index]}');
-    print('_versesDurationPositions:::${_versesDurationPositions![index]}');
-    print('_scrollSize:::${_scrollSize![index]}');
+    // print('position: ${widget.position.inMilliseconds.toDouble()}');
+    // print('_secondPosition:::${_secondPosition![index]}');
+    // print('_versesDurationPositions:::${_versesDurationPositions![index]}');
+    // print('_scrollSize:::${_scrollSize![index]}');
     // print('bufferedPosition: ${widget.bufferedPosition.inSeconds.toDouble()}');
     // print('rightGreenArrow: ${_rightGreenArrow}');
     // print('rightGreenArrow: ${_bottomGreenArrow}');
     Size size = MediaQuery.of(context).size;
-    if (index == 0) {
-      _selected[index] = true;
-      _isGreenUpArrow[index] = true;
-      _rightGreenArrow[index] += _speedDuration![index];
-    } else {
-      switch (widget.modelVerses[index].getFloor()) {
-        case 0:
-          _isGreenUpArrow[index - 1] = false;
-          _selected[index - 1] = false;
-          _bottomGreenArrow[index - 1] = 0;
-          _rightGreenArrow[index - 1] = 0;
 
-          _selected[index] = true;
-          _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += _speedDuration![index];
-          break;
-        case 1:
-          _isGreenUpArrow[index - 1] = false;
-          _selected[index - 1] = false;
-          _bottomGreenArrow[index - 1] = 0;
-          _rightGreenArrow[index - 1] = 0;
+    switch (widget.modelVerses[index].getFloor()) {
+      case 0:
+        if (index != 0) {
+          setResetPastPosition(index);
+        }
 
-          if (_versesFloor == 0) {
-            if (_rightGreenArrow[index] < size.width * 0.86) {
-              _bottomGreenArrow[index] = 80;
-            } else {
-              _bottomGreenArrow[index] = 0;
-              _rightGreenArrow[index] = 0;
-              _versesFloor++;
-            }
-          } else if (_versesFloor == 1) {
-            if (_rightGreenArrow[index] < size.width * 0.86) {
-              _bottomGreenArrow[index] = 0;
-            } else {
-              _bottomGreenArrow[index] = 0;
-              _rightGreenArrow[index] = 0;
-              _versesFloor++;
-            }
-          }
+        setNewPosition(index, 0.0);
+        break;
+      case 1:
+        setResetPastPosition(index);
 
-          _selected[index] = true;
-          _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += _speedDuration![index];
-          if (widget.position.inMilliseconds.toDouble() ==
-              widget.duration.inMilliseconds.toDouble()) {
-            _selected[index] = false;
-            _isGreenUpArrow[index] = false;
+        if (_rightGreenArrow[index] < size.width * 0.86 && _versesFloor == 0) {
+          setNewPosition(index, 80);
+          print('_versesFloor:::${_versesFloor}');
+          print('_rightGreenArrow:::${_rightGreenArrow[index]}');
+          print('size.width * 0.86:::${(size.width * 0.86)}');
+          print('_bottomGreenArrow:::${_bottomGreenArrow[index]}');
+        } else if (_rightGreenArrow[index] > size.width * 0.86 &&
+            _versesFloor == 0) {
+          print('########## 1 ##########');
+
+          setResetNowPosition(index);
+          _versesFloor = 1;
+        } else if (_rightGreenArrow[index] < size.width * 0.86 &&
+            _versesFloor == 1) {
+          print('########## 2 ##########');
+          setNewPosition(index, 0);
+        } else if (_versesFloor == 1) {
+          print('########## 3 ##########');
+
+          _versesFloor = 0;
+        }
+        // if (_versesFloor == 0) {
+        //   if (_rightGreenArrow[index] < size.width * 0.86) {
+        //     _bottomGreenArrow[index] = 80;
+        //   } else {
+        //     _bottomGreenArrow[index] = 0;
+        //     _rightGreenArrow[index] = 0;
+        //     _versesFloor++;
+        //   }
+        // } else if (_versesFloor == 1) {
+        //   if (_rightGreenArrow[index] < size.width * 0.86) {
+        //     _bottomGreenArrow[index] = 0;
+        //   } else {
+        //     _bottomGreenArrow[index] = 0;
+        //     _rightGreenArrow[index] = 0;
+        //     _versesFloor++;
+        //   }
+        // }
+
+        // _selected[index] = true;
+        // _isGreenUpArrow[index] = true;
+        // _rightGreenArrow[index] += _speedDuration![index];
+        // if (widget.position.inMilliseconds.toDouble() ==
+        //     widget.duration.inMilliseconds.toDouble()) {
+        //   _selected[index] = false;
+        //   _isGreenUpArrow[index] = false;
+        //   _rightGreenArrow[index] = 0;
+        //   _bottomGreenArrow[index] = 80;
+        // }
+        break;
+      case 2:
+        _isGreenUpArrow[index - 1] = false;
+        _selected[index - 1] = false;
+        _bottomGreenArrow[index - 1] = 0;
+        _rightGreenArrow[index - 1] = 0;
+
+        if (_versesFloor == 0) {
+          if (_rightGreenArrow[index] < size.width * 0.86) {
+            _bottomGreenArrow[index] = 160;
+          } else {
+            _bottomGreenArrow[index] = 0;
             _rightGreenArrow[index] = 0;
+            _versesFloor++;
+          }
+        } else if (_versesFloor == 1) {
+          if (_rightGreenArrow[index] < size.width * 0.86) {
             _bottomGreenArrow[index] = 80;
-          }
-          break;
-        case 2:
-          _isGreenUpArrow[index - 1] = false;
-          _selected[index - 1] = false;
-          _bottomGreenArrow[index - 1] = 0;
-          _rightGreenArrow[index - 1] = 0;
-
-          if (_versesFloor == 0) {
-            if (_rightGreenArrow[index] < size.width * 0.86) {
-              _bottomGreenArrow[index] = 160;
-            } else {
-              _bottomGreenArrow[index] = 0;
-              _rightGreenArrow[index] = 0;
-              _versesFloor++;
-            }
-          } else if (_versesFloor == 1) {
-            if (_rightGreenArrow[index] < size.width * 0.86) {
-              _bottomGreenArrow[index] = 80;
-            } else {
-              _bottomGreenArrow[index] = 0;
-              _rightGreenArrow[index] = 0;
-              _versesFloor++;
-            }
-          } else if (_versesFloor == 1) {
-            if (_rightGreenArrow[index] < size.width * 0.86) {
-              _bottomGreenArrow[index] = 0;
-            } else {
-              _bottomGreenArrow[index] = 0;
-              _rightGreenArrow[index] = 0;
-              _versesFloor++;
-            }
-          }
-
-          _selected[index] = true;
-          _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += _speedDuration![index];
-          if (widget.position.inMilliseconds.toDouble() ==
-              widget.duration.inMilliseconds.toDouble()) {
-            _selected[index] = false;
-            _isGreenUpArrow[index] = false;
+          } else {
+            _bottomGreenArrow[index] = 0;
             _rightGreenArrow[index] = 0;
-            _bottomGreenArrow[index] = 80;
+            _versesFloor++;
           }
-          break;
-        default:
-      }
+        } else if (_versesFloor == 1) {
+          if (_rightGreenArrow[index] < size.width * 0.86) {
+            _bottomGreenArrow[index] = 0;
+          } else {
+            _bottomGreenArrow[index] = 0;
+            _rightGreenArrow[index] = 0;
+            _versesFloor++;
+          }
+        }
 
-      print('$index size:::${_scrollSize![index]}');
-      _scrollJumpTo(_scrollSize![index]);
+        _selected[index] = true;
+        _isGreenUpArrow[index] = true;
+        _rightGreenArrow[index] += _speedDuration![index];
+        if (widget.position.inMilliseconds.toDouble() ==
+            widget.duration.inMilliseconds.toDouble()) {
+          _selected[index] = false;
+          _isGreenUpArrow[index] = false;
+          _rightGreenArrow[index] = 0;
+          _bottomGreenArrow[index] = 80;
+        }
+        break;
+      default:
     }
+
+    // print('$index size:::${_scrollSize![index]}');
+    _scrollJumpTo(_scrollSize![index]);
   }
 
   @override
