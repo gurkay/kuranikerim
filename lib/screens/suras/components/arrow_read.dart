@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/models/model_durations.dart';
 import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
 import 'package:kuranikerim/models/model_part.dart';
@@ -41,35 +42,21 @@ class ArrowRead extends StatefulWidget {
 class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   List<bool> _selected = [];
-  final List<int> _secondPosition = [
-    1,
-    5750,
-    10300,
-    13940,
-    17230,
-    22180,
-    25880,
-  ];
 
-  final Map _versesDurationPositions = {
-    0: 0,
-    1: 5743,
-    2: 10291,
-    3: 13937,
-    4: 17220,
-    5: 22176,
-    6: 25869,
-    7: 36684,
-  };
+  late ModelDurations _modelDurations;
 
-  int _modelVersesIndex = 0;
+  List<int>? _secondPosition = [];
+  Map? _versesDurationPositions = {};
+  List<double>? _scrollSize = [];
+  List<double>? _speedDuration = [];
+
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
   int _versesFloor = 0;
-  Timer? _timer;
+
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
-  List<double> _scrollSize = [0.50, 100, 300, 400, 600, 700, 1000];
+
   int _generalIndex = 0;
 
   @override
@@ -88,6 +75,25 @@ class _ArrowReadState extends State<ArrowRead> {
     _scrollController.addListener(() {
       _scrollListener();
     });
+
+    final _findModelDurations = getModelDurations()
+        .where((element) => element.surasId == widget.modelSuras.surasId);
+
+    for (var item in _findModelDurations) {
+      _modelDurations = ModelDurations(
+        modelDurationsId: item.modelDurationsId,
+        surasId: item.surasId,
+        secondPosition: item.secondPosition,
+        versesDurationPositions: item.versesDurationPositions,
+        scrollSize: item.scrollSize,
+        speedDuration: item.speedDuration,
+      );
+    }
+
+    _secondPosition = _modelDurations.secondPosition!;
+    _versesDurationPositions = _modelDurations.versesDurationPositions!;
+    _scrollSize = _modelDurations.scrollSize!;
+    _speedDuration = _modelDurations.speedDuration;
   }
 
   // This is what you're looking for!
@@ -111,6 +117,9 @@ class _ArrowReadState extends State<ArrowRead> {
   void getArrowUp(int index) {
     // print('duration: ${widget.duration.inMilliseconds.toDouble()}');
     print('position: ${widget.position.inMilliseconds.toDouble()}');
+    print('_secondPosition:::${_secondPosition![index]}');
+    print('_versesDurationPositions:::${_versesDurationPositions![index]}');
+    print('_scrollSize:::${_scrollSize![index]}');
     // print('bufferedPosition: ${widget.bufferedPosition.inSeconds.toDouble()}');
     // print('rightGreenArrow: ${_rightGreenArrow}');
     // print('rightGreenArrow: ${_bottomGreenArrow}');
@@ -118,7 +127,7 @@ class _ArrowReadState extends State<ArrowRead> {
     if (index == 0) {
       _selected[index] = true;
       _isGreenUpArrow[index] = true;
-      _rightGreenArrow[index] += 2.0;
+      _rightGreenArrow[index] += _speedDuration![index];
     } else {
       switch (widget.modelVerses[index].getFloor()) {
         case 0:
@@ -129,7 +138,7 @@ class _ArrowReadState extends State<ArrowRead> {
 
           _selected[index] = true;
           _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += 2.0;
+          _rightGreenArrow[index] += _speedDuration![index];
           break;
         case 1:
           _isGreenUpArrow[index - 1] = false;
@@ -157,7 +166,50 @@ class _ArrowReadState extends State<ArrowRead> {
 
           _selected[index] = true;
           _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += 2.5;
+          _rightGreenArrow[index] += _speedDuration![index];
+          if (widget.position.inMilliseconds.toDouble() ==
+              widget.duration.inMilliseconds.toDouble()) {
+            _selected[index] = false;
+            _isGreenUpArrow[index] = false;
+            _rightGreenArrow[index] = 0;
+            _bottomGreenArrow[index] = 80;
+          }
+          break;
+        case 2:
+          _isGreenUpArrow[index - 1] = false;
+          _selected[index - 1] = false;
+          _bottomGreenArrow[index - 1] = 0;
+          _rightGreenArrow[index - 1] = 0;
+
+          if (_versesFloor == 0) {
+            if (_rightGreenArrow[index] < size.width * 0.86) {
+              _bottomGreenArrow[index] = 160;
+            } else {
+              _bottomGreenArrow[index] = 0;
+              _rightGreenArrow[index] = 0;
+              _versesFloor++;
+            }
+          } else if (_versesFloor == 1) {
+            if (_rightGreenArrow[index] < size.width * 0.86) {
+              _bottomGreenArrow[index] = 80;
+            } else {
+              _bottomGreenArrow[index] = 0;
+              _rightGreenArrow[index] = 0;
+              _versesFloor++;
+            }
+          } else if (_versesFloor == 1) {
+            if (_rightGreenArrow[index] < size.width * 0.86) {
+              _bottomGreenArrow[index] = 0;
+            } else {
+              _bottomGreenArrow[index] = 0;
+              _rightGreenArrow[index] = 0;
+              _versesFloor++;
+            }
+          }
+
+          _selected[index] = true;
+          _isGreenUpArrow[index] = true;
+          _rightGreenArrow[index] += _speedDuration![index];
           if (widget.position.inMilliseconds.toDouble() ==
               widget.duration.inMilliseconds.toDouble()) {
             _selected[index] = false;
@@ -169,8 +221,8 @@ class _ArrowReadState extends State<ArrowRead> {
         default:
       }
 
-      print('$index size:::${_scrollSize[index]}');
-      _scrollJumpTo(_scrollSize[index]);
+      print('$index size:::${_scrollSize![index]}');
+      _scrollJumpTo(_scrollSize![index]);
     }
   }
 
@@ -180,9 +232,9 @@ class _ArrowReadState extends State<ArrowRead> {
       if (widget.position.inMilliseconds.toDouble() != 0) {
         if (_generalIndex < widget.modelVerses.length) {
           if (widget.position.inMilliseconds.toDouble() >
-                  _versesDurationPositions[_generalIndex] &&
+                  _versesDurationPositions![_generalIndex] &&
               widget.position.inMilliseconds.toDouble() <
-                  _versesDurationPositions[_generalIndex + 1]) {
+                  _versesDurationPositions![_generalIndex + 1]) {
             getArrowUp(_generalIndex);
           } else {
             _generalIndex++;
@@ -253,8 +305,8 @@ class _ArrowReadState extends State<ArrowRead> {
                       }
                     }
                     print('_selected:::[$index]:::${_selected[index]}');
-                    widget.onChangeEnd!(
-                        Duration(milliseconds: _secondPosition[index].round()));
+                    widget.onChangeEnd!(Duration(
+                        milliseconds: _secondPosition![index].round()));
                   },
                   tileColor: _selected[index] ? Colors.green[100] : null,
                   title: Column(
