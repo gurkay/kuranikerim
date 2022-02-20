@@ -157,13 +157,13 @@ class _ArrowReadState extends State<ArrowRead> {
 
           _selected[index] = true;
           _isGreenUpArrow[index] = true;
-          _rightGreenArrow[index] += 2.0;
+          _rightGreenArrow[index] += 2.5;
           if (widget.position.inMilliseconds.toDouble() ==
               widget.duration.inMilliseconds.toDouble()) {
             _selected[index] = false;
             _isGreenUpArrow[index] = false;
             _rightGreenArrow[index] = 0;
-            _versesFloor = 0;
+            _bottomGreenArrow[index] = 80;
           }
           break;
         default:
