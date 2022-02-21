@@ -118,7 +118,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(1);
   model.setScrollSize(1);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(0);
+  model.setVersesDurationPosition(5653);
   list.add(model);
 
   model = ModelVerses();
@@ -128,10 +128,10 @@ List<ModelVerses> getModelVerses() {
   model.setImagePath('assets/images/2.jpg');
   model.setTrRead('Elhamdu li(A)llâhi rabbi-l\'âlemin(e)');
   model.setFloor(0);
-  model.setSecondPosition(5743);
+  model.setSecondPosition(10480);
   model.setScrollSize(100);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(5743);
+  model.setVersesDurationPosition(10264);
   list.add(model);
 
   model = ModelVerses();
@@ -141,10 +141,10 @@ List<ModelVerses> getModelVerses() {
   model.setImagePath('assets/images/3.jpg');
   model.setTrRead('Errahmâni-rrahîm(i)');
   model.setFloor(0);
-  model.setSecondPosition(10291);
+  model.setSecondPosition(14080);
   model.setScrollSize(300);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(10291);
+  model.setVersesDurationPosition(13880);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(4);
@@ -153,10 +153,10 @@ List<ModelVerses> getModelVerses() {
   model.setImagePath('assets/images/4.jpg');
   model.setTrRead('Mâliki yevmi-ddîn(j)');
   model.setFloor(0);
-  model.setSecondPosition(13937);
+  model.setSecondPosition(17510);
   model.setScrollSize(400);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(13937);
+  model.setVersesDurationPosition(17300);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(5);
@@ -165,11 +165,12 @@ List<ModelVerses> getModelVerses() {
   model.setImagePath('assets/images/5.jpg');
   model.setTrRead('lyyâke na\'budu ve-iyyâke nesta\'in(u)');
   model.setFloor(0);
-  model.setSecondPosition(17220);
+  model.setSecondPosition(22240);
   model.setScrollSize(600);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(17220);
+  model.setVersesDurationPosition(22140);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(6);
   model.setPartId(1);
@@ -177,11 +178,12 @@ List<ModelVerses> getModelVerses() {
   model.setImagePath('assets/images/6.jpg');
   model.setTrRead('Ihdinâ-ssirâta-Imustakim(e)');
   model.setFloor(0);
-  model.setSecondPosition(22176);
+  model.setSecondPosition(26000);
   model.setScrollSize(700);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(22176);
+  model.setVersesDurationPosition(25846);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(7);
   model.setPartId(1);
@@ -190,22 +192,23 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Sirâta-llezine en\'amte \'aleyhim gayri-Imagdûbi \'aleyhim velâ-ddâllin(e)');
   model.setFloor(1);
-  model.setSecondPosition(25869);
+  model.setSecondPosition(37067);
   model.setScrollSize(1000);
   model.setSpeedDuration(2);
-  model.setVersesDurationPosition(25869);
+  model.setVersesDurationPosition(37067);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(8);
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/8.jpg');
   model.setTrRead('Elif-lâm-mîm');
-  model.setFloor(1);
+  model.setFloor(0);
   model.setSecondPosition(1);
   model.setScrollSize(1);
-  model.setSpeedDuration(1);
-  model.setVersesDurationPosition(36684);
+  model.setSpeedDuration(0.3);
+  model.setVersesDurationPosition(12535);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(9);
@@ -217,7 +220,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(12821);
   model.setScrollSize(200);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(12811);
+  model.setVersesDurationPosition(18970);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(10);
@@ -230,7 +233,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(18980);
   model.setScrollSize(450);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(18970);
+  model.setVersesDurationPosition(29111);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(11);
@@ -243,7 +246,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(29121);
   model.setScrollSize(760);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(29111);
+  model.setVersesDurationPosition(42069);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(12);
@@ -256,7 +259,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(42079);
   model.setScrollSize(1100);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(42069);
+  model.setVersesDurationPosition(54830);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(13);
@@ -269,7 +272,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(54840);
   model.setScrollSize(1400);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(54830);
+  model.setVersesDurationPosition(65458);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(14);
@@ -282,7 +285,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(65468);
   model.setScrollSize(1900);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(65458);
+  model.setVersesDurationPosition(76158);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(15);
@@ -295,7 +298,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(76168);
   model.setScrollSize(2200);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(76158);
+  model.setVersesDurationPosition(85898);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(16);
@@ -308,7 +311,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(85900);
   model.setScrollSize(2500);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(85898);
+  model.setVersesDurationPosition(99957);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(17);
@@ -321,7 +324,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(99967);
   model.setScrollSize(2900);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(99957);
+  model.setVersesDurationPosition(113550);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(18);
@@ -334,7 +337,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(113560);
   model.setScrollSize(3200);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(113550);
+  model.setVersesDurationPosition(119965);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(19);
@@ -346,7 +349,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(119975);
   model.setScrollSize(3300);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(119965);
+  model.setVersesDurationPosition(128731);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(20);
@@ -359,7 +362,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(128741);
   model.setScrollSize(3800);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(128731);
+  model.setVersesDurationPosition(146871);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(21);
@@ -372,7 +375,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(146881);
   model.setScrollSize(3900);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(146871);
+  model.setVersesDurationPosition(162355);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(22);
@@ -385,7 +388,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(162355);
   model.setScrollSize(4500);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(162355);
+  model.setVersesDurationPosition(186000);
   list.add(model);
   model = ModelVerses();
   model.setVersesId(23);
@@ -398,7 +401,7 @@ List<ModelVerses> getModelVerses() {
   model.setSecondPosition(165946);
   model.setScrollSize(4800);
   model.setSpeedDuration(12);
-  model.setVersesDurationPosition(186000);
+  model.setVersesDurationPosition(190000);
   list.add(model);
 
   return list;

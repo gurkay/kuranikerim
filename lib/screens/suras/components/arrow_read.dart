@@ -52,7 +52,14 @@ class _ArrowReadState extends State<ArrowRead> {
 
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
-  int _versesFloor = 0;
+  Map _versesFloor = {0: 0.0, 1: 80.0, 2: 100.0, 3: 150.0, 4: 160.0, 5: 200.0};
+  int _generalIncreaseZeroFloor = 0;
+  int _generalIncreaseOneFloor = 1;
+  int _generalIncreaseTwoFloor = 2;
+  int _generalIncreaseThreeFloor = 3;
+  int _generalIncreaseFourFloor = 4;
+
+  late List<ModelVerses> _versesDurationPosition = [];
 
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
@@ -75,6 +82,8 @@ class _ArrowReadState extends State<ArrowRead> {
     _scrollController.addListener(() {
       _scrollListener();
     });
+
+    _versesDurationPosition = widget.modelVerses;
 
     final _findModelDurations = getModelDurations()
         .where((element) => element.surasId == widget.modelSuras.surasId);
@@ -115,11 +124,19 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   void setResetPastPosition(int index) {
-    _isGreenUpArrow[index - 1] = false;
-    _selected[index - 1] = false;
+    if (index == 0) {
+      _isGreenUpArrow[index] = false;
+      _selected[index] = false;
 
-    _bottomGreenArrow[index - 1] = 0;
-    _rightGreenArrow[index - 1] = 0;
+      _bottomGreenArrow[index] = 0;
+      _rightGreenArrow[index] = 0;
+    } else {
+      _isGreenUpArrow[index - 1] = false;
+      _selected[index - 1] = false;
+
+      _bottomGreenArrow[index - 1] = 0;
+      _rightGreenArrow[index - 1] = 0;
+    }
   }
 
   void setResetNowPosition(int index) {
@@ -134,7 +151,46 @@ class _ArrowReadState extends State<ArrowRead> {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = bottomGreenArrowPosition;
-    _rightGreenArrow[index] += _speedDuration![index];
+    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+
+    // print('size.width: ${size.width * 0.86}');
+    // print('position: ${widget.position.inMilliseconds.toDouble()}');
+    // print(
+    //     'widget.modelVerses[$_generalIndex]: ${widget.modelVerses[_generalIndex].versesDurationPosition}');
+  }
+
+  void getTestArrowUp() {
+    Size size = MediaQuery.of(context).size;
+    // print('$index size:::${_scrollSize![index]}');
+
+    // print('position: ${widget.position.inMilliseconds.toDouble()}');
+    if (widget.modelVerses[_generalIndex].versesDurationPosition! >
+        widget.position.inMilliseconds.toDouble()) {
+      if (widget.modelVerses[_generalIndex].floor == 0) {
+        setNewPosition(_generalIndex, 0);
+      }
+
+      if (widget.modelVerses[_generalIndex].floor == 1) {
+        if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+          setNewPosition(_generalIndex, _versesFloor[_generalIncreaseOneFloor]);
+        } else {
+          _generalIncreaseOneFloor = _generalIncreaseZeroFloor;
+        }
+      }
+    } else {
+      setResetPastPosition(_generalIndex);
+      // setResetNowPosition(_generalIndex);
+
+      _generalIndex++;
+    }
+    print('_generalIndex: ${_generalIndex}');
+    if (_generalIndex == widget.modelVerses.length - 1) {
+      _scrollJumpTo(_scrollController.position.maxScrollExtent);
+    } else if (_generalIndex < widget.modelVerses.length) {
+      _scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
+    } else {
+      _generalIndex = 0;
+    }
   }
 
   void getArrowUp(int index) {
@@ -170,7 +226,7 @@ class _ArrowReadState extends State<ArrowRead> {
           print('########## 1 ##########');
 
           setResetNowPosition(index);
-          _versesFloor = 1;
+          //_versesFloor = 1;
         } else if (_rightGreenArrow[index] < size.width * 0.86 &&
             _versesFloor == 1) {
           print('########## 2 ##########');
@@ -178,7 +234,7 @@ class _ArrowReadState extends State<ArrowRead> {
         } else if (_versesFloor == 1) {
           print('########## 3 ##########');
 
-          _versesFloor = 0;
+          //_versesFloor = 0;
         }
         // if (_versesFloor == 0) {
         //   if (_rightGreenArrow[index] < size.width * 0.86) {
@@ -221,7 +277,7 @@ class _ArrowReadState extends State<ArrowRead> {
           } else {
             _bottomGreenArrow[index] = 0;
             _rightGreenArrow[index] = 0;
-            _versesFloor++;
+            // _versesFloor++;
           }
         } else if (_versesFloor == 1) {
           if (_rightGreenArrow[index] < size.width * 0.86) {
@@ -229,7 +285,7 @@ class _ArrowReadState extends State<ArrowRead> {
           } else {
             _bottomGreenArrow[index] = 0;
             _rightGreenArrow[index] = 0;
-            _versesFloor++;
+            //_versesFloor++;
           }
         } else if (_versesFloor == 1) {
           if (_rightGreenArrow[index] < size.width * 0.86) {
@@ -237,7 +293,7 @@ class _ArrowReadState extends State<ArrowRead> {
           } else {
             _bottomGreenArrow[index] = 0;
             _rightGreenArrow[index] = 0;
-            _versesFloor++;
+            //_versesFloor++;
           }
         }
 
@@ -263,20 +319,26 @@ class _ArrowReadState extends State<ArrowRead> {
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
       if (widget.position.inMilliseconds.toDouble() != 0) {
-        if (_generalIndex < widget.modelVerses.length) {
-          if (widget.position.inMilliseconds.toDouble() >
-                  _versesDurationPositions![_generalIndex] &&
-              widget.position.inMilliseconds.toDouble() <
-                  _versesDurationPositions![_generalIndex + 1]) {
-            getArrowUp(_generalIndex);
-          } else {
-            _generalIndex++;
-          }
-        } else {
-          _generalIndex = 0;
-        }
+        getTestArrowUp();
       }
     }
+
+    // if (widget.onChangeEnd != null) {
+    //   if (widget.position.inMilliseconds.toDouble() != 0) {
+    //     if (_generalIndex < widget.modelVerses.length) {
+    //       if (widget.position.inMilliseconds.toDouble() >
+    //               _versesDurationPositions![_generalIndex] &&
+    //           widget.position.inMilliseconds.toDouble() <
+    //               _versesDurationPositions![_generalIndex + 1]) {
+    //         getArrowUp(_generalIndex);
+    //       } else {
+    //         _generalIndex++;
+    //       }
+    //     } else {
+    //       _generalIndex = 0;
+    //     }
+    //   }
+    // }
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.80,
