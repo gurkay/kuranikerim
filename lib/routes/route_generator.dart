@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/screens/bookmark/screen_bookmark.dart';
 
 import '../screens/suras/screen_suras.dart';
 
@@ -21,6 +22,12 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => ScreenSuras(
             modelSuras: args,
+          ),
+        );
+      case '/screen_bookmark':
+        return MaterialPageRoute(
+          builder: (_) => ScreenBookmark(
+            modelVerses: args,
           ),
         );
       default:

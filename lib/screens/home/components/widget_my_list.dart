@@ -11,7 +11,9 @@ import 'package:kuranikerim/models/model_verses.dart';
 import 'package:kuranikerim/screens/suras/screen_suras.dart';
 
 class WidgetMyList extends StatefulWidget {
-  const WidgetMyList({Key? key}) : super(key: key);
+  final ValueChanged<List<ModelVerses>> callBackVerses;
+
+  WidgetMyList(this.callBackVerses);
 
   @override
   State<WidgetMyList> createState() => _WidgetMyListState();
@@ -43,6 +45,7 @@ class _WidgetMyListState extends State<WidgetMyList> {
       _modelSound = getModelSoundList();
       _modelSuras = getModelSuras();
       _modelVerses = getModelVerses();
+      widget.callBackVerses(_modelVerses);
     } catch (e) {
       print('Error loading audio source: $e');
     }

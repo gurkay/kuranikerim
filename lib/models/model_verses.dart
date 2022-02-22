@@ -235,6 +235,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(29111);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(11);
   model.setPartId(1);
@@ -244,10 +245,11 @@ List<ModelVerses> getModelVerses() {
       'Vellezine u/minûne bimâ unzile ileyke vemâ unzile minkablike vebil-âhirati hum yûkinûn(e)');
   model.setFloor(1);
   model.setSecondPosition(29121);
-  model.setScrollSize(760);
-  model.setSpeedDuration(12);
+  model.setScrollSize(740);
+  model.setSpeedDuration(8.4);
   model.setVersesDurationPosition(42069);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(12);
   model.setPartId(1);
@@ -258,9 +260,10 @@ List<ModelVerses> getModelVerses() {
   model.setFloor(1);
   model.setSecondPosition(42079);
   model.setScrollSize(1100);
-  model.setSpeedDuration(12);
+  model.setSpeedDuration(6.4);
   model.setVersesDurationPosition(54830);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(13);
   model.setPartId(1);
@@ -326,6 +329,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(113550);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(18);
   model.setPartId(1);
@@ -339,6 +343,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(119965);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(19);
   model.setPartId(1);
@@ -351,6 +356,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(128731);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(20);
   model.setPartId(1);
@@ -364,6 +370,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(146871);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(21);
   model.setPartId(1);
@@ -377,6 +384,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(162355);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(22);
   model.setPartId(1);
@@ -390,6 +398,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(186000);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(23);
   model.setPartId(1);

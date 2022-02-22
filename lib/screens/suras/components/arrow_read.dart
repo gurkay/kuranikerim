@@ -52,7 +52,6 @@ class _ArrowReadState extends State<ArrowRead> {
 
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
-  Map _versesFloor = {0: 0.0, 1: 80.0, 2: 100.0, 3: 150.0, 4: 160.0, 5: 200.0};
   int _generalIncreaseZeroFloor = 0;
   int _generalIncreaseOneFloor = 1;
   int _generalIncreaseTwoFloor = 2;
@@ -63,6 +62,7 @@ class _ArrowReadState extends State<ArrowRead> {
 
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
+  double _scrollJumpToPosition = 0.0;
 
   int _generalIndex = 0;
 
@@ -127,54 +127,105 @@ class _ArrowReadState extends State<ArrowRead> {
     _isGreenUpArrow[index] = false;
     _selected[index] = false;
 
+    _generalIncreaseZeroFloor = 0;
+    _generalIncreaseOneFloor = 1;
+    _generalIncreaseTwoFloor = 2;
+    _generalIncreaseThreeFloor = 3;
+    _generalIncreaseFourFloor = 4;
+
     _bottomGreenArrow[index] = 0;
     _rightGreenArrow[index] = 0;
   }
 
-  void setResetNowPosition(int index) {
-    _bottomGreenArrow[index] = 0;
+  void setResetOneFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
     _rightGreenArrow[index] = 0;
   }
 
-  void setNewPosition(
-    int index,
-    double bottomGreenArrowPosition,
-  ) {
+  void setResetTwoFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setTwoFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = bottomGreenArrowPosition;
+    _bottomGreenArrow[index] = 160;
+    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+  }
+
+  void setOneFloorPosition(int index) {
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 80;
+    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+  }
+
+  void setZeroFloorPosition(int index) {
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 0;
     _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
   }
 
   void getTestArrowUp() {
     Size size = MediaQuery.of(context).size;
 
-    if (widget.modelVerses[_generalIndex].versesDurationPosition! >
-        widget.position.inMilliseconds.toDouble()) {
-      if (widget.modelVerses[_generalIndex].floor == 0) {
-        setNewPosition(_generalIndex, 0);
+    if (widget.position.inMilliseconds.toDouble() <
+        widget.modelVerses[_generalIndex].versesDurationPosition!) {
+      switch (widget.modelVerses[_generalIndex].floor) {
+        case 0:
+          setZeroFloorPosition(_generalIndex);
+          break;
+        case 1:
+          if (_generalIncreaseOneFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseOneFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        case 2:
+          if (_generalIncreaseTwoFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseTwoFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseTwoFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseTwoFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        default:
       }
 
-      if (widget.modelVerses[_generalIndex].floor == 1) {
-        if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
-          setNewPosition(_generalIndex, _versesFloor[_generalIncreaseOneFloor]);
-        } else {
-          _generalIncreaseOneFloor = _generalIncreaseZeroFloor;
-        }
+      if (_generalIndex == widget.modelVerses.length - 1) {
+        _scrollJumpTo(_scrollController.position.maxScrollExtent);
+      } else if (_generalIndex < widget.modelVerses.length) {
+        _scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
+      } else {
+        _generalIndex = 0;
       }
     } else {
       setResetPastPosition(_generalIndex);
-      // setResetNowPosition(_generalIndex);
 
       _generalIndex++;
-    }
-    print('_generalIndex: ${_generalIndex}');
-    if (_generalIndex == widget.modelVerses.length - 1) {
-      _scrollJumpTo(_scrollController.position.maxScrollExtent);
-    } else if (_generalIndex < widget.modelVerses.length) {
-      _scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
-    } else {
-      _generalIndex = 0;
     }
   }
 
@@ -235,20 +286,14 @@ class _ArrowReadState extends State<ArrowRead> {
                 ),
                 ListTile(
                   onTap: () {
-                    for (var i = 0; i < _selected.length; i++) {
-                      if (i == index) {
-                        setState(() {
-                          _selected[index] = true;
-                        });
-                      } else {
-                        setState(() {
-                          _selected[i] = false;
-                        });
-                      }
-                    }
-                    print('_selected:::[$index]:::${_selected[index]}');
                     widget.onChangeEnd!(Duration(
-                        milliseconds: _secondPosition![index].round()));
+                        milliseconds:
+                            widget.modelVerses[index].secondPosition!.round()));
+                    print('_selected:::[$index]:::${_selected[index]}');
+                    print(
+                        'widget.modelVerses[index].scrollSize!:::${widget.modelVerses[index].scrollSize!}');
+                    setResetPastPosition(index);
+                    _scrollJumpTo(widget.modelVerses[index].scrollSize!);
                   },
                   tileColor: _selected[index] ? Colors.green[100] : null,
                   title: Column(
