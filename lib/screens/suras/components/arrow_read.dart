@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/models/model_bookmark.dart';
 import 'package:kuranikerim/models/model_durations.dart';
 import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
@@ -21,6 +22,7 @@ class ArrowRead extends StatefulWidget {
   final List<ModelMeal> modelMeal;
   final List<ModelMealPerson> modelMealPerson;
   final ModelSuras modelSuras;
+  final ValueChanged<ModelVerses>? modelBookmark;
 
   ArrowRead({
     required this.duration,
@@ -33,6 +35,7 @@ class ArrowRead extends StatefulWidget {
     required this.modelMeal,
     required this.modelMealPerson,
     required this.modelSuras,
+    this.modelBookmark,
   });
 
   @override
@@ -292,6 +295,7 @@ class _ArrowReadState extends State<ArrowRead> {
                     print('_selected:::[$index]:::${_selected[index]}');
                     print(
                         'widget.modelVerses[index].scrollSize!:::${widget.modelVerses[index].scrollSize!}');
+                    widget.modelBookmark!(widget.modelVerses[index]);
                     setResetPastPosition(index);
                     _scrollJumpTo(widget.modelVerses[index].scrollSize!);
                   },

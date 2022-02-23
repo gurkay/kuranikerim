@@ -17,7 +17,9 @@ import 'package:rxdart/rxdart.dart';
 import 'package:audio_session/audio_session.dart';
 
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../models/model_bookmark.dart';
 import 'common.dart';
 import 'control_buttons.dart';
 
@@ -130,6 +132,18 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
+  List<String>? _modelVersesItemsListBookmarks;
+  setBookmarkVerses(ModelVerses modelVersesBookmark) {
+    _modelVersesItemsListBookmarks!
+        .add(modelVersesBookmark.versesId.toString());
+  }
+
+  addBookmarkVerses() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(
+        'itemsBookmarkVerses', _modelVersesItemsListBookmarks!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -151,6 +165,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                 modelMeal: _modelMeal,
                 modelMealPerson: _modelMealPerson,
                 modelSuras: widget.modelSuras,
+                modelBookmark: setBookmarkVerses,
               );
             },
           ),
