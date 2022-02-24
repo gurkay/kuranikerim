@@ -26,9 +26,7 @@ class RouteGenerator {
         );
       case '/screen_bookmark':
         return MaterialPageRoute(
-          builder: (_) => ScreenBookmark(
-            modelVerses: args,
-          ),
+          builder: (_) => ScreenBookmark(),
         );
       default:
         return _errorRoute();

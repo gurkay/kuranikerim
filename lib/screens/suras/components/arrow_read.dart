@@ -7,6 +7,7 @@ import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
 import 'package:kuranikerim/models/model_part.dart';
 import 'package:kuranikerim/models/model_suras.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants_color.dart';
 import '../../../models/model_verses.dart';
@@ -53,6 +54,8 @@ class _ArrowReadState extends State<ArrowRead> {
   List<double>? _scrollSize = [];
   List<double>? _speedDuration = [];
 
+  List<bool> _bookmarksFlag = [];
+
   List<double> _bottomGreenArrow = [];
   List<double> _rightGreenArrow = [];
   int _generalIncreaseZeroFloor = 0;
@@ -62,6 +65,8 @@ class _ArrowReadState extends State<ArrowRead> {
   int _generalIncreaseFourFloor = 4;
 
   late List<ModelVerses> _versesDurationPosition = [];
+
+  List<String> _getBookmarksList = [];
 
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
@@ -85,6 +90,7 @@ class _ArrowReadState extends State<ArrowRead> {
     _scrollController.addListener(() {
       _scrollListener();
     });
+    _bookmarksFlag = List.generate(widget.modelVerses.length, (index) => false);
 
     _versesDurationPosition = widget.modelVerses;
 
@@ -106,6 +112,66 @@ class _ArrowReadState extends State<ArrowRead> {
     _versesDurationPositions = _modelDurations.versesDurationPositions!;
     _scrollSize = _modelDurations.scrollSize!;
     _speedDuration = _modelDurations.speedDuration;
+
+    getBookmarks();
+  }
+
+  getBookmarks() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getStringList('itemsBookmarkVerses') != null) {
+      setState(() {
+        _getBookmarksList = (prefs.getStringList('itemsBookmarkVerses'))!;
+      });
+
+      // modelVerses : [8,9,10,11,12,13,14,15,16,17,18,19,20]
+      // bookmark : [15,18]
+      // flag : []
+      for (var i = 0; i < widget.modelVerses.length; i++) {
+        if (_getBookmarksList
+            .contains(widget.modelVerses[i].versesId.toString())) {
+          setState(() {
+            _bookmarksFlag[i] = !_bookmarksFlag[i];
+          });
+          print(
+              'arrow_read:::getBookmarks:::_bookmarksFlag:::${_bookmarksFlag[i]}');
+        }
+      }
+    }
+  }
+
+  findBookmarks(ModelVerses modelVerses, int index) {
+    String? result =
+        _getBookmarksList.contains(modelVerses.versesId).toString();
+    print('arrow_read:::findBookmarks:::result:::$result');
+
+    setState(() {
+      _bookmarksFlag[index] = true;
+    });
+  }
+
+  addBookmark(ModelVerses modelVerses, int index) async {
+    if (_bookmarksFlag[index]) {
+      setState(() {
+        _getBookmarksList.remove(modelVerses.versesId.toString());
+        _bookmarksFlag[index] = !_bookmarksFlag[index];
+      });
+    } else {
+      setState(() {
+        _getBookmarksList.add(modelVerses.versesId.toString());
+        _bookmarksFlag[index] = !_bookmarksFlag[index];
+      });
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('itemsBookmarkVerses', _getBookmarksList);
+
+    for (var i = 0; i < _getBookmarksList.length; i++) {
+      print(
+          'arrow_read:::addBookmark:::_getBookmarksList:::$_getBookmarksList');
+    }
+
+    print(
+        'arrow_read:::addBookmark:::itemsBookmarkVerses:::${prefs.getStringList('itemsBookmarkVerses')}');
   }
 
   // This is what you're looking for!
@@ -119,7 +185,7 @@ class _ArrowReadState extends State<ArrowRead> {
 
   _scrollListener() {
     _scrollPosition = _scrollController.position.pixels;
-    print('_scrollListener:::_scrollPosition:::$_scrollPosition');
+    // print('_scrollListener:::_scrollPosition:::$_scrollPosition');
   }
 
   _scrollJumpTo(double jump) {
@@ -278,12 +344,26 @@ class _ArrowReadState extends State<ArrowRead> {
                 Container(
                   margin: const EdgeInsets.only(left: 16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                           '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
                       Text(
                           ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                      IconButton(
+                        onPressed: () {
+                          addBookmark(widget.modelVerses[index], index);
+                        },
+                        icon: _bookmarksFlag[index] == true
+                            ? Icon(
+                                Icons.bookmark,
+                                color: Colors.blueAccent,
+                              )
+                            : Icon(
+                                Icons.bookmark_add_outlined,
+                                color: Colors.blueAccent,
+                              ),
+                      ),
                     ],
                   ),
                 ),

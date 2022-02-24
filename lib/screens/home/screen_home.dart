@@ -20,24 +20,30 @@ class _ScreenHomeState extends State<ScreenHome> {
     _modelVerses = modelVersesBookmark;
   }
 
+  AppBar _mySurasAppBar() {
+    return AppBar(
+      title: Text('Sureler'),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              ScreenBookmark.routeName,
+            );
+          },
+          icon: const Icon(
+            Icons.bookmarks,
+            color: Color.fromARGB(255, 148, 52, 192),
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sureler'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                ScreenBookmark.routeName,
-                arguments: _modelVerses,
-              );
-            },
-            icon: Icon(Icons.bookmarks),
-          )
-        ],
-      ),
+      appBar: _mySurasAppBar(),
       body: WidgetMyList(setBookmarkVerses),
     );
   }
