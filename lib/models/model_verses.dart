@@ -212,6 +212,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(0.3);
   model.setVersesDurationPosition(12535);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(9);
   model.setPartId(1);
@@ -225,6 +226,7 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(18970);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(10);
   model.setPartId(1);
@@ -265,8 +267,8 @@ List<ModelVerses> getModelVerses() {
       'Ulá-ike \'alâ huden min rabbihim S) ve ulâ-ike humu-Imuflihûn(e)');
   model.setFloor(1);
   model.setSecondPosition(42079);
-  model.setScrollSize(1100);
-  model.setSpeedDuration(6.4);
+  model.setScrollSize(1202);
+  model.setSpeedDuration(8.4);
   model.setVersesDurationPosition(54830);
   list.add(model);
 
@@ -280,10 +282,11 @@ List<ModelVerses> getModelVerses() {
       'Inne-llezine keferû sevâun \'aleyhim eenzertehum em lem tunzirhum lâ yu/minûn(e)');
   model.setFloor(1);
   model.setSecondPosition(54840);
-  model.setScrollSize(1400);
+  model.setScrollSize(1596);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(65458);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(14);
   model.setPartId(1);
@@ -294,8 +297,8 @@ List<ModelVerses> getModelVerses() {
       'Hatema (A)llahu \'alà kulâbihim ve\'alà sem\'ihim (S) ve\'ala ebsârihim gisâve(tun) S) velehum \'azabun \'azim(un)');
   model.setFloor(1);
   model.setSecondPosition(65468);
-  model.setScrollSize(1900);
-  model.setSpeedDuration(12);
+  model.setScrollSize(2020);
+  model.setSpeedDuration(13);
   model.setVersesDurationPosition(76158);
   list.add(model);
 
@@ -309,7 +312,7 @@ List<ModelVerses> getModelVerses() {
       'Vemine-nnâsi men yekûlu âmennâ bi (A)llâhi ve bilyevmi-l-âhiri vemâ hum bimu/minin(e)');
   model.setFloor(1);
   model.setSecondPosition(76168);
-  model.setScrollSize(2200);
+  model.setScrollSize(2418);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(85898);
   list.add(model);
@@ -324,8 +327,8 @@ List<ModelVerses> getModelVerses() {
       'Yuhâdi \'ûna(A) llâhe vellezine âmenû vemâ yahde\'ûne illâ enfusehum vemâ yes\'urûn(e)');
   model.setFloor(1);
   model.setSecondPosition(85900);
-  model.setScrollSize(2500);
-  model.setSpeedDuration(12);
+  model.setScrollSize(2780);
+  model.setSpeedDuration(10);
   model.setVersesDurationPosition(99957);
   list.add(model);
 
@@ -339,7 +342,7 @@ List<ModelVerses> getModelVerses() {
       'Fi kulübihim meradun fezâdehumu (A)llâhu merada(n) (S) velehum \'azâbun elîmun bimâ kânû yekzibûn(e)');
   model.setFloor(1);
   model.setSecondPosition(99967);
-  model.setScrollSize(2900);
+  model.setScrollSize(3224);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(113550);
   list.add(model);
@@ -354,7 +357,7 @@ List<ModelVerses> getModelVerses() {
       'Ve-izâ kile lehum lâ tufsidû fi-l-ardi kâlû innemâ nahnu muslihûn(e)');
   model.setFloor(1);
   model.setSecondPosition(113560);
-  model.setScrollSize(3200);
+  model.setScrollSize(3613);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(119965);
   list.add(model);
@@ -368,7 +371,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead('El innehum humu-Imufsidûne velâkin lâ yes\'urûn(e)');
   model.setFloor(0);
   model.setSecondPosition(119975);
-  model.setScrollSize(3300);
+  model.setScrollSize(3972);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(128731);
   list.add(model);
@@ -383,7 +386,7 @@ List<ModelVerses> getModelVerses() {
       'Ve-izâ kile lehum âminû kemâ âmene-nnâsu kâlû enu/minu kemá âmene-ssufeha(u) (k) elà innehum humu-ssufehâu velâkin là ya\'lemûn(e)');
   model.setFloor(2);
   model.setSecondPosition(128741);
-  model.setScrollSize(3800);
+  model.setScrollSize(4385);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(146871);
   list.add(model);
@@ -398,7 +401,7 @@ List<ModelVerses> getModelVerses() {
       'Ve-izâ leku-llezine âmenû kâlû âmennâ ve-izâ halev ilà seyâtinihim kâlû innâ me\'akum innemâ nahnu mustehzi-ûn(e)');
   model.setFloor(1);
   model.setSecondPosition(146881);
-  model.setScrollSize(3900);
+  model.setScrollSize(4927);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(162355);
   list.add(model);
@@ -413,7 +416,7 @@ List<ModelVerses> getModelVerses() {
       '(A)llâhu yestehzi-u bihim ve yemudduhum fì tugyânihim ya\'mehûn(e)');
   model.setFloor(0);
   model.setSecondPosition(162355);
-  model.setScrollSize(4500);
+  model.setScrollSize(5365);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(186000);
   list.add(model);
@@ -428,7 +431,7 @@ List<ModelVerses> getModelVerses() {
       'Ulâ-ike-llezine-steravu-ddalâletebilhudâfemârabihat ticaratuhum vema kanu muhtedin(e)');
   model.setFloor(1);
   model.setSecondPosition(165946);
-  model.setScrollSize(4800);
+  model.setScrollSize(5600);
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(190000);
   list.add(model);

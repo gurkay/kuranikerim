@@ -240,8 +240,11 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
   }
 
-  void getTestArrowUp() {
+  void getArrowUp() {
     Size size = MediaQuery.of(context).size;
+
+    print(
+        'widget.modelVerses[_generalIndex].arabicRead.length:::${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
@@ -301,7 +304,7 @@ class _ArrowReadState extends State<ArrowRead> {
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
       if (widget.position.inMilliseconds.toDouble() != 0) {
-        getTestArrowUp();
+        getArrowUp();
       }
     }
 
@@ -323,8 +326,8 @@ class _ArrowReadState extends State<ArrowRead> {
                 Stack(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(12.0),
                       alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
                         color: cTextIconsColor,
@@ -344,7 +347,7 @@ class _ArrowReadState extends State<ArrowRead> {
                               height: size.height * 0.020,
                             )
                           : Container(),
-                      duration: Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 200),
                     ),
                   ],
                 ),
@@ -390,10 +393,12 @@ class _ArrowReadState extends State<ArrowRead> {
                       Text(
                         'Türkçe Okunuşu',
                         style: Theme.of(context).primaryTextTheme.headline1,
+                        textAlign: TextAlign.justify,
                       ),
                       Text(
                         '${widget.modelVerses[index].getTrRead()}',
                         style: Theme.of(context).primaryTextTheme.headline2,
+                        textAlign: TextAlign.justify,
                       ),
                     ],
                   ),

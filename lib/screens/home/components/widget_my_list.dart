@@ -111,6 +111,7 @@ class _WidgetMyListState extends State<WidgetMyList> {
                         Text(
                           '${_modelSuras[index].getAbout()}',
                           style: Theme.of(context).primaryTextTheme.subtitle2,
+                          textAlign: TextAlign.justify,
                         ),
                       ],
                     ),
