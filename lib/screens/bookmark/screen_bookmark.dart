@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/models/model_verses.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +12,9 @@ class ScreenBookmark extends StatefulWidget {
 
 class _ScreenBookmarkState extends State<ScreenBookmark> {
   List<String> _getBookmarksList = [];
+  List<ModelVerses> _modelVerses = <ModelVerses>[];
+  ModelSuras? _modelSuras;
+
   getBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('itemsBookmarkVerses') != null) {
@@ -18,10 +22,18 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
         _getBookmarksList = (prefs.getStringList('itemsBookmarkVerses'))!;
       });
 
+      for (var i = 0; i < _getBookmarksList.length; i++) {
+        final _findModelVerses = getModelVerses().where(
+            (element) => element.versesId.toString() == _getBookmarksList[i]);
+
+        for (var item in _findModelVerses) {
+          print('screen_bookmark:::getBookmarks:::item:::${item.imagePath}');
+          _modelVerses.add(item);
+        }
+      }
+
       print(
           'screen_bookmark:::getBookmarks:::itemsBookmarkVerses:::${prefs.getStringList('itemsBookmarkVerses')}');
-      print(
-          'screen_bookmark:::getBookmarks:::_getBookmarksList:::${_getBookmarksList[0]}');
     }
   }
 
@@ -55,12 +67,21 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        '${_modelVerses[index].imagePath}',
+                        width: 32,
+                        height: 64,
+                      ),
+                    ),
+                    //Text('${_modelVerses![index].imagePath}'),
                     Text('${_getBookmarksList[index]}'),
                     IconButton(
                       onPressed: () {
                         deleteBookmarks(_getBookmarksList[index]);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         color: Colors.red,
                       ),

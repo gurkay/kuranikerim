@@ -113,6 +113,10 @@ class _WidgetMyListState extends State<WidgetMyList> {
                           '${_modelSuras[index].getAbout()}',
                           style: Theme.of(context).primaryTextTheme.subtitle2,
                         ),
+                        Text(
+                          'اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَم۪ينَۙ',
+                          style: Theme.of(context).primaryTextTheme.headline3,
+                        ),
                       ],
                     ),
                   ),

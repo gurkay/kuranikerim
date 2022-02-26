@@ -36,6 +36,11 @@ class MyApp extends StatelessWidget {
             color: cPrimaryTextColor,
             fontSize: 16,
           ),
+          headline3: TextStyle(
+            fontFamily: 'Raleway',
+            color: cPrimaryTextColor,
+            fontSize: 32,
+          ),
           subtitle1: TextStyle(
             fontFamily: 'OpenSans',
             color: cSecondaryTextColor,

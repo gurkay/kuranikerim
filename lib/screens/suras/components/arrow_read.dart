@@ -355,13 +355,13 @@ class _ArrowReadState extends State<ArrowRead> {
                           addBookmark(widget.modelVerses[index], index);
                         },
                         icon: _bookmarksFlag[index] == true
-                            ? Icon(
+                            ? const Icon(
                                 Icons.bookmark,
-                                color: Colors.blueAccent,
+                                color: cAccentColor,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.bookmark_add_outlined,
-                                color: Colors.blueAccent,
+                                color: cAccentColor,
                               ),
                       ),
                     ],

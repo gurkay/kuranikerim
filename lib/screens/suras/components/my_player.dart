@@ -186,6 +186,26 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                   );
                 },
               ),
+              // Opens speed slider dialog
+              StreamBuilder<double>(
+                stream: _player.speedStream,
+                builder: (context, snapshot) => IconButton(
+                  icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    showSliderDialog(
+                      context: context,
+                      title: "Adjust speed",
+                      divisions: 10,
+                      min: 0.5,
+                      max: 1.5,
+                      value: _player.speed,
+                      stream: _player.speedStream,
+                      onChanged: _player.setSpeed,
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ],
