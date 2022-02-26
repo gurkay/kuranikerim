@@ -327,7 +327,7 @@ class _ArrowReadState extends State<ArrowRead> {
                       alignment: Alignment.centerRight,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        color: cPrimaryTextColor,
+                        color: cTextIconsColor,
                       ),
                       child: Text(
                         '${widget.modelVerses[index].arabicRead}',

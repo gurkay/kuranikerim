@@ -2,7 +2,7 @@ class ModelVerses {
   int? versesId;
   int? partId;
   int? surasId;
-  String? imagePath;
+
   String? arabicRead;
   String? trRead;
   int? floor;
@@ -15,7 +15,6 @@ class ModelVerses {
     this.versesId,
     this.partId,
     this.surasId,
-    this.imagePath,
     this.arabicRead,
     this.trRead,
     this.floor,
@@ -35,10 +34,6 @@ class ModelVerses {
 
   void setSurasId(int id) {
     this.surasId = id;
-  }
-
-  void setImagePath(String imgPath) {
-    this.imagePath = imgPath;
   }
 
   void setArabicRead(String read) {
@@ -81,10 +76,6 @@ class ModelVerses {
     return surasId;
   }
 
-  String? getImagePath() {
-    return imagePath;
-  }
-
   String? getArabicRead() {
     return arabicRead;
   }
@@ -122,7 +113,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(1);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/1.jpg');
   model.setArabicRead('بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ');
   model.setTrRead('Bismi(A)llâhi-rrahmâni-rrahim(i)');
   model.setFloor(0);
@@ -136,7 +126,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(2);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/2.jpg');
   model.setArabicRead('اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَم۪ينَۙ');
   model.setTrRead('Elhamdu li(A)llâhi rabbi-l\'âlemin(e)');
   model.setFloor(0);
@@ -150,7 +139,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(3);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/3.jpg');
   model.setArabicRead('اَلرَّحْمٰنِ الرَّح۪يمِۙ');
   model.setTrRead('Errahmâni-rrahîm(i)');
   model.setFloor(0);
@@ -163,7 +151,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(4);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/4.jpg');
   model.setArabicRead('مَالِكِ يَوْمِ الدّ۪ينِۜ');
   model.setTrRead('Mâliki yevmi-ddîn(j)');
   model.setFloor(0);
@@ -176,7 +163,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(5);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/5.jpg');
   model.setArabicRead('اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَع۪ينُۜ');
   model.setTrRead('lyyâke na\'budu ve-iyyâke nesta\'in(u)');
   model.setFloor(0);
@@ -190,7 +176,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(6);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/6.jpg');
   model.setArabicRead('اِهْدِنَا الصِّرَاطَ الْمُسْتَق۪يمَۙ');
   model.setTrRead('Ihdinâ-ssirâta-Imustakim(e)');
   model.setFloor(0);
@@ -204,7 +189,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(7);
   model.setPartId(1);
   model.setSurasId(1);
-  model.setImagePath('assets/images/7.jpg');
   model.setArabicRead(
       'صِرَاطَ الَّذ۪ينَ اَنْعَمْتَ عَلَيْهِمْۙ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّٓالّ۪ينَ');
   model.setTrRead(
@@ -220,7 +204,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(8);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/8.jpg');
   model.setArabicRead('الٓمٓۚ');
   model.setTrRead('Elif-lâm-mîm');
   model.setFloor(0);
@@ -233,7 +216,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(9);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/9.jpg');
   model.setArabicRead(
       'ذٰلِكَ الْكِتَابُ لَا رَيْبَۚۛ ف۪يهِۚۛ هُدًى لِلْمُتَّق۪ينَۙ');
   model.setTrRead('Zalike-lkitabu la raybe fihi huden lilmuttekin(e)');
@@ -247,7 +229,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(10);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/10.jpg');
   model.setArabicRead(
       'اَلَّذ۪ينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُق۪يمُونَ الصَّلٰوةَ وَمِمَّا رَزَقْنَاهُمْ يُنْفِقُونَۙ');
   model.setTrRead(
@@ -263,7 +244,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(11);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/11.jpg');
   model.setArabicRead(
       'وَالَّذ۪ينَ يُؤْمِنُونَ بِمَٓا اُنْزِلَ اِلَيْكَ وَمَٓا اُنْزِلَ مِنْ قَبْلِكَۚ وَبِالْاٰخِرَةِ هُمْ يُوقِنُونَۜ');
   model.setTrRead(
@@ -279,7 +259,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(12);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/12.jpg');
   model.setArabicRead(
       'اُو۬لٰٓئِكَ عَلٰى هُدًى مِنْ رَبِّهِمْ وَاُو۬لٰٓئِكَ هُمُ الْمُفْلِحُونَ');
   model.setTrRead(
@@ -295,7 +274,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(13);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/13.jpg');
   model.setArabicRead(
       'اِنَّ الَّذ۪ينَ كَفَرُوا سَوَٓاءٌ عَلَيْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا يُؤْمِنُونَ');
   model.setTrRead(
@@ -310,7 +288,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(14);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/14.jpg');
   model.setArabicRead(
       'خَتَمَ اللّٰهُ عَلٰى قُلُوبِهِمْ وَعَلٰى سَمْعِهِمْۜ وَعَلٰٓى اَبْصَارِهِمْ غِشَاوَةٌۘ وَلَهُمْ عَذَابٌ عَظ۪يمٌ۟');
   model.setTrRead(
@@ -326,7 +303,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(15);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/15.jpg');
   model.setArabicRead(
       'وَمِنَ النَّاسِ مَنْ يَقُولُ اٰمَنَّا بِاللّٰهِ وَبِالْيَوْمِ الْاٰخِرِ وَمَا هُمْ بِمُؤْمِن۪ينَۢ');
   model.setTrRead(
@@ -342,7 +318,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(16);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/16.jpg');
   model.setArabicRead(
       'يُخَادِعُونَ اللّٰهَ وَالَّذ۪ينَ اٰمَنُواۚ وَمَا يَخْدَعُونَ اِلَّٓا اَنْفُسَهُمْ وَمَا يَشْعُرُونَۜ');
   model.setTrRead(
@@ -358,7 +333,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(17);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/17.jpg');
   model.setArabicRead(
       'ف۪ي قُلُوبِهِمْ مَرَضٌۙ فَزَادَهُمُ اللّٰهُ مَرَضًاۚ وَلَهُمْ عَذَابٌ اَل۪يمٌۙ بِمَا كَانُوا يَكْذِبُونَ');
   model.setTrRead(
@@ -374,7 +348,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(18);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/18.jpg');
   model.setArabicRead(
       'وَاِذَا ق۪يلَ لَهُمْ لَا تُفْسِدُوا فِي الْاَرْضِۙ قَالُٓوا اِنَّمَا نَحْنُ مُصْلِحُونَ');
   model.setTrRead(
@@ -390,7 +363,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(19);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/19.jpg');
   model.setArabicRead(
       'اَلَٓا اِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلٰكِنْ لَا يَشْعُرُونَ');
   model.setTrRead('El innehum humu-Imufsidûne velâkin lâ yes\'urûn(e)');
@@ -405,7 +377,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(20);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/20.jpg');
   model.setArabicRead(
       'وَاِذَا ق۪يلَ لَهُمْ اٰمِنُوا كَمَٓا اٰمَنَ النَّاسُ قَالُٓوا اَنُؤْمِنُ كَمَٓا اٰمَنَ السُّفَهَٓاءُۜ اَلَٓا اِنَّهُمْ هُمُ السُّفَهَٓاءُ وَلٰكِنْ لَا يَعْلَمُونَ');
   model.setTrRead(
@@ -421,7 +392,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(21);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/21.jpg');
   model.setArabicRead(
       'وَاِذَا لَقُوا الَّذ۪ينَ اٰمَنُوا قَالُٓوا اٰمَنَّاۚ وَاِذَا خَلَوْا اِلٰى شَيَاط۪ينِهِمْۙ قَالُٓوا اِنَّا مَعَكُمْۙ اِنَّمَا نَحْنُ مُسْتَهْزِؤُ۫نَ');
   model.setTrRead(
@@ -437,7 +407,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(22);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/22.jpg');
   model.setArabicRead(
       'اَللّٰهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ ف۪ي طُغْيَانِهِمْ يَعْمَهُونَ');
   model.setTrRead(
@@ -453,7 +422,6 @@ List<ModelVerses> getModelVerses() {
   model.setVersesId(23);
   model.setPartId(1);
   model.setSurasId(2);
-  model.setImagePath('assets/images/23.jpg');
   model.setArabicRead(
       'اُو۬لٰٓئِكَ الَّذ۪ينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدٰىۖ فَمَا رَبِحَتْ تِجَارَتُهُمْ وَمَا كَانُوا مُهْتَد۪ينَ');
   model.setTrRead(

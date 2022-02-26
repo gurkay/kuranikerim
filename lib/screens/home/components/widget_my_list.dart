@@ -52,19 +52,6 @@ class _WidgetMyListState extends State<WidgetMyList> {
     }
   }
 
-  String getImagePath(int index) {
-    String path = '';
-
-    for (var i = 0; i < _modelVerses.length; i++) {
-      if (_modelVerses[i].getSurasId() == index + 1) {
-        path = _modelVerses[i].getImagePath().toString();
-        break;
-      }
-    }
-
-    return path;
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -97,11 +84,11 @@ class _WidgetMyListState extends State<WidgetMyList> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
-                      color: cPrimaryTextColor,
+                      color: cDarkPrimaryColor,
                     ),
                     child: Text(
                       '${_modelSuras[index].arabicName}',
-                      style: Theme.of(context).primaryTextTheme.headline3,
+                      style: Theme.of(context).primaryTextTheme.headline4,
                     ),
                   ),
                   ListTile(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/constants/constants_color.dart';
 import 'package:kuranikerim/models/model_verses.dart';
 import 'package:kuranikerim/screens/bookmark/screen_bookmark.dart';
 import 'package:kuranikerim/screens/home/components/widget_my_list.dart';
@@ -33,7 +34,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           },
           icon: const Icon(
             Icons.bookmarks,
-            color: Color.fromARGB(255, 148, 52, 192),
+            color: cTextIconsColor,
           ),
         )
       ],

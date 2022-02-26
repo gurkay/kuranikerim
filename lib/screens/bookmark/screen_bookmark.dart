@@ -4,6 +4,7 @@ import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/models/model_verses.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants/constants_color.dart';
 import '../suras/screen_suras.dart';
 
 class ScreenBookmark extends StatefulWidget {
@@ -41,13 +42,6 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
 
         _modelSuras!.add(_findModelSuras);
       }
-
-      print(
-          'screen_bookmark:::getBookmarks:::itemsBookmarkVerses:::${prefs.getStringList('itemsBookmarkVerses')}');
-      print(
-          'screen_bookmark:::getBookmarks:::_modelSuras:::${_modelSuras!.toList()}');
-      print(
-          'screen_bookmark:::getBookmarks:::_modelVerses:::${_modelVerses!.toList()}');
     }
   }
 
@@ -58,7 +52,6 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
   }
 
   deleteBookmarks(String deleteItem) async {
-    print('screen_bookmark:::delete:::_getBookmarksList:::${deleteItem}');
     setState(() {
       _getBookmarksList.remove(deleteItem);
     });
@@ -73,7 +66,7 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
     return Scaffold(
       appBar: AppBar(title: const Text('Favori Listesi')),
       body: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(2.0),
         child: ListView.builder(
             itemCount: _getBookmarksList.length,
             itemBuilder: (ctx, index) {
@@ -91,30 +84,86 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
                       ),
                     );
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ClipRRect(
+                  child: ListTile(
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      margin: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(2.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          '${_modelVerses![index].imagePath}',
-                          width: 32,
-                          height: 64,
+                        color: cDarkPrimaryColor,
+                      ),
+                      child: Text(
+                        '${_modelSuras![index].arabicName}',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      Text('${_modelSuras![index].surasName}'),
-                      Text('${_getBookmarksList[index]}'),
-                      IconButton(
-                        onPressed: () {
-                          deleteBookmarks(_getBookmarksList[index]);
-                        },
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                    ),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${_modelSuras![index].surasName}',
+                          style: Theme.of(context).primaryTextTheme.headline1,
                         ),
-                      )
-                    ],
+                        Text(
+                          '${_modelVerses![index].getVersesId()} .Ayet',
+                          style: Theme.of(context).primaryTextTheme.subtitle2,
+                        ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(
+                          height: 15,
+                          color: cDividerColor,
+                        ),
+                        Text(
+                          '${_modelVerses![index].getArabicRead()}',
+                          style: Theme.of(context).primaryTextTheme.subtitle2,
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        deleteBookmarks(_getBookmarksList[index]);
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     ClipRRect(
+                  //       borderRadius: BorderRadius.circular(8.0),
+                  //       child: Image.asset(
+                  //         '${_modelVerses![index].imagePath}',
+                  //         width: 32,
+                  //         height: 64,
+                  //       ),
+                  //     ),
+                  //     Text('${_modelSuras![index].surasName}'),
+                  // Text('${_getBookmarksList[index]}'),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     deleteBookmarks(_getBookmarksList[index]);
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.delete,
+                  //     color: Colors.red,
+                  //   ),
+                  // ),
+                  //   ],
+                  // ),
                 ),
               );
             }),

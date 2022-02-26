@@ -38,6 +38,11 @@ class MyApp extends StatelessWidget {
           ),
           headline3: TextStyle(
             fontFamily: 'Abay',
+            color: cPrimaryTextColor,
+            fontSize: 30,
+          ),
+          headline4: TextStyle(
+            fontFamily: 'Abay',
             color: cTextIconsColor,
             fontSize: 30,
           ),

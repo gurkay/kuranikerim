@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/constants/constants_color.dart';
 import 'package:kuranikerim/models/model_bookmark.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import '../bookmark/screen_bookmark.dart';
@@ -27,7 +28,7 @@ class ScreenSuras extends StatelessWidget {
           },
           icon: const Icon(
             Icons.bookmarks,
-            color: Color.fromARGB(255, 148, 52, 192),
+            color: cTextIconsColor,
           ),
         )
       ],
