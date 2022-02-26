@@ -37,9 +37,9 @@ class MyApp extends StatelessWidget {
             fontSize: 16,
           ),
           headline3: TextStyle(
-            fontFamily: 'Raleway',
-            color: cPrimaryTextColor,
-            fontSize: 32,
+            fontFamily: 'Abay',
+            color: cTextIconsColor,
+            fontSize: 30,
           ),
           subtitle1: TextStyle(
             fontFamily: 'OpenSans',

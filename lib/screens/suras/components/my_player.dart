@@ -24,8 +24,10 @@ import 'common.dart';
 import 'control_buttons.dart';
 
 class MyPlayer extends StatefulWidget {
-  ModelSuras modelSuras;
-  MyPlayer({required this.modelSuras});
+  ModelBookmark? modelBookmark;
+  MyPlayer({
+    this.modelBookmark,
+  });
 
   @override
   State<MyPlayer> createState() => _MyPlayerState();
@@ -56,9 +58,14 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.green,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.green,
+      ),
+    );
+
+    print(
+        'widget.modelBookmark!:::${widget.modelBookmark!.modelVerses.trRead}');
     _init();
 
     super.initState();
@@ -74,8 +81,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       _modelMealPerson = getModelMealPersons();
       _modelPart = getModelParts();
 
-      final _findModelVerses = getModelVerses()
-          .where((element) => element.surasId == widget.modelSuras.surasId);
+      final _findModelVerses = getModelVerses().where((element) =>
+          element.surasId == widget.modelBookmark!.modelSuras.surasId);
 
       for (final element in _findModelVerses) {
         _modelVerses.add(element);
@@ -85,8 +92,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
             .first);
       }
 
-      final _findModelSound = getModelSoundList()
-          .where((element) => element.surasId == widget.modelSuras.surasId);
+      final _findModelSound = getModelSoundList().where((element) =>
+          element.surasId == widget.modelBookmark!.modelSuras.surasId);
 
       for (final element in _findModelSound) {
         _modelSound = element;
@@ -132,18 +139,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  List<String>? _modelVersesItemsListBookmarks;
-  setBookmarkVerses(ModelVerses modelVersesBookmark) {
-    _modelVersesItemsListBookmarks!
-        .add(modelVersesBookmark.versesId.toString());
-  }
-
-  addBookmarkVerses() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(
-        'itemsBookmarkVerses', _modelVersesItemsListBookmarks!);
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -164,8 +159,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                 modelPart: _modelPart,
                 modelMeal: _modelMeal,
                 modelMealPerson: _modelMealPerson,
-                modelSuras: widget.modelSuras,
-                modelBookmark: setBookmarkVerses,
+                modelSuras: widget.modelBookmark!.modelSuras,
+                modelBookmark: widget.modelBookmark!,
               );
             },
           ),

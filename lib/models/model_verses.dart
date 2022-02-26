@@ -3,6 +3,7 @@ class ModelVerses {
   int? partId;
   int? surasId;
   String? imagePath;
+  String? arabicRead;
   String? trRead;
   int? floor;
   double? secondPosition;
@@ -15,6 +16,7 @@ class ModelVerses {
     this.partId,
     this.surasId,
     this.imagePath,
+    this.arabicRead,
     this.trRead,
     this.floor,
     this.secondPosition,
@@ -37,6 +39,10 @@ class ModelVerses {
 
   void setImagePath(String imgPath) {
     this.imagePath = imgPath;
+  }
+
+  void setArabicRead(String read) {
+    this.arabicRead = read;
   }
 
   void setTrRead(String read) {
@@ -79,6 +85,10 @@ class ModelVerses {
     return imagePath;
   }
 
+  String? getArabicRead() {
+    return arabicRead;
+  }
+
   String? getTrRead() {
     return trRead;
   }
@@ -113,6 +123,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/1.jpg');
+  model.setArabicRead('بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ');
   model.setTrRead('Bismi(A)llâhi-rrahmâni-rrahim(i)');
   model.setFloor(0);
   model.setSecondPosition(1);
@@ -126,6 +137,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/2.jpg');
+  model.setArabicRead('اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَم۪ينَۙ');
   model.setTrRead('Elhamdu li(A)llâhi rabbi-l\'âlemin(e)');
   model.setFloor(0);
   model.setSecondPosition(10480);
@@ -139,6 +151,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/3.jpg');
+  model.setArabicRead('اَلرَّحْمٰنِ الرَّح۪يمِۙ');
   model.setTrRead('Errahmâni-rrahîm(i)');
   model.setFloor(0);
   model.setSecondPosition(14080);
@@ -151,6 +164,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/4.jpg');
+  model.setArabicRead('مَالِكِ يَوْمِ الدّ۪ينِۜ');
   model.setTrRead('Mâliki yevmi-ddîn(j)');
   model.setFloor(0);
   model.setSecondPosition(17510);
@@ -163,6 +177,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/5.jpg');
+  model.setArabicRead('اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَع۪ينُۜ');
   model.setTrRead('lyyâke na\'budu ve-iyyâke nesta\'in(u)');
   model.setFloor(0);
   model.setSecondPosition(22240);
@@ -176,6 +191,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/6.jpg');
+  model.setArabicRead('اِهْدِنَا الصِّرَاطَ الْمُسْتَق۪يمَۙ');
   model.setTrRead('Ihdinâ-ssirâta-Imustakim(e)');
   model.setFloor(0);
   model.setSecondPosition(26000);
@@ -189,6 +205,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(1);
   model.setImagePath('assets/images/7.jpg');
+  model.setArabicRead(
+      'صِرَاطَ الَّذ۪ينَ اَنْعَمْتَ عَلَيْهِمْۙ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّٓالّ۪ينَ');
   model.setTrRead(
       'Sirâta-llezine en\'amte \'aleyhim gayri-Imagdûbi \'aleyhim velâ-ddâllin(e)');
   model.setFloor(1);
@@ -203,6 +221,7 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/8.jpg');
+  model.setArabicRead('الٓمٓۚ');
   model.setTrRead('Elif-lâm-mîm');
   model.setFloor(0);
   model.setSecondPosition(1);
@@ -215,6 +234,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/9.jpg');
+  model.setArabicRead(
+      'ذٰلِكَ الْكِتَابُ لَا رَيْبَۚۛ ف۪يهِۚۛ هُدًى لِلْمُتَّق۪ينَۙ');
   model.setTrRead('Zalike-lkitabu la raybe fihi huden lilmuttekin(e)');
   model.setFloor(0);
   model.setSecondPosition(12821);
@@ -227,6 +248,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/10.jpg');
+  model.setArabicRead(
+      'اَلَّذ۪ينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُق۪يمُونَ الصَّلٰوةَ وَمِمَّا رَزَقْنَاهُمْ يُنْفِقُونَۙ');
   model.setTrRead(
       'Ellezine yu/minûne bilgaybi veyukîmûne-ssalâte vemimmârazeknâhum yunfikün(e)');
   model.setFloor(1);
@@ -241,12 +264,14 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/11.jpg');
+  model.setArabicRead(
+      'وَالَّذ۪ينَ يُؤْمِنُونَ بِمَٓا اُنْزِلَ اِلَيْكَ وَمَٓا اُنْزِلَ مِنْ قَبْلِكَۚ وَبِالْاٰخِرَةِ هُمْ يُوقِنُونَۜ');
   model.setTrRead(
       'Vellezine u/minûne bimâ unzile ileyke vemâ unzile minkablike vebil-âhirati hum yûkinûn(e)');
   model.setFloor(1);
   model.setSecondPosition(29121);
   model.setScrollSize(740);
-  model.setSpeedDuration(8.4);
+  model.setSpeedDuration(11.4);
   model.setVersesDurationPosition(42069);
   list.add(model);
 
@@ -255,6 +280,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/12.jpg');
+  model.setArabicRead(
+      'اُو۬لٰٓئِكَ عَلٰى هُدًى مِنْ رَبِّهِمْ وَاُو۬لٰٓئِكَ هُمُ الْمُفْلِحُونَ');
   model.setTrRead(
       'Ulá-ike \'alâ huden min rabbihim S) ve ulâ-ike humu-Imuflihûn(e)');
   model.setFloor(1);
@@ -269,6 +296,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/13.jpg');
+  model.setArabicRead(
+      'اِنَّ الَّذ۪ينَ كَفَرُوا سَوَٓاءٌ عَلَيْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا يُؤْمِنُونَ');
   model.setTrRead(
       'Inne-llezine keferû sevâun \'aleyhim eenzertehum em lem tunzirhum lâ yu/minûn(e)');
   model.setFloor(1);
@@ -282,6 +311,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/14.jpg');
+  model.setArabicRead(
+      'خَتَمَ اللّٰهُ عَلٰى قُلُوبِهِمْ وَعَلٰى سَمْعِهِمْۜ وَعَلٰٓى اَبْصَارِهِمْ غِشَاوَةٌۘ وَلَهُمْ عَذَابٌ عَظ۪يمٌ۟');
   model.setTrRead(
       'Hatema (A)llahu \'alà kulâbihim ve\'alà sem\'ihim (S) ve\'ala ebsârihim gisâve(tun) S) velehum \'azabun \'azim(un)');
   model.setFloor(1);
@@ -290,11 +321,14 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(76158);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(15);
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/15.jpg');
+  model.setArabicRead(
+      'وَمِنَ النَّاسِ مَنْ يَقُولُ اٰمَنَّا بِاللّٰهِ وَبِالْيَوْمِ الْاٰخِرِ وَمَا هُمْ بِمُؤْمِن۪ينَۢ');
   model.setTrRead(
       'Vemine-nnâsi men yekûlu âmennâ bi (A)llâhi ve bilyevmi-l-âhiri vemâ hum bimu/minin(e)');
   model.setFloor(1);
@@ -303,11 +337,14 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(85898);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(16);
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/16.jpg');
+  model.setArabicRead(
+      'يُخَادِعُونَ اللّٰهَ وَالَّذ۪ينَ اٰمَنُواۚ وَمَا يَخْدَعُونَ اِلَّٓا اَنْفُسَهُمْ وَمَا يَشْعُرُونَۜ');
   model.setTrRead(
       'Yuhâdi \'ûna(A) llâhe vellezine âmenû vemâ yahde\'ûne illâ enfusehum vemâ yes\'urûn(e)');
   model.setFloor(1);
@@ -316,11 +353,14 @@ List<ModelVerses> getModelVerses() {
   model.setSpeedDuration(12);
   model.setVersesDurationPosition(99957);
   list.add(model);
+
   model = ModelVerses();
   model.setVersesId(17);
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/17.jpg');
+  model.setArabicRead(
+      'ف۪ي قُلُوبِهِمْ مَرَضٌۙ فَزَادَهُمُ اللّٰهُ مَرَضًاۚ وَلَهُمْ عَذَابٌ اَل۪يمٌۙ بِمَا كَانُوا يَكْذِبُونَ');
   model.setTrRead(
       'Fi kulübihim meradun fezâdehumu (A)llâhu merada(n) (S) velehum \'azâbun elîmun bimâ kânû yekzibûn(e)');
   model.setFloor(1);
@@ -335,6 +375,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/18.jpg');
+  model.setArabicRead(
+      'وَاِذَا ق۪يلَ لَهُمْ لَا تُفْسِدُوا فِي الْاَرْضِۙ قَالُٓوا اِنَّمَا نَحْنُ مُصْلِحُونَ');
   model.setTrRead(
       'Ve-izâ kile lehum lâ tufsidû fi-l-ardi kâlû innemâ nahnu muslihûn(e)');
   model.setFloor(1);
@@ -349,6 +391,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/19.jpg');
+  model.setArabicRead(
+      'اَلَٓا اِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلٰكِنْ لَا يَشْعُرُونَ');
   model.setTrRead('El innehum humu-Imufsidûne velâkin lâ yes\'urûn(e)');
   model.setFloor(0);
   model.setSecondPosition(119975);
@@ -362,6 +406,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/20.jpg');
+  model.setArabicRead(
+      'وَاِذَا ق۪يلَ لَهُمْ اٰمِنُوا كَمَٓا اٰمَنَ النَّاسُ قَالُٓوا اَنُؤْمِنُ كَمَٓا اٰمَنَ السُّفَهَٓاءُۜ اَلَٓا اِنَّهُمْ هُمُ السُّفَهَٓاءُ وَلٰكِنْ لَا يَعْلَمُونَ');
   model.setTrRead(
       'Ve-izâ kile lehum âminû kemâ âmene-nnâsu kâlû enu/minu kemá âmene-ssufeha(u) (k) elà innehum humu-ssufehâu velâkin là ya\'lemûn(e)');
   model.setFloor(2);
@@ -376,6 +422,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/21.jpg');
+  model.setArabicRead(
+      'وَاِذَا لَقُوا الَّذ۪ينَ اٰمَنُوا قَالُٓوا اٰمَنَّاۚ وَاِذَا خَلَوْا اِلٰى شَيَاط۪ينِهِمْۙ قَالُٓوا اِنَّا مَعَكُمْۙ اِنَّمَا نَحْنُ مُسْتَهْزِؤُ۫نَ');
   model.setTrRead(
       'Ve-izâ leku-llezine âmenû kâlû âmennâ ve-izâ halev ilà seyâtinihim kâlû innâ me\'akum innemâ nahnu mustehzi-ûn(e)');
   model.setFloor(1);
@@ -390,6 +438,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/22.jpg');
+  model.setArabicRead(
+      'اَللّٰهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ ف۪ي طُغْيَانِهِمْ يَعْمَهُونَ');
   model.setTrRead(
       '(A)llâhu yestehzi-u bihim ve yemudduhum fì tugyânihim ya\'mehûn(e)');
   model.setFloor(0);
@@ -404,6 +454,8 @@ List<ModelVerses> getModelVerses() {
   model.setPartId(1);
   model.setSurasId(2);
   model.setImagePath('assets/images/23.jpg');
+  model.setArabicRead(
+      'اُو۬لٰٓئِكَ الَّذ۪ينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدٰىۖ فَمَا رَبِحَتْ تِجَارَتُهُمْ وَمَا كَانُوا مُهْتَد۪ينَ');
   model.setTrRead(
       'Ulâ-ike-llezine-steravu-ddalâletebilhudâfemârabihat ticaratuhum vema kanu muhtedin(e)');
   model.setFloor(1);

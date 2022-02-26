@@ -21,7 +21,7 @@ class RouteGenerator {
       case '/screen_suras':
         return MaterialPageRoute(
           builder: (_) => ScreenSuras(
-            modelSuras: args,
+            modelBookmark: args,
           ),
         );
       case '/screen_bookmark':

@@ -23,7 +23,8 @@ class ArrowRead extends StatefulWidget {
   final List<ModelMeal> modelMeal;
   final List<ModelMealPerson> modelMealPerson;
   final ModelSuras modelSuras;
-  final ValueChanged<ModelVerses>? modelBookmark;
+
+  final ModelBookmark? modelBookmark;
 
   ArrowRead({
     required this.duration,
@@ -116,6 +117,19 @@ class _ArrowReadState extends State<ArrowRead> {
     getBookmarks();
   }
 
+  setBookmark() async {
+    if (widget.modelBookmark!.modelVerses.scrollSize != null) {
+      print(
+          'arrow_read:::modelBookmark.scrollSize:::${widget.modelBookmark!.modelVerses.scrollSize}');
+
+      widget.onChangeEnd!(Duration(
+          milliseconds:
+              widget.modelBookmark!.modelVerses.secondPosition!.round()));
+
+      _scrollController.jumpTo(widget.modelBookmark!.modelVerses.scrollSize!);
+    }
+  }
+
   getBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('itemsBookmarkVerses') != null) {
@@ -137,6 +151,8 @@ class _ArrowReadState extends State<ArrowRead> {
         }
       }
     }
+
+    setBookmark();
   }
 
   findBookmarks(ModelVerses modelVerses, int index) {
@@ -164,28 +180,11 @@ class _ArrowReadState extends State<ArrowRead> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('itemsBookmarkVerses', _getBookmarksList);
-
-    for (var i = 0; i < _getBookmarksList.length; i++) {
-      print(
-          'arrow_read:::addBookmark:::_getBookmarksList:::$_getBookmarksList');
-    }
-
-    print(
-        'arrow_read:::addBookmark:::itemsBookmarkVerses:::${prefs.getStringList('itemsBookmarkVerses')}');
-  }
-
-  // This is what you're looking for!
-  void _scrollDown() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.fastOutSlowIn,
-    );
   }
 
   _scrollListener() {
     _scrollPosition = _scrollController.position.pixels;
-    // print('_scrollListener:::_scrollPosition:::$_scrollPosition');
+    print('scrollListener:::$_scrollPosition');
   }
 
   _scrollJumpTo(double jump) {
@@ -323,10 +322,18 @@ class _ArrowReadState extends State<ArrowRead> {
               children: [
                 Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                          '${widget.modelVerses[index].getImagePath()}'),
+                    Container(
+                      padding: const EdgeInsets.all(12.0),
+                      alignment: Alignment.centerRight,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: cPrimaryTextColor,
+                      ),
+                      child: Text(
+                        '${widget.modelVerses[index].arabicRead}',
+                        style: Theme.of(context).primaryTextTheme.headline3,
+                        textAlign: TextAlign.right,
+                      ),
                     ),
                     AnimatedPositioned(
                       bottom: _bottomGreenArrow[index],
@@ -372,10 +379,7 @@ class _ArrowReadState extends State<ArrowRead> {
                     widget.onChangeEnd!(Duration(
                         milliseconds:
                             widget.modelVerses[index].secondPosition!.round()));
-                    print('_selected:::[$index]:::${_selected[index]}');
-                    print(
-                        'widget.modelVerses[index].scrollSize!:::${widget.modelVerses[index].scrollSize!}');
-                    widget.modelBookmark!(widget.modelVerses[index]);
+
                     setResetPastPosition(index);
                     _scrollJumpTo(widget.modelVerses[index].scrollSize!);
                   },

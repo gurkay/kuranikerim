@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:kuranikerim/models/model_bookmark.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import '../bookmark/screen_bookmark.dart';
 import './components/my_player.dart';
 
 class ScreenSuras extends StatelessWidget {
   static String routeName = '/screen_suras';
-  final ModelSuras modelSuras;
+  //final ModelSuras? modelSuras;
+  final ModelBookmark? modelBookmark;
 
-  ScreenSuras({required this.modelSuras});
+  ScreenSuras({
+    Key? key,
+    this.modelBookmark,
+  }) : super(key: key);
 
   AppBar _mySurasAppBar(BuildContext context) {
     return AppBar(
-      title: Text('${modelSuras.surasName}'),
+      title: Text('${modelBookmark!.modelSuras.surasName}'),
       actions: [
         IconButton(
           onPressed: () {
@@ -33,7 +38,9 @@ class ScreenSuras extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _mySurasAppBar(context),
-      body: MyPlayer(modelSuras: modelSuras),
+      body: MyPlayer(
+        modelBookmark: modelBookmark,
+      ),
     );
   }
 }

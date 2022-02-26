@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kuranikerim/constants/constants_color.dart';
+import 'package:kuranikerim/models/model_bookmark.dart';
 import 'package:kuranikerim/models/model_hafizlar.dart';
 import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
@@ -83,14 +84,25 @@ class _WidgetMyListState extends State<WidgetMyList> {
                 Navigator.pushNamed(
                   context,
                   ScreenSuras.routeName,
-                  arguments: _modelSuras[index],
+                  arguments: ModelBookmark(
+                    modelVerses: ModelVerses(),
+                    modelSuras: _modelSuras[index],
+                  ),
                 );
               },
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(getImagePath(index)),
+                  Container(
+                    padding: const EdgeInsets.all(24.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: cPrimaryTextColor,
+                    ),
+                    child: Text(
+                      '${_modelSuras[index].arabicName}',
+                      style: Theme.of(context).primaryTextTheme.headline3,
+                    ),
                   ),
                   ListTile(
                     title: Column(
@@ -112,10 +124,6 @@ class _WidgetMyListState extends State<WidgetMyList> {
                         Text(
                           '${_modelSuras[index].getAbout()}',
                           style: Theme.of(context).primaryTextTheme.subtitle2,
-                        ),
-                        Text(
-                          'اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَم۪ينَۙ',
-                          style: Theme.of(context).primaryTextTheme.headline3,
                         ),
                       ],
                     ),
