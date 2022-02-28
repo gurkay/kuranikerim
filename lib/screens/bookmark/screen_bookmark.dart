@@ -76,86 +76,113 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
         child: ListView.builder(
           itemCount: _getBookmarksList.length,
           itemBuilder: (ctx, index) {
-            return Card(
-              elevation: 7,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    ScreenSuras.routeName,
-                    arguments: ModelBookmark(
-                      modelVerses: _modelVerses![index],
-                      modelSuras: _modelSuras![index],
-                    ),
-                  );
-                },
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(8.0),
-                          width: 48,
-                          height: 48,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            color: cDarkPrimaryColor,
-                          ),
-                          child: Text(
-                            '${_modelSuras![index].arabicName}',
-                            style: const TextStyle(
-                              color: cTextIconsColor,
-                            ),
-                          ),
+            return Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(color: cDarkPrimaryColor),
+                color: cLightPrimaryColor,
+                boxShadow: const [
+                  BoxShadow(
+                    color: cDarkPrimaryColor,
+                    spreadRadius: 2,
+                    blurRadius: 16,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Card(
+                elevation: 2,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      ScreenSuras.routeName,
+                      arguments: ModelBookmark(
+                        modelVerses: _modelVerses![index],
+                        modelSuras: _modelSuras![index],
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          border: Border.all(color: cDarkPrimaryColor),
                         ),
-                        Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '${_modelSuras![index].surasName}',
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline1,
+                            Container(
+                              margin: EdgeInsets.all(8.0),
+                              width: 48,
+                              height: 48,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                color: cDarkPrimaryColor,
+                              ),
+                              child: Text(
+                                '${_modelSuras![index].arabicName}',
+                                style: const TextStyle(
+                                  color: cTextIconsColor,
+                                ),
+                              ),
                             ),
-                            Text(
-                              '${_modelVerses![index].getVersesId()} .Ayet',
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle2,
+                            Column(
+                              children: [
+                                Text(
+                                  '${_modelSuras![index].surasName}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline1,
+                                ),
+                                Text(
+                                  '${_modelVerses![index].getVersesId()} .Ayet',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .subtitle2,
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                deleteBookmarks(_getBookmarksList[index]);
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
                             ),
                           ],
                         ),
-                        IconButton(
-                          onPressed: () {
-                            deleteBookmarks(_getBookmarksList[index]);
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      height: 15,
-                      color: cDividerColor,
-                    ),
-                    ListTile(
-                      subtitle: Column(
-                        children: [
-                          Text(
-                            '${_modelVerses![index].getArabicRead()}',
-                            style: Theme.of(context).primaryTextTheme.subtitle2,
-                            textAlign: TextAlign.right,
-                          ),
-                          Text(
-                            '${_modelMean![index].meal}',
-                            style: Theme.of(context).primaryTextTheme.subtitle2,
-                            textAlign: TextAlign.justify,
-                          ),
-                        ],
                       ),
-                    ),
-                  ],
+                      const Divider(
+                        height: 15,
+                        color: cDividerColor,
+                      ),
+                      ListTile(
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              '${_modelVerses![index].getArabicRead()}',
+                              style:
+                                  Theme.of(context).primaryTextTheme.subtitle2,
+                              textAlign: TextAlign.right,
+                            ),
+                            Text(
+                              '${_modelMean![index].meal}',
+                              style:
+                                  Theme.of(context).primaryTextTheme.subtitle2,
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

@@ -47,13 +47,9 @@ class ArrowRead extends StatefulWidget {
 class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   List<bool> _selected = [];
-
-  late ModelDurations _modelDurations;
-
-  List<int>? _secondPosition = [];
-  Map? _versesDurationPositions = {};
-  List<double>? _scrollSize = [];
-  List<double>? _speedDuration = [];
+  int _arabicTextFloor = 0;
+  List<double> _heigthScrollSetting = [];
+  double _speedReadArabicVoice = 0;
 
   List<bool> _bookmarksFlag = [];
 
@@ -65,13 +61,10 @@ class _ArrowReadState extends State<ArrowRead> {
   int _generalIncreaseThreeFloor = 3;
   int _generalIncreaseFourFloor = 4;
 
-  late List<ModelVerses> _versesDurationPosition = [];
-
   List<String> _getBookmarksList = [];
 
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
-  double _scrollJumpToPosition = 0.0;
 
   int _generalIndex = 0;
 
@@ -93,31 +86,15 @@ class _ArrowReadState extends State<ArrowRead> {
     });
     _bookmarksFlag = List.generate(widget.modelVerses.length, (index) => false);
 
-    _versesDurationPosition = widget.modelVerses;
-
     final _findModelDurations = getModelDurations()
         .where((element) => element.surasId == widget.modelSuras.surasId);
-
-    for (var item in _findModelDurations) {
-      _modelDurations = ModelDurations(
-        modelDurationsId: item.modelDurationsId,
-        surasId: item.surasId,
-        secondPosition: item.secondPosition,
-        versesDurationPositions: item.versesDurationPositions,
-        scrollSize: item.scrollSize,
-        speedDuration: item.speedDuration,
-      );
-    }
-
-    _secondPosition = _modelDurations.secondPosition!;
-    _versesDurationPositions = _modelDurations.versesDurationPositions!;
-    _scrollSize = _modelDurations.scrollSize!;
-    _speedDuration = _modelDurations.speedDuration;
-
+    _heigthScrollSetting =
+        List.generate(widget.modelVerses.length, (index) => 0);
     getBookmarks();
   }
 
   setBookmark() async {
+    Size size = MediaQuery.of(context).size;
     if (widget.modelBookmark!.modelVerses.scrollSize != null) {
       print(
           'arrow_read:::modelBookmark.scrollSize:::${widget.modelBookmark!.modelVerses.scrollSize}');
@@ -126,7 +103,9 @@ class _ArrowReadState extends State<ArrowRead> {
           milliseconds:
               widget.modelBookmark!.modelVerses.secondPosition!.round()));
 
-      _scrollController.jumpTo(widget.modelBookmark!.modelVerses.scrollSize!);
+      //_scrollJumpTo(widget.modelBookmark!.modelVerses.scrollSize!);
+      //_heigthScrollSetting = size.height * 0.75;
+      _animateToIndex(widget.modelBookmark!.modelVerses.scrollSize!);
     }
   }
 
@@ -137,17 +116,12 @@ class _ArrowReadState extends State<ArrowRead> {
         _getBookmarksList = (prefs.getStringList('itemsBookmarkVerses'))!;
       });
 
-      // modelVerses : [8,9,10,11,12,13,14,15,16,17,18,19,20]
-      // bookmark : [15,18]
-      // flag : []
       for (var i = 0; i < widget.modelVerses.length; i++) {
         if (_getBookmarksList
             .contains(widget.modelVerses[i].versesId.toString())) {
           setState(() {
             _bookmarksFlag[i] = !_bookmarksFlag[i];
           });
-          print(
-              'arrow_read:::getBookmarks:::_bookmarksFlag:::${_bookmarksFlag[i]}');
         }
       }
     }
@@ -158,7 +132,6 @@ class _ArrowReadState extends State<ArrowRead> {
   findBookmarks(ModelVerses modelVerses, int index) {
     String? result =
         _getBookmarksList.contains(modelVerses.versesId).toString();
-    print('arrow_read:::findBookmarks:::result:::$result');
 
     setState(() {
       _bookmarksFlag[index] = true;
@@ -184,7 +157,7 @@ class _ArrowReadState extends State<ArrowRead> {
 
   _scrollListener() {
     _scrollPosition = _scrollController.position.pixels;
-    print('scrollListener:::$_scrollPosition');
+    // print('scrollListener:::_scrollPosition:::$_scrollPosition');
   }
 
   _scrollJumpTo(double jump) {
@@ -222,14 +195,14 @@ class _ArrowReadState extends State<ArrowRead> {
   void setTwoFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = 160;
+    _bottomGreenArrow[index] = 130;
     _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
   }
 
   void setOneFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = 80;
+    _bottomGreenArrow[index] = 65;
     _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
   }
 
@@ -238,23 +211,54 @@ class _ArrowReadState extends State<ArrowRead> {
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 0;
     _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+    //widget.modelVerses[_generalIndex].speedDuration!;
+  }
+
+  void setSpeedReadArabicVoice(double speed) {
+    print('speed:::$speed');
+    if (speed < 1000) {
+      _speedReadArabicVoice = 1.0;
+    } else if (speed < 2000) {
+      _speedReadArabicVoice = 2.0;
+    } else if (speed < 3000) {
+      _speedReadArabicVoice = 3.0;
+    } else if (speed < 4000) {
+      _speedReadArabicVoice = 4.0;
+    } else if (speed < 5000) {
+      _speedReadArabicVoice = 5.0;
+    }
   }
 
   void getArrowUp() {
     Size size = MediaQuery.of(context).size;
 
+    if (_generalIndex > widget.modelVerses.length - 1) {
+      return;
+    }
+
     print(
-        'widget.modelVerses[_generalIndex].arabicRead.length:::${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
+        'arabic lenght ::: ${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
+    print(
+        'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
+    print('_heigthScrollSetting::: ${_heigthScrollSetting}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
-      switch (widget.modelVerses[_generalIndex].floor) {
+      if (widget.modelVerses[_generalIndex].arabicRead.toString().length > 60) {
+        _arabicTextFloor = 1;
+      } else if (widget.modelVerses[_generalIndex].arabicRead
+              .toString()
+              .length >
+          120) {
+        _arabicTextFloor = 2;
+      }
+      switch (_arabicTextFloor) {
         case 0:
           setZeroFloorPosition(_generalIndex);
           break;
         case 1:
           if (_generalIncreaseOneFloor == 1) {
-            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
               setOneFloorPosition(_generalIndex);
             } else {
               _generalIncreaseOneFloor = _generalIncreaseZeroFloor;
@@ -266,14 +270,14 @@ class _ArrowReadState extends State<ArrowRead> {
           break;
         case 2:
           if (_generalIncreaseTwoFloor == 2) {
-            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
               setTwoFloorPosition(_generalIndex);
             } else {
               _generalIncreaseTwoFloor = _generalIncreaseOneFloor;
               setResetTwoFloorPosition(_generalIndex);
             }
           } else if (_generalIncreaseTwoFloor == 1) {
-            if (_rightGreenArrow[_generalIndex] < size.width * 0.86) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
               setOneFloorPosition(_generalIndex);
             } else {
               _generalIncreaseTwoFloor = _generalIncreaseZeroFloor;
@@ -289,15 +293,51 @@ class _ArrowReadState extends State<ArrowRead> {
       if (_generalIndex == widget.modelVerses.length - 1) {
         _scrollJumpTo(_scrollController.position.maxScrollExtent);
       } else if (_generalIndex < widget.modelVerses.length) {
-        _scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
+        //_scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
+
+        _animateToIndex(_generalIndex);
       } else {
         _generalIndex = 0;
       }
     } else {
       setResetPastPosition(_generalIndex);
-
       _generalIndex++;
+      if (_generalIndex > widget.modelVerses.length - 1) {
+        return;
+      } else {
+        double speed =
+            widget.modelVerses[_generalIndex].versesDurationPosition! -
+                widget.modelVerses[_generalIndex - 1].versesDurationPosition!;
+
+        setSpeedReadArabicVoice(speed);
+      }
     }
+  }
+
+  void _animateToIndex(int index) {
+    _scrollController.animateTo(
+      index * (_heigthScrollSetting[index]),
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  double getHeightScrollSize(Size size, int index, int stringLenght) {
+    double _returnValue = 0;
+    print('getHeightSroll:::stringLenght:::$index $stringLenght');
+
+    if (stringLenght <= 60) {
+      _heigthScrollSetting[index] = size.height * 0.40;
+      _returnValue = size.height * 0.35;
+    } else if (stringLenght > 60 && stringLenght <= 120) {
+      _heigthScrollSetting[index] = (size.height * 0.75);
+      _returnValue = size.height * 0.75;
+    } else if (stringLenght > 120 && stringLenght <= 200) {
+      _heigthScrollSetting[index] = size.height * 120;
+      _returnValue = size.height * 0.120;
+    }
+
+    return _returnValue;
   }
 
   @override
@@ -309,118 +349,145 @@ class _ArrowReadState extends State<ArrowRead> {
     }
 
     Size size = MediaQuery.of(context).size;
-    return Container(
+
+    return SizedBox(
       height: size.height * 0.80,
       child: ListView.builder(
         controller: _scrollController,
         itemCount: widget.modelVerses.length,
         itemBuilder: (ctx, index) {
-          return Card(
-            elevation: 7,
-            margin: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 5,
-            ),
-            child: Column(
-              children: [
-                Stack(
+          return SizedBox(
+            height: getHeightScrollSize(size, index,
+                widget.modelVerses[index].arabicRead.toString().length),
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                color: cLightPrimaryColor,
+                boxShadow: const [
+                  BoxShadow(
+                    color: cLightPrimaryColor,
+                    spreadRadius: 7,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Card(
+                elevation: 7,
+                child: Column(
                   children: [
                     Container(
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      margin: EdgeInsets.all(4.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        color: cTextIconsColor,
+                        border: Border.all(color: cAccentColor),
                       ),
-                      child: Text(
-                        '${widget.modelVerses[index].arabicRead}',
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                        textAlign: TextAlign.right,
+                      child: Stack(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 2.0),
+                            child: SizedBox(
+                              width: size.width * 0.95,
+                              child: Text(
+                                '${widget.modelVerses[index].arabicRead}',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline3,
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ),
+                          AnimatedPositioned(
+                            bottom: _bottomGreenArrow[index],
+                            right: _rightGreenArrow[index],
+                            child: _isGreenUpArrow[index] == true
+                                ? Image.asset(
+                                    'assets/icons/up_arrow.png',
+                                    height: size.height * 0.020,
+                                  )
+                                : Container(),
+                            duration: const Duration(milliseconds: 200),
+                          ),
+                        ],
                       ),
                     ),
-                    AnimatedPositioned(
-                      bottom: _bottomGreenArrow[index],
-                      right: _rightGreenArrow[index],
-                      child: _isGreenUpArrow[index] == true
-                          ? Image.asset(
-                              'assets/icons/up_arrow.png',
-                              height: size.height * 0.020,
-                            )
-                          : Container(),
-                      duration: const Duration(milliseconds: 200),
+                    Container(
+                      margin: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
+                          Text(
+                              ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                          IconButton(
+                            onPressed: () {
+                              addBookmark(widget.modelVerses[index], index);
+                            },
+                            icon: _bookmarksFlag[index] == true
+                                ? const Icon(
+                                    Icons.bookmark,
+                                    color: cAccentColor,
+                                  )
+                                : const Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: cAccentColor,
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        widget.onChangeEnd!(Duration(
+                            milliseconds: widget
+                                .modelVerses[index].secondPosition!
+                                .round()));
+
+                        setResetPastPosition(index);
+                        _animateToIndex(index);
+                      },
+                      tileColor: _selected[index]
+                          ? const Color.fromARGB(255, 175, 219, 240)
+                          : null,
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Türkçe Okunuşu',
+                            style: Theme.of(context).primaryTextTheme.headline1,
+                            textAlign: TextAlign.justify,
+                          ),
+                          Text(
+                            '${widget.modelVerses[index].getTrRead()}',
+                            style: Theme.of(context).primaryTextTheme.headline2,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(
+                            height: 10,
+                            color: cDividerColor,
+                          ),
+                          Text(
+                            '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
+                            style: Theme.of(context).primaryTextTheme.subtitle1,
+                          ),
+                          Text(
+                            '${widget.modelMeal[index].getMeal()}',
+                            style: Theme.of(context).primaryTextTheme.subtitle2,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
-                      Text(
-                          ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
-                      IconButton(
-                        onPressed: () {
-                          addBookmark(widget.modelVerses[index], index);
-                        },
-                        icon: _bookmarksFlag[index] == true
-                            ? const Icon(
-                                Icons.bookmark,
-                                color: cAccentColor,
-                              )
-                            : const Icon(
-                                Icons.bookmark_add_outlined,
-                                color: cAccentColor,
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    widget.onChangeEnd!(Duration(
-                        milliseconds:
-                            widget.modelVerses[index].secondPosition!.round()));
-
-                    setResetPastPosition(index);
-                    _scrollJumpTo(widget.modelVerses[index].scrollSize!);
-                  },
-                  tileColor: _selected[index] ? Colors.green[100] : null,
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Türkçe Okunuşu',
-                        style: Theme.of(context).primaryTextTheme.headline1,
-                        textAlign: TextAlign.justify,
-                      ),
-                      Text(
-                        '${widget.modelVerses[index].getTrRead()}',
-                        style: Theme.of(context).primaryTextTheme.headline2,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ],
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(
-                        height: 10,
-                        color: cDividerColor,
-                      ),
-                      Text(
-                        '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
-                      ),
-                      Text(
-                        '${widget.modelMeal[index].getMeal()}',
-                        style: Theme.of(context).primaryTextTheme.subtitle2,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         },

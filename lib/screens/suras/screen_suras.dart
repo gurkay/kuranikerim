@@ -18,20 +18,6 @@ class ScreenSuras extends StatelessWidget {
   AppBar _mySurasAppBar(BuildContext context) {
     return AppBar(
       title: Text('${modelBookmark!.modelSuras.surasName}'),
-      actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              ScreenBookmark.routeName,
-            );
-          },
-          icon: const Icon(
-            Icons.bookmarks,
-            color: cTextIconsColor,
-          ),
-        )
-      ],
     );
   }
 
