@@ -49,7 +49,7 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
   List<double> _heigthScrollSetting = [];
-  double _speedReadArabicVoice = 0;
+  double _speedReadArabicVoice = 8.0;
 
   List<bool> _bookmarksFlag = [];
 
@@ -94,17 +94,14 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   setBookmark() async {
-    Size size = MediaQuery.of(context).size;
     if (widget.modelBookmark!.modelVerses.scrollSize != null) {
-      print(
-          'arrow_read:::modelBookmark.scrollSize:::${widget.modelBookmark!.modelVerses.scrollSize}');
-
       widget.onChangeEnd!(Duration(
           milliseconds:
               widget.modelBookmark!.modelVerses.secondPosition!.round()));
 
       //_scrollJumpTo(widget.modelBookmark!.modelVerses.scrollSize!);
       //_heigthScrollSetting = size.height * 0.75;
+      print(widget.modelBookmark!.modelVerses.versesId!);
       _animateToIndex(widget.modelBookmark!.modelVerses.scrollSize!);
     }
   }
@@ -196,37 +193,22 @@ class _ArrowReadState extends State<ArrowRead> {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 130;
-    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+    _rightGreenArrow[index] += _speedReadArabicVoice;
   }
 
   void setOneFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 65;
-    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+    _rightGreenArrow[index] += _speedReadArabicVoice;
   }
 
   void setZeroFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 0;
-    _rightGreenArrow[index] += widget.modelVerses[_generalIndex].speedDuration!;
+    _rightGreenArrow[index] += _speedReadArabicVoice;
     //widget.modelVerses[_generalIndex].speedDuration!;
-  }
-
-  void setSpeedReadArabicVoice(double speed) {
-    print('speed:::$speed');
-    if (speed < 1000) {
-      _speedReadArabicVoice = 1.0;
-    } else if (speed < 2000) {
-      _speedReadArabicVoice = 2.0;
-    } else if (speed < 3000) {
-      _speedReadArabicVoice = 3.0;
-    } else if (speed < 4000) {
-      _speedReadArabicVoice = 4.0;
-    } else if (speed < 5000) {
-      _speedReadArabicVoice = 5.0;
-    }
   }
 
   void getArrowUp() {
@@ -237,10 +219,7 @@ class _ArrowReadState extends State<ArrowRead> {
     }
 
     print(
-        'arabic lenght ::: ${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
-    print(
         'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
-    print('_heigthScrollSetting::: ${_heigthScrollSetting}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
@@ -305,39 +284,41 @@ class _ArrowReadState extends State<ArrowRead> {
       if (_generalIndex > widget.modelVerses.length - 1) {
         return;
       } else {
-        double speed =
-            widget.modelVerses[_generalIndex].versesDurationPosition! -
-                widget.modelVerses[_generalIndex - 1].versesDurationPosition!;
+        int _arabicReadLength =
+            widget.modelVerses[_generalIndex].arabicRead.toString().length;
 
-        setSpeedReadArabicVoice(speed);
+        setSpeedReadArabicVoice(_arabicReadLength);
       }
     }
   }
 
+  void setSpeedReadArabicVoice(int arabicReadLength) {
+    if (arabicReadLength <= 30) {
+      _speedReadArabicVoice = 6.0;
+    } else if (arabicReadLength > 30 && arabicReadLength <= 60) {
+      _speedReadArabicVoice = 8.0;
+    } else if (arabicReadLength > 60 && arabicReadLength <= 90) {
+      _speedReadArabicVoice = 10.0;
+    } else if (arabicReadLength > 90 && arabicReadLength <= 120) {
+      _speedReadArabicVoice = 12.0;
+    } else if (arabicReadLength > 120 && arabicReadLength <= 150) {
+      _speedReadArabicVoice = 14.0;
+    }
+    print('speed:::$_speedReadArabicVoice');
+  }
+
   void _animateToIndex(int index) {
     _scrollController.animateTo(
-      index * (_heigthScrollSetting[index]),
-      duration: const Duration(milliseconds: 200),
+      index * _heigthScrollSetting[index],
+      duration: const Duration(milliseconds: 400),
       curve: Curves.fastOutSlowIn,
     );
   }
 
-  double getHeightScrollSize(Size size, int index, int stringLenght) {
-    double _returnValue = 0;
-    print('getHeightSroll:::stringLenght:::$index $stringLenght');
+  double getHeightScrollSize(Size size, int index) {
+    _heigthScrollSetting[index] = size.height * 0.75;
 
-    if (stringLenght <= 60) {
-      _heigthScrollSetting[index] = size.height * 0.40;
-      _returnValue = size.height * 0.35;
-    } else if (stringLenght > 60 && stringLenght <= 120) {
-      _heigthScrollSetting[index] = (size.height * 0.75);
-      _returnValue = size.height * 0.75;
-    } else if (stringLenght > 120 && stringLenght <= 200) {
-      _heigthScrollSetting[index] = size.height * 120;
-      _returnValue = size.height * 0.120;
-    }
-
-    return _returnValue;
+    return _heigthScrollSetting[index];
   }
 
   @override
@@ -357,8 +338,7 @@ class _ArrowReadState extends State<ArrowRead> {
         itemCount: widget.modelVerses.length,
         itemBuilder: (ctx, index) {
           return SizedBox(
-            height: getHeightScrollSize(size, index,
-                widget.modelVerses[index].arabicRead.toString().length),
+            height: getHeightScrollSize(size, index),
             child: Container(
               margin: const EdgeInsets.all(4.0),
               decoration: BoxDecoration(
