@@ -7,6 +7,7 @@ import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
 import 'package:kuranikerim/models/model_part.dart';
 import 'package:kuranikerim/models/model_suras.dart';
+import 'package:kuranikerim/screens/suras/components/speed_read.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants_color.dart';
@@ -49,7 +50,7 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
   List<double> _heigthScrollSetting = [];
-  double _speedReadArabicVoice = 8.0;
+  double _speedReadArabicVoice = 2.0;
 
   List<bool> _bookmarksFlag = [];
 
@@ -193,21 +194,27 @@ class _ArrowReadState extends State<ArrowRead> {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 130;
-    _rightGreenArrow[index] += _speedReadArabicVoice;
+    _rightGreenArrow[index] +=
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
+            .getSpeedReadArabicVoice();
   }
 
   void setOneFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 65;
-    _rightGreenArrow[index] += _speedReadArabicVoice;
+    _rightGreenArrow[index] +=
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
+            .getSpeedReadArabicVoice();
   }
 
   void setZeroFloorPosition(int index) {
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 0;
-    _rightGreenArrow[index] += _speedReadArabicVoice;
+    _rightGreenArrow[index] +=
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
+            .getSpeedReadArabicVoice();
     //widget.modelVerses[_generalIndex].speedDuration!;
   }
 
@@ -218,8 +225,8 @@ class _ArrowReadState extends State<ArrowRead> {
       return;
     }
 
-    print(
-        'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
+    // print(
+    //     'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
@@ -279,46 +286,243 @@ class _ArrowReadState extends State<ArrowRead> {
         _generalIndex = 0;
       }
     } else {
-      setResetPastPosition(_generalIndex);
-      _generalIndex++;
       if (_generalIndex > widget.modelVerses.length - 1) {
         return;
       } else {
+        double _value = 1.0;
         int _arabicReadLength =
             widget.modelVerses[_generalIndex].arabicRead.toString().length;
-
-        setSpeedReadArabicVoice(_arabicReadLength);
+        if (_generalIndex == 0) {
+          _value =
+              widget.modelVerses[_generalIndex + 1].versesDurationPosition! -
+                  widget.modelVerses[_generalIndex].versesDurationPosition!;
+        } else {
+          _value = widget.modelVerses[_generalIndex].versesDurationPosition! -
+              widget.modelVerses[_generalIndex - 1].versesDurationPosition!;
+        }
+        print(SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
+            .getSpeedReadArabicVoice());
+        setSpeedReadArabicVoice(_arabicReadLength, _value);
       }
+
+      setResetPastPosition(_generalIndex);
+      _generalIndex++;
     }
   }
 
-  void setSpeedReadArabicVoice(int arabicReadLength) {
-    if (arabicReadLength <= 30) {
-      _speedReadArabicVoice = 6.0;
-    } else if (arabicReadLength > 30 && arabicReadLength <= 60) {
-      _speedReadArabicVoice = 8.0;
-    } else if (arabicReadLength > 60 && arabicReadLength <= 90) {
-      _speedReadArabicVoice = 10.0;
-    } else if (arabicReadLength > 90 && arabicReadLength <= 120) {
-      _speedReadArabicVoice = 12.0;
-    } else if (arabicReadLength > 120 && arabicReadLength <= 150) {
-      _speedReadArabicVoice = 14.0;
+  void setSpeedReadArabicVoice(int arabicReadLength, double value) {
+    print('value:::$value');
+    if (value < 0) {
+      return;
     }
+    if (widget.modelSuras.surasId == 2) {
+      if (value > 100 && value <= 500) {
+        _speedReadArabicVoice = 4.0;
+      } else if (value > 500 && value <= 1000) {
+        _speedReadArabicVoice = 5.0;
+      } else if (value > 1000 && value <= 2000) {
+        _speedReadArabicVoice = 5.2;
+      } else if (value > 2000 && value <= 2500) {
+        _speedReadArabicVoice = 5.4;
+      } else if (value > 2500 && value <= 3000) {
+        _speedReadArabicVoice = 5.6;
+      } else if (value > 3000 && value <= 3500) {
+        _speedReadArabicVoice = 5.8;
+      } else if (value > 3500 && value <= 4000) {
+        _speedReadArabicVoice = 6.0;
+      } else if (value > 4000 && value <= 4500) {
+        _speedReadArabicVoice = 6.2;
+      } else if (value > 4500 && value <= 5000) {
+        _speedReadArabicVoice = 6.4;
+      } else if (value > 5500 && value <= 6000) {
+        _speedReadArabicVoice = 6.6;
+      } else if (value > 6000 && value <= 6500) {
+        _speedReadArabicVoice = 6.8;
+      } else if (value > 6500 && value <= 7000) {
+        _speedReadArabicVoice = 7.0;
+      } else if (value > 7000 && value <= 7500) {
+        _speedReadArabicVoice = 7.2;
+      } else if (value > 7500 && value <= 8000) {
+        _speedReadArabicVoice = 7.4;
+      } else if (value > 8000 && value <= 8500) {
+        _speedReadArabicVoice = 7.6;
+      } else if (value > 8500 && value <= 9000) {
+        _speedReadArabicVoice = 7.8;
+      } else if (value > 9000 && value <= 9500) {
+        _speedReadArabicVoice = 8.0;
+      } else if (value > 9500 && value <= 10000) {
+        _speedReadArabicVoice = 8.2;
+      } else if (value > 10000 && value <= 10500) {
+        _speedReadArabicVoice = 8.4;
+      } else if (value > 10500 && value <= 11000) {
+        _speedReadArabicVoice = 8.6;
+      } else if (value > 11000 && value <= 11500) {
+        _speedReadArabicVoice = 8.8;
+      } else if (value > 11500 && value <= 12000) {
+        _speedReadArabicVoice = 9.0;
+      } else if (value > 12000 && value <= 12500) {
+        _speedReadArabicVoice = 9.2;
+      } else if (value > 12500 && value <= 13000) {
+        _speedReadArabicVoice = 9.4;
+      } else if (value > 13000 && value <= 13500) {
+        _speedReadArabicVoice = 9.6;
+      } else if (value > 13500 && value <= 14000) {
+        _speedReadArabicVoice = 9.8;
+      } else if (value > 14000 && value <= 14500) {
+        _speedReadArabicVoice = 10.0;
+      } else if (value > 14500 && value <= 15000) {
+        _speedReadArabicVoice = 10.2;
+      } else if (value > 15000 && value <= 15500) {
+        _speedReadArabicVoice = 10.4;
+      } else if (value > 15500 && value <= 16000) {
+        _speedReadArabicVoice = 10.6;
+      } else if (value > 16000 && value <= 16500) {
+        _speedReadArabicVoice = 10.8;
+      } else if (value > 16500 && value <= 17000) {
+        _speedReadArabicVoice = 11.0;
+      } else if (value > 17000 && value <= 17500) {
+        _speedReadArabicVoice = 11.2;
+      }
+    }
+
+    if (widget.modelSuras.surasId == 1) {
+      if (value > 100 && value <= 500) {
+        _speedReadArabicVoice = 1.0;
+      } else if (value > 500 && value <= 1000) {
+        _speedReadArabicVoice = 2.0;
+      } else if (value > 1000 && value <= 2000) {
+        _speedReadArabicVoice = 2.2;
+      } else if (value > 2000 && value <= 2500) {
+        _speedReadArabicVoice = 2.4;
+      } else if (value > 2500 && value <= 3000) {
+        _speedReadArabicVoice = 2.6;
+      } else if (value > 3000 && value <= 3500) {
+        _speedReadArabicVoice = 2.8;
+      } else if (value > 3500 && value <= 4000) {
+        _speedReadArabicVoice = 3.0;
+      } else if (value > 4000 && value <= 4500) {
+        _speedReadArabicVoice = 3.2;
+      } else if (value > 4500 && value <= 5000) {
+        _speedReadArabicVoice = 3.4;
+      } else if (value > 5500 && value <= 6000) {
+        _speedReadArabicVoice = 3.6;
+      } else if (value > 6000 && value <= 6500) {
+        _speedReadArabicVoice = 3.8;
+      } else if (value > 6500 && value <= 7000) {
+        _speedReadArabicVoice = 4.0;
+      } else if (value > 7000 && value <= 7500) {
+        _speedReadArabicVoice = 4.2;
+      } else if (value > 7500 && value <= 8000) {
+        _speedReadArabicVoice = 4.4;
+      } else if (value > 8000 && value <= 8500) {
+        _speedReadArabicVoice = 4.6;
+      } else if (value > 8500 && value <= 9000) {
+        _speedReadArabicVoice = 4.8;
+      } else if (value > 9000 && value <= 9500) {
+        _speedReadArabicVoice = 5.0;
+      } else if (value > 9500 && value <= 10000) {
+        _speedReadArabicVoice = 5.2;
+      } else if (value > 10000 && value <= 10500) {
+        _speedReadArabicVoice = 5.4;
+      } else if (value > 10500 && value <= 11000) {
+        _speedReadArabicVoice = 5.6;
+      } else if (value > 11000 && value <= 11500) {
+        _speedReadArabicVoice = 5.8;
+      } else if (value > 11500 && value <= 12000) {
+        _speedReadArabicVoice = 6.0;
+      } else if (value > 12000 && value <= 12500) {
+        _speedReadArabicVoice = 6.2;
+      } else if (value > 12500 && value <= 13000) {
+        _speedReadArabicVoice = 6.4;
+      } else if (value > 13000 && value <= 13500) {
+        _speedReadArabicVoice = 6.6;
+      } else if (value > 13500 && value <= 14000) {
+        _speedReadArabicVoice = 6.8;
+      } else if (value > 14000 && value <= 14500) {
+        _speedReadArabicVoice = 7.0;
+      } else if (value > 14500 && value <= 15000) {
+        _speedReadArabicVoice = 7.2;
+      } else if (value > 15000 && value <= 15500) {
+        _speedReadArabicVoice = 7.4;
+      } else if (value > 15500 && value <= 16000) {
+        _speedReadArabicVoice = 7.6;
+      } else if (value > 16000 && value <= 16500) {
+        _speedReadArabicVoice = 7.8;
+      } else if (value > 16500 && value <= 17000) {
+        _speedReadArabicVoice = 8.0;
+      } else if (value > 17000 && value <= 17500) {
+        _speedReadArabicVoice = 8.2;
+      }
+    }
+
+    // if (arabicReadLength <= 30) {
+    //   _speedReadArabicVoice = 6.0;
+    // } else if (arabicReadLength > 30 && arabicReadLength <= 60) {
+    //   _speedReadArabicVoice = 8.0;
+    // } else if (arabicReadLength > 60 && arabicReadLength <= 90) {
+    //   _speedReadArabicVoice = 10.0;
+    // } else if (arabicReadLength > 90 && arabicReadLength <= 120) {
+    //   _speedReadArabicVoice = 12.0;
+    // } else if (arabicReadLength > 120 && arabicReadLength <= 150) {
+    //   _speedReadArabicVoice = 14.0;
+    // }
     print('speed:::$_speedReadArabicVoice');
   }
 
   void _animateToIndex(int index) {
     _scrollController.animateTo(
-      index * _heigthScrollSetting[index],
-      duration: const Duration(milliseconds: 400),
+      _heigthScrollSetting[index],
+      duration: const Duration(milliseconds: 200),
       curve: Curves.fastOutSlowIn,
     );
   }
 
   double getHeightScrollSize(Size size, int index) {
-    _heigthScrollSetting[index] = size.height * 0.75;
+    double returnScrollSize = 0;
+    if (widget.modelVerses[index].arabicRead.toString().length <= 60) {
+      returnScrollSize = size.height * 0.35;
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        _heigthScrollSetting[index] =
+            _heigthScrollSetting[index - 1] + size.height * 0.35;
+      }
+    } else if (widget.modelVerses[index].arabicRead.toString().length > 60 &&
+        widget.modelVerses[index].arabicRead.toString().length <= 120) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.55;
+        }
+      }
+      returnScrollSize = size.height * 0.55;
+    } else if (widget.modelVerses[index].arabicRead.toString().length > 120 &&
+        widget.modelVerses[index].arabicRead.toString().length <= 180) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
+        } else if (widget.modelVerses[index].arabicRead.toString().length >
+                60 &&
+            widget.modelVerses[index].arabicRead.toString().length <= 120) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.55;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
+        }
+      }
+      returnScrollSize = size.height * 0.75;
+    }
 
-    return _heigthScrollSetting[index];
+    return returnScrollSize;
   }
 
   @override
