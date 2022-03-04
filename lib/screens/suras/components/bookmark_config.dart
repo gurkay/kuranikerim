@@ -27,9 +27,9 @@ class BookmarkConfig {
   }
 
   setBookmark(ArrowRead arrowRead) async {
-    if (modelVerses.scrollSize != null) {
-      arrowRead.onChangeEnd!(
-          Duration(milliseconds: modelVerses.secondPosition!.round()));
+    if (modelVerses.versesAmountOfOrder != null) {
+      arrowRead.onChangeEnd!(Duration(
+          milliseconds: modelVerses.versesDurationPosition!.round() + 10));
     }
   }
 

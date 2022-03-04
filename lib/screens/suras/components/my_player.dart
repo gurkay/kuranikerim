@@ -72,10 +72,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   }
 
   Future<void> _init() async {
-    // Inform the operating system of our app's audio attributes etc.
-    // We pick a reasonable default for an app that plays speech.
-
-    // Try to load audio from a source and catch any errors.
     try {
       _modelHafizlar = getModelHafizlar();
       _modelMealPerson = getModelMealPersons();

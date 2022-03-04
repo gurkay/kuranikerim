@@ -131,6 +131,20 @@ class _ArrowReadState extends State<ArrowRead> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.fastOutSlowIn,
       );
+
+      widget.onChangeEnd!(
+        Duration(
+            milliseconds:
+                (widget.modelBookmark!.modelVerses.versesAmountOfOrder == 0)
+                    ? 0
+                    : widget
+                            .modelVerses[widget.modelBookmark!.modelVerses
+                                    .versesAmountOfOrder! -
+                                1]
+                            .versesDurationPosition!
+                            .round() +
+                        10),
+      );
     }
   }
 
@@ -454,10 +468,17 @@ class _ArrowReadState extends State<ArrowRead> {
                     ),
                     ListTile(
                       onTap: () {
-                        widget.onChangeEnd!(Duration(
-                            milliseconds: widget
-                                .modelVerses[index].secondPosition!
-                                .round()));
+                        widget.onChangeEnd!(
+                          Duration(
+                              milliseconds: (widget.modelVerses[index]
+                                          .versesAmountOfOrder ==
+                                      0)
+                                  ? 0
+                                  : widget.modelVerses[index - 1]
+                                          .versesDurationPosition!
+                                          .round() +
+                                      10),
+                        );
 
                         setResetPastPosition(index);
                         animateToIndex(index);

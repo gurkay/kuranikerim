@@ -5,10 +5,9 @@ class ModelVerses {
 
   String? arabicRead;
   String? trRead;
-  int? floor;
-  double? secondPosition;
-  int? scrollSize;
-  double? speedDuration;
+
+  int? versesAmountOfOrder;
+
   double? versesDurationPosition;
 
   ModelVerses({
@@ -17,10 +16,7 @@ class ModelVerses {
     this.surasId,
     this.arabicRead,
     this.trRead,
-    this.floor,
-    this.secondPosition,
-    this.scrollSize,
-    this.speedDuration,
+    this.versesAmountOfOrder,
     this.versesDurationPosition,
   });
 
@@ -44,20 +40,8 @@ class ModelVerses {
     this.trRead = read;
   }
 
-  void setFloor(int id) {
-    this.floor = id;
-  }
-
-  void setSecondPosition(double id) {
-    this.secondPosition = id;
-  }
-
-  void setScrollSize(int id) {
-    this.scrollSize = id;
-  }
-
-  void setSpeedDuration(double id) {
-    this.speedDuration = id;
+  void setVersesAmountOfOrder(int id) {
+    this.versesAmountOfOrder = id;
   }
 
   void setVersesDurationPosition(double id) {
@@ -84,20 +68,8 @@ class ModelVerses {
     return trRead;
   }
 
-  int? getFloor() {
-    return floor;
-  }
-
-  double? getSecondPosition() {
-    return secondPosition;
-  }
-
-  int? getScrollSize() {
-    return scrollSize;
-  }
-
-  double? getSpeedDuration() {
-    return speedDuration;
+  int? getVersesAmountOfOrder() {
+    return versesAmountOfOrder;
   }
 
   double? getVersesDurationPosition() {
@@ -115,11 +87,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ');
   model.setTrRead('Bismi(A)llâhi-rrahmâni-rrahim(i)');
-  model.setFloor(0);
-  model.setSecondPosition(1);
-  model.setScrollSize(0);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(5653);
+  model.setVersesAmountOfOrder(0);
+  model.setVersesDurationPosition(6040);
   list.add(model);
 
   model = ModelVerses();
@@ -128,11 +97,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَم۪ينَۙ');
   model.setTrRead('Elhamdu li(A)llâhi rabbi-l\'âlemin(e)');
-  model.setFloor(0);
-  model.setSecondPosition(10480);
-  model.setScrollSize(1);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(10264);
+  model.setVersesAmountOfOrder(1);
+  model.setVersesDurationPosition(11600);
   list.add(model);
 
   model = ModelVerses();
@@ -141,11 +107,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('اَلرَّحْمٰنِ الرَّح۪يمِۙ');
   model.setTrRead('Errahmâni-rrahîm(i)');
-  model.setFloor(0);
-  model.setSecondPosition(14080);
-  model.setScrollSize(2);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(13880);
+  model.setVersesAmountOfOrder(2);
+  model.setVersesDurationPosition(16280);
   list.add(model);
 
   model = ModelVerses();
@@ -154,11 +117,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('مَالِكِ يَوْمِ الدّ۪ينِۜ');
   model.setTrRead('Mâliki yevmi-ddîn(j)');
-  model.setFloor(0);
-  model.setSecondPosition(17510);
-  model.setScrollSize(3);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(17300);
+  model.setVersesAmountOfOrder(3);
+  model.setVersesDurationPosition(20980);
   list.add(model);
 
   model = ModelVerses();
@@ -167,11 +127,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَع۪ينُۜ');
   model.setTrRead('lyyâke na\'budu ve-iyyâke nesta\'in(u)');
-  model.setFloor(0);
-  model.setSecondPosition(22240);
-  model.setScrollSize(4);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(22140);
+  model.setVersesAmountOfOrder(4);
+  model.setVersesDurationPosition(27550);
   list.add(model);
 
   model = ModelVerses();
@@ -180,11 +137,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(1);
   model.setArabicRead('اِهْدِنَا الصِّرَاطَ الْمُسْتَق۪يمَۙ');
   model.setTrRead('Ihdinâ-ssirâta-Imustakim(e)');
-  model.setFloor(0);
-  model.setSecondPosition(26000);
-  model.setScrollSize(5);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(25846);
+  model.setVersesAmountOfOrder(5);
+  model.setVersesDurationPosition(33120);
   list.add(model);
 
   model = ModelVerses();
@@ -195,11 +149,8 @@ List<ModelVerses> getModelVerses() {
       'صِرَاطَ الَّذ۪ينَ اَنْعَمْتَ عَلَيْهِمْۙ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّٓالّ۪ينَ');
   model.setTrRead(
       'Sirâta-llezine en\'amte \'aleyhim gayri-Imagdûbi \'aleyhim velâ-ddâllin(e)');
-  model.setFloor(1);
-  model.setSecondPosition(37067);
-  model.setScrollSize(6);
-  model.setSpeedDuration(2);
-  model.setVersesDurationPosition(37067);
+  model.setVersesAmountOfOrder(6);
+  model.setVersesDurationPosition(45200);
   list.add(model);
 
   model = ModelVerses();
@@ -208,11 +159,8 @@ List<ModelVerses> getModelVerses() {
   model.setSurasId(2);
   model.setArabicRead('الٓمٓۚ');
   model.setTrRead('Elif-lâm-mîm');
-  model.setFloor(0);
-  model.setSecondPosition(1);
-  model.setScrollSize(0);
-  model.setSpeedDuration(0.3);
-  model.setVersesDurationPosition(12535);
+  model.setVersesAmountOfOrder(0);
+  model.setVersesDurationPosition(6800);
   list.add(model);
 
   model = ModelVerses();
@@ -222,11 +170,8 @@ List<ModelVerses> getModelVerses() {
   model.setArabicRead(
       'ذٰلِكَ الْكِتَابُ لَا رَيْبَۚۛ ف۪يهِۚۛ هُدًى لِلْمُتَّق۪ينَۙ');
   model.setTrRead('Zalike-lkitabu la raybe fihi huden lilmuttekin(e)');
-  model.setFloor(0);
-  model.setSecondPosition(12821);
-  model.setScrollSize(1);
-  model.setSpeedDuration(12);
-  model.setVersesDurationPosition(18970);
+  model.setVersesAmountOfOrder(1);
+  model.setVersesDurationPosition(12500);
   list.add(model);
 
   model = ModelVerses();
@@ -237,10 +182,7 @@ List<ModelVerses> getModelVerses() {
       'اَلَّذ۪ينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُق۪يمُونَ الصَّلٰوةَ وَمِمَّا رَزَقْنَاهُمْ يُنْفِقُونَۙ');
   model.setTrRead(
       'Ellezine yu/minûne bilgaybi veyukîmûne-ssalâte vemimmârazeknâhum yunfikün(e)');
-  model.setFloor(1);
-  model.setSecondPosition(18980);
-  model.setScrollSize(2);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(2);
   model.setVersesDurationPosition(29111);
   list.add(model);
 
@@ -252,10 +194,7 @@ List<ModelVerses> getModelVerses() {
       'وَالَّذ۪ينَ يُؤْمِنُونَ بِمَٓا اُنْزِلَ اِلَيْكَ وَمَٓا اُنْزِلَ مِنْ قَبْلِكَۚ وَبِالْاٰخِرَةِ هُمْ يُوقِنُونَۜ');
   model.setTrRead(
       'Vellezine u/minûne bimâ unzile ileyke vemâ unzile minkablike vebil-âhirati hum yûkinûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(29121);
-  model.setScrollSize(3);
-  model.setSpeedDuration(11.4);
+  model.setVersesAmountOfOrder(3);
   model.setVersesDurationPosition(42069);
   list.add(model);
 
@@ -267,10 +206,7 @@ List<ModelVerses> getModelVerses() {
       'اُو۬لٰٓئِكَ عَلٰى هُدًى مِنْ رَبِّهِمْ وَاُو۬لٰٓئِكَ هُمُ الْمُفْلِحُونَ');
   model.setTrRead(
       'Ulá-ike \'alâ huden min rabbihim S) ve ulâ-ike humu-Imuflihûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(42079);
-  model.setScrollSize(4);
-  model.setSpeedDuration(8.4);
+  model.setVersesAmountOfOrder(4);
   model.setVersesDurationPosition(54830);
   list.add(model);
 
@@ -282,10 +218,7 @@ List<ModelVerses> getModelVerses() {
       'اِنَّ الَّذ۪ينَ كَفَرُوا سَوَٓاءٌ عَلَيْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا يُؤْمِنُونَ');
   model.setTrRead(
       'Inne-llezine keferû sevâun \'aleyhim eenzertehum em lem tunzirhum lâ yu/minûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(54840);
-  model.setScrollSize(5);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(5);
   model.setVersesDurationPosition(65458);
   list.add(model);
 
@@ -297,10 +230,7 @@ List<ModelVerses> getModelVerses() {
       'خَتَمَ اللّٰهُ عَلٰى قُلُوبِهِمْ وَعَلٰى سَمْعِهِمْۜ وَعَلٰٓى اَبْصَارِهِمْ غِشَاوَةٌۘ وَلَهُمْ عَذَابٌ عَظ۪يمٌ۟');
   model.setTrRead(
       'Hatema (A)llahu \'alà kulâbihim ve\'alà sem\'ihim (S) ve\'ala ebsârihim gisâve(tun) S) velehum \'azabun \'azim(un)');
-  model.setFloor(1);
-  model.setSecondPosition(65468);
-  model.setScrollSize(6);
-  model.setSpeedDuration(13);
+  model.setVersesAmountOfOrder(6);
   model.setVersesDurationPosition(76158);
   list.add(model);
 
@@ -312,10 +242,7 @@ List<ModelVerses> getModelVerses() {
       'وَمِنَ النَّاسِ مَنْ يَقُولُ اٰمَنَّا بِاللّٰهِ وَبِالْيَوْمِ الْاٰخِرِ وَمَا هُمْ بِمُؤْمِن۪ينَۢ');
   model.setTrRead(
       'Vemine-nnâsi men yekûlu âmennâ bi (A)llâhi ve bilyevmi-l-âhiri vemâ hum bimu/minin(e)');
-  model.setFloor(1);
-  model.setSecondPosition(76168);
-  model.setScrollSize(7);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(7);
   model.setVersesDurationPosition(85898);
   list.add(model);
 
@@ -327,10 +254,7 @@ List<ModelVerses> getModelVerses() {
       'يُخَادِعُونَ اللّٰهَ وَالَّذ۪ينَ اٰمَنُواۚ وَمَا يَخْدَعُونَ اِلَّٓا اَنْفُسَهُمْ وَمَا يَشْعُرُونَۜ');
   model.setTrRead(
       'Yuhâdi \'ûna(A) llâhe vellezine âmenû vemâ yahde\'ûne illâ enfusehum vemâ yes\'urûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(85900);
-  model.setScrollSize(8);
-  model.setSpeedDuration(10);
+  model.setVersesAmountOfOrder(8);
   model.setVersesDurationPosition(99957);
   list.add(model);
 
@@ -342,10 +266,7 @@ List<ModelVerses> getModelVerses() {
       'ف۪ي قُلُوبِهِمْ مَرَضٌۙ فَزَادَهُمُ اللّٰهُ مَرَضًاۚ وَلَهُمْ عَذَابٌ اَل۪يمٌۙ بِمَا كَانُوا يَكْذِبُونَ');
   model.setTrRead(
       'Fi kulübihim meradun fezâdehumu (A)llâhu merada(n) (S) velehum \'azâbun elîmun bimâ kânû yekzibûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(99967);
-  model.setScrollSize(9);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(9);
   model.setVersesDurationPosition(113550);
   list.add(model);
 
@@ -357,10 +278,7 @@ List<ModelVerses> getModelVerses() {
       'وَاِذَا ق۪يلَ لَهُمْ لَا تُفْسِدُوا فِي الْاَرْضِۙ قَالُٓوا اِنَّمَا نَحْنُ مُصْلِحُونَ');
   model.setTrRead(
       'Ve-izâ kile lehum lâ tufsidû fi-l-ardi kâlû innemâ nahnu muslihûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(113560);
-  model.setScrollSize(10);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(10);
   model.setVersesDurationPosition(119965);
   list.add(model);
 
@@ -371,10 +289,7 @@ List<ModelVerses> getModelVerses() {
   model.setArabicRead(
       'اَلَٓا اِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلٰكِنْ لَا يَشْعُرُونَ');
   model.setTrRead('El innehum humu-Imufsidûne velâkin lâ yes\'urûn(e)');
-  model.setFloor(0);
-  model.setSecondPosition(119975);
-  model.setScrollSize(11);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(11);
   model.setVersesDurationPosition(128731);
   list.add(model);
 
@@ -386,10 +301,7 @@ List<ModelVerses> getModelVerses() {
       'وَاِذَا ق۪يلَ لَهُمْ اٰمِنُوا كَمَٓا اٰمَنَ النَّاسُ قَالُٓوا اَنُؤْمِنُ كَمَٓا اٰمَنَ السُّفَهَٓاءُۜ اَلَٓا اِنَّهُمْ هُمُ السُّفَهَٓاءُ وَلٰكِنْ لَا يَعْلَمُونَ');
   model.setTrRead(
       'Ve-izâ kile lehum âminû kemâ âmene-nnâsu kâlû enu/minu kemá âmene-ssufeha(u) (k) elà innehum humu-ssufehâu velâkin là ya\'lemûn(e)');
-  model.setFloor(2);
-  model.setSecondPosition(128741);
-  model.setScrollSize(12);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(12);
   model.setVersesDurationPosition(146871);
   list.add(model);
 
@@ -401,10 +313,7 @@ List<ModelVerses> getModelVerses() {
       'وَاِذَا لَقُوا الَّذ۪ينَ اٰمَنُوا قَالُٓوا اٰمَنَّاۚ وَاِذَا خَلَوْا اِلٰى شَيَاط۪ينِهِمْۙ قَالُٓوا اِنَّا مَعَكُمْۙ اِنَّمَا نَحْنُ مُسْتَهْزِؤُ۫نَ');
   model.setTrRead(
       'Ve-izâ leku-llezine âmenû kâlû âmennâ ve-izâ halev ilà seyâtinihim kâlû innâ me\'akum innemâ nahnu mustehzi-ûn(e)');
-  model.setFloor(1);
-  model.setSecondPosition(146881);
-  model.setScrollSize(13);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(13);
   model.setVersesDurationPosition(162355);
   list.add(model);
 
@@ -416,10 +325,7 @@ List<ModelVerses> getModelVerses() {
       'اَللّٰهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ ف۪ي طُغْيَانِهِمْ يَعْمَهُونَ');
   model.setTrRead(
       '(A)llâhu yestehzi-u bihim ve yemudduhum fì tugyânihim ya\'mehûn(e)');
-  model.setFloor(0);
-  model.setSecondPosition(162355);
-  model.setScrollSize(14);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(14);
   model.setVersesDurationPosition(186000);
   list.add(model);
 
@@ -431,10 +337,7 @@ List<ModelVerses> getModelVerses() {
       'اُو۬لٰٓئِكَ الَّذ۪ينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدٰىۖ فَمَا رَبِحَتْ تِجَارَتُهُمْ وَمَا كَانُوا مُهْتَد۪ينَ');
   model.setTrRead(
       'Ulâ-ike-llezine-steravu-ddalâletebilhudâfemârabihat ticaratuhum vema kanu muhtedin(e)');
-  model.setFloor(1);
-  model.setSecondPosition(165946);
-  model.setScrollSize(15);
-  model.setSpeedDuration(12);
+  model.setVersesAmountOfOrder(15);
   model.setVersesDurationPosition(190000);
   list.add(model);
 
