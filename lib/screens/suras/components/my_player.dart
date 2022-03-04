@@ -102,7 +102,9 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       _isGreenUpArrow = List.generate(_modelVerses.length, (index) => false);
       _selected = List.generate(_modelVerses.length, (index) => false);
 
-      await _player.setAsset('${_modelSound.getSoundPath()}');
+      // await _player.setAsset('${_modelSound.getSoundPath()}');
+      await _player.setAudioSource(
+          AudioSource.uri(Uri.parse('${_modelSound.getSoundPath()}')));
     } catch (e) {
       print("Error loading audio source: $e");
     }

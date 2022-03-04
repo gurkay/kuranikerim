@@ -162,7 +162,7 @@ class SpeedRead {
         _speedReadArabicVoice = 8.2;
       }
     }
-
+    print('speed_read:::getSpeedReadArabicVoice:::$_speedReadArabicVoice');
     return _speedReadArabicVoice;
   }
 }

@@ -50,7 +50,6 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
   List<double> _heigthScrollSetting = [];
-  double _speedReadArabicVoice = 2.0;
 
   List<bool> _bookmarksFlag = [];
 
@@ -63,6 +62,7 @@ class _ArrowReadState extends State<ArrowRead> {
   int _generalIncreaseFourFloor = 4;
 
   List<String> _getBookmarksList = [];
+  List<String> _getBookmarksScrollSizeList = [];
 
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
@@ -95,15 +95,15 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   setBookmark() async {
-    if (widget.modelBookmark!.modelVerses.scrollSize != null) {
-      widget.onChangeEnd!(Duration(
-          milliseconds:
-              widget.modelBookmark!.modelVerses.secondPosition!.round()));
+    final prefs = await SharedPreferences.getInstance();
 
-      //_scrollJumpTo(widget.modelBookmark!.modelVerses.scrollSize!);
-      //_heigthScrollSetting = size.height * 0.75;
-      print(widget.modelBookmark!.modelVerses.versesId!);
-      _animateToIndex(widget.modelBookmark!.modelVerses.scrollSize!);
+    if (prefs.getStringList('itemsBookmarkScrollSize') != null) {
+      widget.onChangeEnd!(Duration(
+          milliseconds: widget
+              .modelBookmark!.modelVerses.versesDurationPosition!
+              .round()));
+      _heigthScrollSetting =
+          (prefs.getStringList('itemsBookmarkScrollSize'))!.cast<double>();
     }
   }
 
@@ -123,8 +123,15 @@ class _ArrowReadState extends State<ArrowRead> {
         }
       }
     }
-
-    setBookmark();
+    if (widget.modelBookmark!.onTapClickValue == true) {
+      print('${widget.modelBookmark!.modelVerses.versesId}');
+      _scrollController.animateTo(
+        double.parse(
+            prefs.getString('${widget.modelBookmark!.modelVerses.versesId}')!),
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
   }
 
   findBookmarks(ModelVerses modelVerses, int index) {
@@ -140,17 +147,34 @@ class _ArrowReadState extends State<ArrowRead> {
     if (_bookmarksFlag[index]) {
       setState(() {
         _getBookmarksList.remove(modelVerses.versesId.toString());
+        _getBookmarksScrollSizeList.remove(_heigthScrollSetting[index]);
         _bookmarksFlag[index] = !_bookmarksFlag[index];
       });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('${modelVerses.versesId}');
     } else {
       setState(() {
         _getBookmarksList.add(modelVerses.versesId.toString());
+
         _bookmarksFlag[index] = !_bookmarksFlag[index];
       });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          '${modelVerses.versesId}', '${_heigthScrollSetting[index]}');
     }
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('itemsBookmarkVerses', _getBookmarksList);
+  }
+
+  _addBookmarkScrollSize(double value) async {
+    _getBookmarksScrollSizeList.add(value.toString());
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(
+        'itemsBookmarkScrollSize', _getBookmarksScrollSizeList);
+    print('itemsBookmarkScrollSize');
+    print(prefs.getStringList('itemsBookmarkScrollSize'));
   }
 
   _scrollListener() {
@@ -215,7 +239,6 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] +=
         SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
             .getSpeedReadArabicVoice();
-    //widget.modelVerses[_generalIndex].speedDuration!;
   }
 
   void getArrowUp() {
@@ -281,195 +304,20 @@ class _ArrowReadState extends State<ArrowRead> {
       } else if (_generalIndex < widget.modelVerses.length) {
         //_scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
 
-        _animateToIndex(_generalIndex);
+        animateToIndex(_generalIndex);
       } else {
         _generalIndex = 0;
       }
     } else {
       if (_generalIndex > widget.modelVerses.length - 1) {
         return;
-      } else {
-        double _value = 1.0;
-        int _arabicReadLength =
-            widget.modelVerses[_generalIndex].arabicRead.toString().length;
-        if (_generalIndex == 0) {
-          _value =
-              widget.modelVerses[_generalIndex + 1].versesDurationPosition! -
-                  widget.modelVerses[_generalIndex].versesDurationPosition!;
-        } else {
-          _value = widget.modelVerses[_generalIndex].versesDurationPosition! -
-              widget.modelVerses[_generalIndex - 1].versesDurationPosition!;
-        }
-        print(SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
-            .getSpeedReadArabicVoice());
-        setSpeedReadArabicVoice(_arabicReadLength, _value);
       }
-
       setResetPastPosition(_generalIndex);
       _generalIndex++;
     }
   }
 
-  void setSpeedReadArabicVoice(int arabicReadLength, double value) {
-    print('value:::$value');
-    if (value < 0) {
-      return;
-    }
-    if (widget.modelSuras.surasId == 2) {
-      if (value > 100 && value <= 500) {
-        _speedReadArabicVoice = 4.0;
-      } else if (value > 500 && value <= 1000) {
-        _speedReadArabicVoice = 5.0;
-      } else if (value > 1000 && value <= 2000) {
-        _speedReadArabicVoice = 5.2;
-      } else if (value > 2000 && value <= 2500) {
-        _speedReadArabicVoice = 5.4;
-      } else if (value > 2500 && value <= 3000) {
-        _speedReadArabicVoice = 5.6;
-      } else if (value > 3000 && value <= 3500) {
-        _speedReadArabicVoice = 5.8;
-      } else if (value > 3500 && value <= 4000) {
-        _speedReadArabicVoice = 6.0;
-      } else if (value > 4000 && value <= 4500) {
-        _speedReadArabicVoice = 6.2;
-      } else if (value > 4500 && value <= 5000) {
-        _speedReadArabicVoice = 6.4;
-      } else if (value > 5500 && value <= 6000) {
-        _speedReadArabicVoice = 6.6;
-      } else if (value > 6000 && value <= 6500) {
-        _speedReadArabicVoice = 6.8;
-      } else if (value > 6500 && value <= 7000) {
-        _speedReadArabicVoice = 7.0;
-      } else if (value > 7000 && value <= 7500) {
-        _speedReadArabicVoice = 7.2;
-      } else if (value > 7500 && value <= 8000) {
-        _speedReadArabicVoice = 7.4;
-      } else if (value > 8000 && value <= 8500) {
-        _speedReadArabicVoice = 7.6;
-      } else if (value > 8500 && value <= 9000) {
-        _speedReadArabicVoice = 7.8;
-      } else if (value > 9000 && value <= 9500) {
-        _speedReadArabicVoice = 8.0;
-      } else if (value > 9500 && value <= 10000) {
-        _speedReadArabicVoice = 8.2;
-      } else if (value > 10000 && value <= 10500) {
-        _speedReadArabicVoice = 8.4;
-      } else if (value > 10500 && value <= 11000) {
-        _speedReadArabicVoice = 8.6;
-      } else if (value > 11000 && value <= 11500) {
-        _speedReadArabicVoice = 8.8;
-      } else if (value > 11500 && value <= 12000) {
-        _speedReadArabicVoice = 9.0;
-      } else if (value > 12000 && value <= 12500) {
-        _speedReadArabicVoice = 9.2;
-      } else if (value > 12500 && value <= 13000) {
-        _speedReadArabicVoice = 9.4;
-      } else if (value > 13000 && value <= 13500) {
-        _speedReadArabicVoice = 9.6;
-      } else if (value > 13500 && value <= 14000) {
-        _speedReadArabicVoice = 9.8;
-      } else if (value > 14000 && value <= 14500) {
-        _speedReadArabicVoice = 10.0;
-      } else if (value > 14500 && value <= 15000) {
-        _speedReadArabicVoice = 10.2;
-      } else if (value > 15000 && value <= 15500) {
-        _speedReadArabicVoice = 10.4;
-      } else if (value > 15500 && value <= 16000) {
-        _speedReadArabicVoice = 10.6;
-      } else if (value > 16000 && value <= 16500) {
-        _speedReadArabicVoice = 10.8;
-      } else if (value > 16500 && value <= 17000) {
-        _speedReadArabicVoice = 11.0;
-      } else if (value > 17000 && value <= 17500) {
-        _speedReadArabicVoice = 11.2;
-      }
-    }
-
-    if (widget.modelSuras.surasId == 1) {
-      if (value > 100 && value <= 500) {
-        _speedReadArabicVoice = 1.0;
-      } else if (value > 500 && value <= 1000) {
-        _speedReadArabicVoice = 2.0;
-      } else if (value > 1000 && value <= 2000) {
-        _speedReadArabicVoice = 2.2;
-      } else if (value > 2000 && value <= 2500) {
-        _speedReadArabicVoice = 2.4;
-      } else if (value > 2500 && value <= 3000) {
-        _speedReadArabicVoice = 2.6;
-      } else if (value > 3000 && value <= 3500) {
-        _speedReadArabicVoice = 2.8;
-      } else if (value > 3500 && value <= 4000) {
-        _speedReadArabicVoice = 3.0;
-      } else if (value > 4000 && value <= 4500) {
-        _speedReadArabicVoice = 3.2;
-      } else if (value > 4500 && value <= 5000) {
-        _speedReadArabicVoice = 3.4;
-      } else if (value > 5500 && value <= 6000) {
-        _speedReadArabicVoice = 3.6;
-      } else if (value > 6000 && value <= 6500) {
-        _speedReadArabicVoice = 3.8;
-      } else if (value > 6500 && value <= 7000) {
-        _speedReadArabicVoice = 4.0;
-      } else if (value > 7000 && value <= 7500) {
-        _speedReadArabicVoice = 4.2;
-      } else if (value > 7500 && value <= 8000) {
-        _speedReadArabicVoice = 4.4;
-      } else if (value > 8000 && value <= 8500) {
-        _speedReadArabicVoice = 4.6;
-      } else if (value > 8500 && value <= 9000) {
-        _speedReadArabicVoice = 4.8;
-      } else if (value > 9000 && value <= 9500) {
-        _speedReadArabicVoice = 5.0;
-      } else if (value > 9500 && value <= 10000) {
-        _speedReadArabicVoice = 5.2;
-      } else if (value > 10000 && value <= 10500) {
-        _speedReadArabicVoice = 5.4;
-      } else if (value > 10500 && value <= 11000) {
-        _speedReadArabicVoice = 5.6;
-      } else if (value > 11000 && value <= 11500) {
-        _speedReadArabicVoice = 5.8;
-      } else if (value > 11500 && value <= 12000) {
-        _speedReadArabicVoice = 6.0;
-      } else if (value > 12000 && value <= 12500) {
-        _speedReadArabicVoice = 6.2;
-      } else if (value > 12500 && value <= 13000) {
-        _speedReadArabicVoice = 6.4;
-      } else if (value > 13000 && value <= 13500) {
-        _speedReadArabicVoice = 6.6;
-      } else if (value > 13500 && value <= 14000) {
-        _speedReadArabicVoice = 6.8;
-      } else if (value > 14000 && value <= 14500) {
-        _speedReadArabicVoice = 7.0;
-      } else if (value > 14500 && value <= 15000) {
-        _speedReadArabicVoice = 7.2;
-      } else if (value > 15000 && value <= 15500) {
-        _speedReadArabicVoice = 7.4;
-      } else if (value > 15500 && value <= 16000) {
-        _speedReadArabicVoice = 7.6;
-      } else if (value > 16000 && value <= 16500) {
-        _speedReadArabicVoice = 7.8;
-      } else if (value > 16500 && value <= 17000) {
-        _speedReadArabicVoice = 8.0;
-      } else if (value > 17000 && value <= 17500) {
-        _speedReadArabicVoice = 8.2;
-      }
-    }
-
-    // if (arabicReadLength <= 30) {
-    //   _speedReadArabicVoice = 6.0;
-    // } else if (arabicReadLength > 30 && arabicReadLength <= 60) {
-    //   _speedReadArabicVoice = 8.0;
-    // } else if (arabicReadLength > 60 && arabicReadLength <= 90) {
-    //   _speedReadArabicVoice = 10.0;
-    // } else if (arabicReadLength > 90 && arabicReadLength <= 120) {
-    //   _speedReadArabicVoice = 12.0;
-    // } else if (arabicReadLength > 120 && arabicReadLength <= 150) {
-    //   _speedReadArabicVoice = 14.0;
-    // }
-    print('speed:::$_speedReadArabicVoice');
-  }
-
-  void _animateToIndex(int index) {
+  void animateToIndex(int index) {
     _scrollController.animateTo(
       _heigthScrollSetting[index],
       duration: const Duration(milliseconds: 200),
@@ -521,6 +369,8 @@ class _ArrowReadState extends State<ArrowRead> {
       }
       returnScrollSize = size.height * 0.75;
     }
+
+    //_addBookmarkScrollSize(_heigthScrollSetting[index]);
 
     return returnScrollSize;
   }
@@ -631,7 +481,7 @@ class _ArrowReadState extends State<ArrowRead> {
                                 .round()));
 
                         setResetPastPosition(index);
-                        _animateToIndex(index);
+                        animateToIndex(index);
                       },
                       tileColor: _selected[index]
                           ? const Color.fromARGB(255, 175, 219, 240)

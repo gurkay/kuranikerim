@@ -52,7 +52,8 @@ List<ModelSound> getModelSoundList() {
   model.setSoundId(1);
   model.setHafizId(1);
   model.setSurasId(1);
-  model.setSoundPath('assets/sounds/1.mp3');
+  model.setSoundPath(
+      'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/1.mp3');
 
   list.add(model);
 
@@ -61,7 +62,8 @@ List<ModelSound> getModelSoundList() {
   model.setSoundId(2);
   model.setHafizId(1);
   model.setSurasId(2);
-  model.setSoundPath('assets/sounds/2.mp3');
+  model.setSoundPath(
+      'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/2.mp3');
 
   list.add(model);
 
@@ -70,7 +72,8 @@ List<ModelSound> getModelSoundList() {
   model.setSoundId(3);
   model.setHafizId(1);
   model.setSurasId(3);
-  model.setSoundPath('assets/sounds/3.mp3');
+  model.setSoundPath(
+      'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/3.mp3');
 
   list.add(model);
 
@@ -79,7 +82,8 @@ List<ModelSound> getModelSoundList() {
   model.setSoundId(4);
   model.setHafizId(1);
   model.setSurasId(4);
-  model.setSoundPath('assets/sounds/4.mp3');
+  model.setSoundPath(
+      'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/4.mp3');
 
   list.add(model);
 

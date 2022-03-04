@@ -101,6 +101,7 @@ class _ScreenBookmarkState extends State<ScreenBookmark> {
                       arguments: ModelBookmark(
                         modelVerses: _modelVerses![index],
                         modelSuras: _modelSuras![index],
+                        onTapClickValue: true,
                       ),
                     );
                   },
