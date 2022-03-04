@@ -134,15 +134,6 @@ class _ArrowReadState extends State<ArrowRead> {
     }
   }
 
-  findBookmarks(ModelVerses modelVerses, int index) {
-    String? result =
-        _getBookmarksList.contains(modelVerses.versesId).toString();
-
-    setState(() {
-      _bookmarksFlag[index] = true;
-    });
-  }
-
   addBookmark(ModelVerses modelVerses, int index) async {
     if (_bookmarksFlag[index]) {
       setState(() {
@@ -165,16 +156,6 @@ class _ArrowReadState extends State<ArrowRead> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('itemsBookmarkVerses', _getBookmarksList);
-  }
-
-  _addBookmarkScrollSize(double value) async {
-    _getBookmarksScrollSizeList.add(value.toString());
-
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(
-        'itemsBookmarkScrollSize', _getBookmarksScrollSizeList);
-    print('itemsBookmarkScrollSize');
-    print(prefs.getStringList('itemsBookmarkScrollSize'));
   }
 
   _scrollListener() {
@@ -248,8 +229,8 @@ class _ArrowReadState extends State<ArrowRead> {
       return;
     }
 
-    // print(
-    //     'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
+    print(
+        'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
@@ -369,8 +350,6 @@ class _ArrowReadState extends State<ArrowRead> {
       }
       returnScrollSize = size.height * 0.75;
     }
-
-    //_addBookmarkScrollSize(_heigthScrollSetting[index]);
 
     return returnScrollSize;
   }
