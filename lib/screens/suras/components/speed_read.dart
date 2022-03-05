@@ -63,7 +63,7 @@ class SpeedRead {
       if (modelVerses[index].versesId == 8) {
         _speedReadArabicVoice = 0.5;
       } else {
-        _speedReadArabicVoice = 7.85;
+        _speedReadArabicVoice = 7.00;
       }
     } else if (value > 9500 && value <= 10000) {
       _speedReadArabicVoice = 3.7;
@@ -90,13 +90,59 @@ class SpeedRead {
     } else if (value > 15000 && value <= 15500) {
       _speedReadArabicVoice = 4.8;
     } else if (value > 15500 && value <= 16000) {
-      _speedReadArabicVoice = 10.95;
+      _speedReadArabicVoice = 8.95;
     } else if (value > 16000 && value <= 16500) {
       _speedReadArabicVoice = 5.0;
     } else if (value > 16500 && value <= 17000) {
-      _speedReadArabicVoice = 5.1;
+      _speedReadArabicVoice = 7.1;
     } else if (value > 17000 && value <= 17500) {
-      _speedReadArabicVoice = 5.2;
+      _speedReadArabicVoice = 7.2;
+    } else if (value > 17500 && value <= 18000) {
+      _speedReadArabicVoice = 7.6;
+    } else if (value > 18000 && value <= 18500) {
+      _speedReadArabicVoice = 7.7;
+    } else if (value > 18500 && value <= 19000) {
+      _speedReadArabicVoice = 8.95;
+    } else if (value > 19000 && value <= 19500) {
+      _speedReadArabicVoice = 7.0;
+    } else if (value > 19500 && value <= 20000) {
+      _speedReadArabicVoice = 7.1;
+    } else if (value > 20000 && value <= 20500) {
+      _speedReadArabicVoice = 7.2;
+    } else if (value > 20500 && value <= 21000) {
+      _speedReadArabicVoice = 7.6;
+    } else if (value > 21000 && value <= 21500) {
+      _speedReadArabicVoice = 7.7;
+    } else if (value > 21500 && value <= 22000) {
+      _speedReadArabicVoice = 7.8;
+    } else if (value > 22000 && value <= 22500) {
+      _speedReadArabicVoice = 8.95;
+    } else if (value > 22500 && value <= 23000) {
+      _speedReadArabicVoice = 7.0;
+    } else if (value > 23000 && value <= 23500) {
+      _speedReadArabicVoice = 7.1;
+    } else if (value > 23500 && value <= 24000) {
+      _speedReadArabicVoice = 7.2;
+    } else if (value > 24000 && value <= 25500) {
+      _speedReadArabicVoice = 7.0;
+    } else if (value > 25500 && value <= 30000) {
+      _speedReadArabicVoice = 7.1;
+    } else if (value > 30000 && value <= 30500) {
+      _speedReadArabicVoice = 7.2;
+    } else if (value > 30500 && value <= 40000) {
+      _speedReadArabicVoice = 7.6;
+    } else if (value > 40000 && value <= 40500) {
+      _speedReadArabicVoice = 7.7;
+    } else if (value > 40500 && value <= 41000) {
+      _speedReadArabicVoice = 7.8;
+    } else if (value > 41000 && value <= 41500) {
+      _speedReadArabicVoice = 7.95;
+    } else if (value > 41500 && value <= 42000) {
+      _speedReadArabicVoice = 7.0;
+    } else if (value > 42000 && value <= 42500) {
+      _speedReadArabicVoice = 7.1;
+    } else if (value > 42500 && value <= 43000) {
+      _speedReadArabicVoice = 7.2;
     }
     print('speed_read:::value:::$value');
     print('speed_read:::getSpeedReadArabicVoice:::$_speedReadArabicVoice');

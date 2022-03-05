@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:kuranikerim/models/model_bookmark.dart';
 import 'package:kuranikerim/models/model_durations.dart';
 import 'package:kuranikerim/models/model_meal.dart';
@@ -26,6 +27,7 @@ class ArrowRead extends StatefulWidget {
   final ModelSuras modelSuras;
 
   final ModelBookmark? modelBookmark;
+  final AudioPlayer? onPlayer;
 
   ArrowRead({
     required this.duration,
@@ -39,6 +41,7 @@ class ArrowRead extends StatefulWidget {
     required this.modelMealPerson,
     required this.modelSuras,
     this.modelBookmark,
+    this.onPlayer,
   });
 
   @override
@@ -49,6 +52,7 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
+  bool _isPauseVoice = false;
   List<double> _heigthScrollSetting = [];
 
   List<bool> _bookmarksFlag = [];
@@ -145,6 +149,8 @@ class _ArrowReadState extends State<ArrowRead> {
                             .round() +
                         10),
       );
+
+      widget.onPlayer!.play();
     }
   }
 
@@ -210,33 +216,34 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   void setTwoFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 130;
-    _rightGreenArrow[index] +=
-        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
-            .getSpeedReadArabicVoice();
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
   void setOneFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 65;
-    _rightGreenArrow[index] +=
-        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
-            .getSpeedReadArabicVoice();
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
   void setZeroFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 0;
-    _rightGreenArrow[index] +=
-        SpeedRead(widget.modelVerses, widget.modelSuras, index)
-            .getSpeedReadArabicVoice();
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
   void getArrowUp() {
+    _isPauseVoice = false;
     Size size = MediaQuery.of(context).size;
 
     if (_generalIndex > widget.modelVerses.length - 1) {
@@ -248,12 +255,17 @@ class _ArrowReadState extends State<ArrowRead> {
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
-      if (widget.modelVerses[_generalIndex].arabicRead.toString().length > 60) {
-        _arabicTextFloor = 1;
+      if (widget.modelVerses[_generalIndex].arabicRead.toString().length <=
+          60) {
+        _arabicTextFloor = 0;
       } else if (widget.modelVerses[_generalIndex].arabicRead
-              .toString()
-              .length >
-          120) {
+                  .toString()
+                  .length >
+              60 &&
+          widget.modelVerses[_generalIndex].arabicRead.toString().length <=
+              120) {
+        _arabicTextFloor = 1;
+      } else {
         _arabicTextFloor = 2;
       }
       switch (_arabicTextFloor) {
@@ -297,8 +309,6 @@ class _ArrowReadState extends State<ArrowRead> {
       if (_generalIndex == widget.modelVerses.length - 1) {
         _scrollJumpTo(_scrollController.position.maxScrollExtent);
       } else if (_generalIndex < widget.modelVerses.length) {
-        //_scrollJumpTo(widget.modelVerses[_generalIndex].scrollSize!);
-
         animateToIndex(_generalIndex);
       } else {
         _generalIndex = 0;
@@ -323,13 +333,24 @@ class _ArrowReadState extends State<ArrowRead> {
   double getHeightScrollSize(Size size, int index) {
     double returnScrollSize = 0;
     if (widget.modelVerses[index].arabicRead.toString().length <= 60) {
-      returnScrollSize = size.height * 0.35;
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        _heigthScrollSetting[index] =
-            _heigthScrollSetting[index - 1] + size.height * 0.35;
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                60 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.55;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
+        }
       }
+
+      returnScrollSize = size.height * 0.35;
     } else if (widget.modelVerses[index].arabicRead.toString().length > 60 &&
         widget.modelVerses[index].arabicRead.toString().length <= 120) {
       if (index == 0) {
@@ -338,9 +359,14 @@ class _ArrowReadState extends State<ArrowRead> {
         if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else {
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                60 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         }
       }
       returnScrollSize = size.height * 0.55;
@@ -352,9 +378,9 @@ class _ArrowReadState extends State<ArrowRead> {
         if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else if (widget.modelVerses[index].arabicRead.toString().length >
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
                 60 &&
-            widget.modelVerses[index].arabicRead.toString().length <= 120) {
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
         } else {
@@ -371,8 +397,10 @@ class _ArrowReadState extends State<ArrowRead> {
   @override
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
-      if (widget.position.inMilliseconds.toDouble() != 0) {
-        getArrowUp();
+      if (widget.onPlayer!.playerState.playing) {
+        if (widget.position.inMilliseconds.toDouble() != 0) {
+          getArrowUp();
+        }
       }
     }
 
@@ -468,6 +496,10 @@ class _ArrowReadState extends State<ArrowRead> {
                     ),
                     ListTile(
                       onTap: () {
+                        setState(() {
+                          _isPauseVoice = true;
+                        });
+
                         widget.onChangeEnd!(
                           Duration(
                               milliseconds: (widget.modelVerses[index]
@@ -479,7 +511,7 @@ class _ArrowReadState extends State<ArrowRead> {
                                           .round() +
                                       10),
                         );
-
+                        widget.onPlayer!.play();
                         setResetPastPosition(index);
                         animateToIndex(index);
                       },

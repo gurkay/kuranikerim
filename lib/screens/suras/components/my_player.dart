@@ -159,6 +159,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                 modelMealPerson: _modelMealPerson,
                 modelSuras: widget.modelBookmark!.modelSuras,
                 modelBookmark: widget.modelBookmark!,
+                onPlayer: _player,
               );
             },
           ),
