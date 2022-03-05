@@ -13,9 +13,9 @@ class SpeedRead {
 
   double getSpeedReadArabicVoice() {
     double value = 0;
-    double _speedReadArabicVoice = 2.0;
+    double _speedReadArabicVoice = 0.1;
 
-    if (index == 0) {
+    if (modelVerses[index].versesAmountOfOrder == 0) {
       value = modelVerses[index + 1].versesDurationPosition! -
           modelVerses[index].versesDurationPosition!;
     } else {
@@ -41,8 +41,12 @@ class SpeedRead {
       _speedReadArabicVoice = 2.7;
     } else if (value > 4500 && value <= 5000) {
       _speedReadArabicVoice = 2.8;
-    } else if (value > 5500 && value <= 6000) {
+    } else if (value > 5000 && value <= 5250) {
+      _speedReadArabicVoice = 2.85;
+    } else if (value > 5250 && value <= 5500) {
       _speedReadArabicVoice = 2.9;
+    } else if (value > 5500 && value <= 6000) {
+      _speedReadArabicVoice = 2.95;
     } else if (value > 6000 && value <= 6500) {
       _speedReadArabicVoice = 3.0;
     } else if (value > 6500 && value <= 7000) {
@@ -56,17 +60,21 @@ class SpeedRead {
     } else if (value > 8500 && value <= 9000) {
       _speedReadArabicVoice = 3.5;
     } else if (value > 9000 && value <= 9500) {
-      _speedReadArabicVoice = 3.6;
+      if (modelVerses[index].versesId == 8) {
+        _speedReadArabicVoice = 0.5;
+      } else {
+        _speedReadArabicVoice = 7.85;
+      }
     } else if (value > 9500 && value <= 10000) {
       _speedReadArabicVoice = 3.7;
     } else if (value > 10000 && value <= 10500) {
       _speedReadArabicVoice = 3.8;
     } else if (value > 10500 && value <= 11000) {
-      _speedReadArabicVoice = 3.9;
+      _speedReadArabicVoice = 7.9;
     } else if (value > 11000 && value <= 11500) {
       _speedReadArabicVoice = 4.0;
     } else if (value > 11500 && value <= 12000) {
-      _speedReadArabicVoice = 4.1;
+      _speedReadArabicVoice = 10.15;
     } else if (value > 12000 && value <= 12500) {
       _speedReadArabicVoice = 4.2;
     } else if (value > 12500 && value <= 13000) {
@@ -82,7 +90,7 @@ class SpeedRead {
     } else if (value > 15000 && value <= 15500) {
       _speedReadArabicVoice = 4.8;
     } else if (value > 15500 && value <= 16000) {
-      _speedReadArabicVoice = 4.9;
+      _speedReadArabicVoice = 10.95;
     } else if (value > 16000 && value <= 16500) {
       _speedReadArabicVoice = 5.0;
     } else if (value > 16500 && value <= 17000) {
@@ -90,6 +98,8 @@ class SpeedRead {
     } else if (value > 17000 && value <= 17500) {
       _speedReadArabicVoice = 5.2;
     }
+    print('speed_read:::value:::$value');
+    print('speed_read:::getSpeedReadArabicVoice:::$_speedReadArabicVoice');
 
     // if (modelSuras.surasId == 2) {
     //   if (value > 100 && value <= 500) {
@@ -161,7 +171,6 @@ class SpeedRead {
     //   }
     // }
 
-    print('speed_read:::getSpeedReadArabicVoice:::$_speedReadArabicVoice');
     return _speedReadArabicVoice;
   }
 }

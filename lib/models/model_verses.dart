@@ -160,7 +160,7 @@ List<ModelVerses> getModelVerses() {
   model.setArabicRead('الٓمٓۚ');
   model.setTrRead('Elif-lâm-mîm');
   model.setVersesAmountOfOrder(0);
-  model.setVersesDurationPosition(6800);
+  model.setVersesDurationPosition(7300);
   list.add(model);
 
   model = ModelVerses();
@@ -171,7 +171,7 @@ List<ModelVerses> getModelVerses() {
       'ذٰلِكَ الْكِتَابُ لَا رَيْبَۚۛ ف۪يهِۚۛ هُدًى لِلْمُتَّق۪ينَۙ');
   model.setTrRead('Zalike-lkitabu la raybe fihi huden lilmuttekin(e)');
   model.setVersesAmountOfOrder(1);
-  model.setVersesDurationPosition(12500);
+  model.setVersesDurationPosition(16550);
   list.add(model);
 
   model = ModelVerses();
@@ -183,7 +183,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ellezine yu/minûne bilgaybi veyukîmûne-ssalâte vemimmârazeknâhum yunfikün(e)');
   model.setVersesAmountOfOrder(2);
-  model.setVersesDurationPosition(29111);
+  model.setVersesDurationPosition(28200);
   list.add(model);
 
   model = ModelVerses();
@@ -195,7 +195,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Vellezine u/minûne bimâ unzile ileyke vemâ unzile minkablike vebil-âhirati hum yûkinûn(e)');
   model.setVersesAmountOfOrder(3);
-  model.setVersesDurationPosition(42069);
+  model.setVersesDurationPosition(43850);
   list.add(model);
 
   model = ModelVerses();
@@ -207,7 +207,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ulá-ike \'alâ huden min rabbihim S) ve ulâ-ike humu-Imuflihûn(e)');
   model.setVersesAmountOfOrder(4);
-  model.setVersesDurationPosition(54830);
+  model.setVersesDurationPosition(55250);
   list.add(model);
 
   model = ModelVerses();
@@ -219,7 +219,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Inne-llezine keferû sevâun \'aleyhim eenzertehum em lem tunzirhum lâ yu/minûn(e)');
   model.setVersesAmountOfOrder(5);
-  model.setVersesDurationPosition(65458);
+  model.setVersesDurationPosition(68000);
   list.add(model);
 
   model = ModelVerses();
@@ -231,7 +231,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Hatema (A)llahu \'alà kulâbihim ve\'alà sem\'ihim (S) ve\'ala ebsârihim gisâve(tun) S) velehum \'azabun \'azim(un)');
   model.setVersesAmountOfOrder(6);
-  model.setVersesDurationPosition(76158);
+  model.setVersesDurationPosition(81200);
   list.add(model);
 
   model = ModelVerses();
@@ -243,7 +243,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Vemine-nnâsi men yekûlu âmennâ bi (A)llâhi ve bilyevmi-l-âhiri vemâ hum bimu/minin(e)');
   model.setVersesAmountOfOrder(7);
-  model.setVersesDurationPosition(85898);
+  model.setVersesDurationPosition(93100);
   list.add(model);
 
   model = ModelVerses();
@@ -255,7 +255,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Yuhâdi \'ûna(A) llâhe vellezine âmenû vemâ yahde\'ûne illâ enfusehum vemâ yes\'urûn(e)');
   model.setVersesAmountOfOrder(8);
-  model.setVersesDurationPosition(99957);
+  model.setVersesDurationPosition(105860);
   list.add(model);
 
   model = ModelVerses();
@@ -267,7 +267,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Fi kulübihim meradun fezâdehumu (A)llâhu merada(n) (S) velehum \'azâbun elîmun bimâ kânû yekzibûn(e)');
   model.setVersesAmountOfOrder(9);
-  model.setVersesDurationPosition(113550);
+  model.setVersesDurationPosition(119260);
   list.add(model);
 
   model = ModelVerses();
@@ -279,7 +279,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ve-izâ kile lehum lâ tufsidû fi-l-ardi kâlû innemâ nahnu muslihûn(e)');
   model.setVersesAmountOfOrder(10);
-  model.setVersesDurationPosition(119965);
+  model.setVersesDurationPosition(129850);
   list.add(model);
 
   model = ModelVerses();
@@ -290,7 +290,7 @@ List<ModelVerses> getModelVerses() {
       'اَلَٓا اِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلٰكِنْ لَا يَشْعُرُونَ');
   model.setTrRead('El innehum humu-Imufsidûne velâkin lâ yes\'urûn(e)');
   model.setVersesAmountOfOrder(11);
-  model.setVersesDurationPosition(128731);
+  model.setVersesDurationPosition(139170);
   list.add(model);
 
   model = ModelVerses();
@@ -302,7 +302,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ve-izâ kile lehum âminû kemâ âmene-nnâsu kâlû enu/minu kemá âmene-ssufeha(u) (k) elà innehum humu-ssufehâu velâkin là ya\'lemûn(e)');
   model.setVersesAmountOfOrder(12);
-  model.setVersesDurationPosition(146871);
+  model.setVersesDurationPosition(164140);
   list.add(model);
 
   model = ModelVerses();
@@ -314,7 +314,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ve-izâ leku-llezine âmenû kâlû âmennâ ve-izâ halev ilà seyâtinihim kâlû innâ me\'akum innemâ nahnu mustehzi-ûn(e)');
   model.setVersesAmountOfOrder(13);
-  model.setVersesDurationPosition(162355);
+  model.setVersesDurationPosition(187900);
   list.add(model);
 
   model = ModelVerses();
@@ -326,7 +326,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       '(A)llâhu yestehzi-u bihim ve yemudduhum fì tugyânihim ya\'mehûn(e)');
   model.setVersesAmountOfOrder(14);
-  model.setVersesDurationPosition(186000);
+  model.setVersesDurationPosition(195900);
   list.add(model);
 
   model = ModelVerses();
@@ -338,7 +338,7 @@ List<ModelVerses> getModelVerses() {
   model.setTrRead(
       'Ulâ-ike-llezine-steravu-ddalâletebilhudâfemârabihat ticaratuhum vema kanu muhtedin(e)');
   model.setVersesAmountOfOrder(15);
-  model.setVersesDurationPosition(190000);
+  model.setVersesDurationPosition(208400);
   list.add(model);
 
   return list;

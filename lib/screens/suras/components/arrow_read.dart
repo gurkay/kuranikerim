@@ -232,7 +232,7 @@ class _ArrowReadState extends State<ArrowRead> {
     _isGreenUpArrow[index] = true;
     _bottomGreenArrow[index] = 0;
     _rightGreenArrow[index] +=
-        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex)
+        SpeedRead(widget.modelVerses, widget.modelSuras, index)
             .getSpeedReadArabicVoice();
   }
 
