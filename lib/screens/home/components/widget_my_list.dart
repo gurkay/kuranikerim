@@ -58,7 +58,7 @@ class _WidgetMyListState extends State<WidgetMyList> {
     return Container(
       height: size.height * 0.85,
       child: ListView.builder(
-        itemCount: 2,
+        itemCount: _modelSuras.length,
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 7,
