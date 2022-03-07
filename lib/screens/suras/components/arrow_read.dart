@@ -52,7 +52,7 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
-  bool _isPauseVoice = false;
+
   List<double> _heigthScrollSetting = [];
 
   List<bool> _bookmarksFlag = [];
@@ -243,7 +243,6 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   void getArrowUp() {
-    _isPauseVoice = false;
     Size size = MediaQuery.of(context).size;
 
     if (_generalIndex > widget.modelVerses.length - 1) {
@@ -256,12 +255,12 @@ class _ArrowReadState extends State<ArrowRead> {
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
       if (widget.modelVerses[_generalIndex].arabicRead.toString().length <=
-          60) {
+          62) {
         _arabicTextFloor = 0;
       } else if (widget.modelVerses[_generalIndex].arabicRead
                   .toString()
                   .length >
-              60 &&
+              62 &&
           widget.modelVerses[_generalIndex].arabicRead.toString().length <=
               120) {
         _arabicTextFloor = 1;
@@ -332,15 +331,15 @@ class _ArrowReadState extends State<ArrowRead> {
 
   double getHeightScrollSize(Size size, int index) {
     double returnScrollSize = 0;
-    if (widget.modelVerses[index].arabicRead.toString().length <= 60) {
+    if (widget.modelVerses[index].arabicRead.toString().length <= 62) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                60 &&
+                62 &&
             widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
@@ -351,16 +350,16 @@ class _ArrowReadState extends State<ArrowRead> {
       }
 
       returnScrollSize = size.height * 0.35;
-    } else if (widget.modelVerses[index].arabicRead.toString().length > 60 &&
+    } else if (widget.modelVerses[index].arabicRead.toString().length > 62 &&
         widget.modelVerses[index].arabicRead.toString().length <= 120) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                60 &&
+                62 &&
             widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
@@ -375,11 +374,11 @@ class _ArrowReadState extends State<ArrowRead> {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 60) {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                60 &&
+                62 &&
             widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
@@ -433,7 +432,7 @@ class _ArrowReadState extends State<ArrowRead> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.all(4.0),
+                      margin: const EdgeInsets.all(4.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(color: cAccentColor),
@@ -442,7 +441,7 @@ class _ArrowReadState extends State<ArrowRead> {
                         children: [
                           Container(
                             alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 2.0),
+                            padding: const EdgeInsets.only(right: 4.0),
                             child: SizedBox(
                               width: size.width * 0.95,
                               child: Text(
@@ -496,10 +495,6 @@ class _ArrowReadState extends State<ArrowRead> {
                     ),
                     ListTile(
                       onTap: () {
-                        setState(() {
-                          _isPauseVoice = true;
-                        });
-
                         widget.onChangeEnd!(
                           Duration(
                               milliseconds: (widget.modelVerses[index]
