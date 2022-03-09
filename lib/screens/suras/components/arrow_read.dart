@@ -67,7 +67,7 @@ class _ArrowReadState extends State<ArrowRead> {
 
   List<String> _getBookmarksList = [];
   List<String> _getBookmarksScrollSizeList = [];
-
+  List<double> _durationVoicePosition = [];
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
 
@@ -96,6 +96,8 @@ class _ArrowReadState extends State<ArrowRead> {
     _heigthScrollSetting =
         List.generate(widget.modelVerses.length, (index) => 0);
     getBookmarks();
+    _durationVoicePosition = SpeedRead(widget.modelVerses, widget.modelSuras, 0)
+        .getDurationVoicePosition();
   }
 
   setBookmark() async {
@@ -215,6 +217,22 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] = 0;
   }
 
+  void setResetThreeFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setThreeFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 190;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
   void setTwoFloorPosition(int index) {
     SpeedRead _speedRead =
         SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
@@ -248,9 +266,6 @@ class _ArrowReadState extends State<ArrowRead> {
     if (_generalIndex > widget.modelVerses.length - 1) {
       return;
     }
-
-    print(
-        'widget.position.inMilliseconds.toDouble() ::: ${widget.position.inMilliseconds.toDouble()}');
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
@@ -302,6 +317,32 @@ class _ArrowReadState extends State<ArrowRead> {
             setZeroFloorPosition(_generalIndex);
           }
           break;
+        case 3:
+          if (_generalIncreaseThreeFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseThreeFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseThreeFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseThreeFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseThreeFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseThreeFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
         default:
       }
 
@@ -317,6 +358,12 @@ class _ArrowReadState extends State<ArrowRead> {
         return;
       }
       setResetPastPosition(_generalIndex);
+      print(
+          'arrow_read:::suras:${widget.modelSuras.surasName} ${widget.modelVerses[_generalIndex].versesAmountOfOrder! + 1} timeVoice:${widget.position.inMilliseconds.toDouble()}');
+
+      print(
+          'arrow_read:::id:$_generalIndex lenght:${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
+
       _generalIndex++;
     }
   }
@@ -363,9 +410,14 @@ class _ArrowReadState extends State<ArrowRead> {
             widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
-        } else {
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                120 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.75;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
         }
       }
       returnScrollSize = size.height * 0.55;
@@ -382,12 +434,41 @@ class _ArrowReadState extends State<ArrowRead> {
             widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
-        } else {
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                120 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.75;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
         }
       }
       returnScrollSize = size.height * 0.75;
+    } else if (widget.modelVerses[index].arabicRead.toString().length > 180 &&
+        widget.modelVerses[index].arabicRead.toString().length <= 240) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                62 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.55;
+        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
+                120 &&
+            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        }
+      }
+      returnScrollSize = size.height * 0.90;
     }
 
     return returnScrollSize;

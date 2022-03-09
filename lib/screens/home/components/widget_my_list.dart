@@ -96,7 +96,7 @@ class _WidgetMyListState extends State<WidgetMyList> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '${_modelSuras[index].getSurasName()}',
+                          '${_modelSuras[index].surasId}. ${_modelSuras[index].getSurasName()}',
                           style: Theme.of(context).primaryTextTheme.headline1,
                         ),
                       ],
