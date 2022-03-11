@@ -8,6 +8,7 @@ import 'package:kuranikerim/models/model_meal.dart';
 import 'package:kuranikerim/models/model_meal_person.dart';
 import 'package:kuranikerim/models/model_part.dart';
 import 'package:kuranikerim/models/model_suras.dart';
+import 'package:kuranikerim/screens/suras/components/arabic_read_text.dart';
 import 'package:kuranikerim/screens/suras/components/speed_read.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -364,6 +365,14 @@ class _ArrowReadState extends State<ArrowRead> {
       print(
           'arrow_read:::id:$_generalIndex lenght:${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
 
+      final numLines = '\n'
+              .allMatches(
+                  widget.modelVerses[_generalIndex].arabicRead.toString())
+              .length +
+          1;
+
+      print('text line: $numLines');
+
       _generalIndex++;
     }
   }
@@ -520,19 +529,10 @@ class _ArrowReadState extends State<ArrowRead> {
                       ),
                       child: Stack(
                         children: [
-                          Container(
-                            alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 4.0),
-                            child: SizedBox(
-                              width: size.width * 0.95,
-                              child: Text(
-                                '${widget.modelVerses[index].arabicRead}',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline3,
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
+                          ArabicReadText(
+                            arabicRead:
+                                widget.modelVerses[index].arabicRead.toString(),
+                            size: size,
                           ),
                           AnimatedPositioned(
                             bottom: _bottomGreenArrow[index],
