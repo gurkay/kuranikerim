@@ -5,14 +5,11 @@ import 'package:kuranikerim/models/model_verses.dart';
 class ArabicReadText extends StatelessWidget {
   ModelVerses modelVerses;
   Size size;
-
-  Function(int) callBack;
   ValueSetter valueSetter;
 
   ArabicReadText({
     required this.modelVerses,
     required this.size,
-    required this.callBack,
     required this.valueSetter,
     Key? key,
   }) : super(key: key);

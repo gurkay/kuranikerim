@@ -521,9 +521,6 @@ class _ArrowReadState extends State<ArrowRead> {
                           ArabicReadText(
                             modelVerses: widget.modelVerses[index],
                             size: size,
-                            callBack: (value) => setState(() {
-                              _floor[_generalIndex] = value;
-                            }),
                             valueSetter: (valueSetter) =>
                                 _floor[index] = valueSetter,
                           ),
