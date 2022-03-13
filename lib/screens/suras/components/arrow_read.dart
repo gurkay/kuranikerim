@@ -53,6 +53,7 @@ class _ArrowReadState extends State<ArrowRead> {
   List<bool> _isGreenUpArrow = [];
   List<bool> _selected = [];
   int _arabicTextFloor = 0;
+  List<int> _floor = [];
 
   List<double> _heigthScrollSetting = [];
 
@@ -99,6 +100,7 @@ class _ArrowReadState extends State<ArrowRead> {
     getBookmarks();
     _durationVoicePosition = SpeedRead(widget.modelVerses, widget.modelSuras, 0)
         .getDurationVoicePosition();
+    _floor = List.generate(widget.modelVerses.length, (index) => 0);
   }
 
   setBookmark() async {
@@ -261,11 +263,6 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
-  int _floor = 0;
-  void _getArabicReadTextFloor(dynamic floor) {
-    _floor = floor;
-  }
-
   void getArrowUp() {
     Size size = MediaQuery.of(context).size;
 
@@ -282,7 +279,8 @@ class _ArrowReadState extends State<ArrowRead> {
       } else {
         _arabicTextFloor = 2;
       }
-      switch (_arabicTextFloor) {
+      print('getArrowUp:::_floor[_generalIndex]:${_floor[_generalIndex]}');
+      switch (_floor[_generalIndex]) {
         case 0:
           setZeroFloorPosition(_generalIndex);
           break;
@@ -524,9 +522,10 @@ class _ArrowReadState extends State<ArrowRead> {
                             modelVerses: widget.modelVerses[index],
                             size: size,
                             callBack: (value) => setState(() {
-                              _floor = value;
+                              _floor[_generalIndex] = value;
                             }),
-                            valueSetter: (valueSetter) => _floor = valueSetter,
+                            valueSetter: (valueSetter) =>
+                                _floor[index] = valueSetter,
                           ),
                           AnimatedPositioned(
                             bottom: _bottomGreenArrow[index],
