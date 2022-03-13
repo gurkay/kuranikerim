@@ -261,6 +261,11 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
+  int _floor = 0;
+  void _getArabicReadTextFloor(dynamic floor) {
+    _floor = floor;
+  }
+
   void getArrowUp() {
     Size size = MediaQuery.of(context).size;
 
@@ -270,15 +275,9 @@ class _ArrowReadState extends State<ArrowRead> {
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
-      if (widget.modelVerses[_generalIndex].arabicRead.toString().length <=
-          62) {
+      if (_floor == 0) {
         _arabicTextFloor = 0;
-      } else if (widget.modelVerses[_generalIndex].arabicRead
-                  .toString()
-                  .length >
-              62 &&
-          widget.modelVerses[_generalIndex].arabicRead.toString().length <=
-              120) {
+      } else if (_floor == 1) {
         _arabicTextFloor = 1;
       } else {
         _arabicTextFloor = 2;
@@ -364,14 +363,6 @@ class _ArrowReadState extends State<ArrowRead> {
 
       print(
           'arrow_read:::id:$_generalIndex lenght:${widget.modelVerses[_generalIndex].arabicRead.toString().length}');
-
-      final numLines = '\n'
-              .allMatches(
-                  widget.modelVerses[_generalIndex].arabicRead.toString())
-              .length +
-          1;
-
-      print('text line: $numLines');
 
       _generalIndex++;
     }
@@ -530,9 +521,12 @@ class _ArrowReadState extends State<ArrowRead> {
                       child: Stack(
                         children: [
                           ArabicReadText(
-                            arabicRead:
-                                widget.modelVerses[index].arabicRead.toString(),
+                            modelVerses: widget.modelVerses[index],
                             size: size,
+                            callBack: (value) => setState(() {
+                              _floor = value;
+                            }),
+                            valueSetter: (valueSetter) => _floor = valueSetter,
                           ),
                           AnimatedPositioned(
                             bottom: _bottomGreenArrow[index],
