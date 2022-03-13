@@ -272,14 +272,6 @@ class _ArrowReadState extends State<ArrowRead> {
 
     if (widget.position.inMilliseconds.toDouble() <
         widget.modelVerses[_generalIndex].versesDurationPosition!) {
-      if (_floor == 0) {
-        _arabicTextFloor = 0;
-      } else if (_floor == 1) {
-        _arabicTextFloor = 1;
-      } else {
-        _arabicTextFloor = 2;
-      }
-      print('getArrowUp:::_floor[_generalIndex]:${_floor[_generalIndex]}');
       switch (_floor[_generalIndex]) {
         case 0:
           setZeroFloorPosition(_generalIndex);
@@ -376,16 +368,14 @@ class _ArrowReadState extends State<ArrowRead> {
 
   double getHeightScrollSize(Size size, int index) {
     double returnScrollSize = 0;
-    if (widget.modelVerses[index].arabicRead.toString().length <= 62) {
+    if (_floor[index] == 0) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
+        if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                62 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+        } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
         } else {
@@ -395,78 +385,63 @@ class _ArrowReadState extends State<ArrowRead> {
       }
 
       returnScrollSize = size.height * 0.35;
-    } else if (widget.modelVerses[index].arabicRead.toString().length > 62 &&
-        widget.modelVerses[index].arabicRead.toString().length <= 120) {
+    } else if (_floor[index] == 1) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
+        if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                62 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+        } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                120 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
+        } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
       returnScrollSize = size.height * 0.55;
-    } else if (widget.modelVerses[index].arabicRead.toString().length > 120 &&
-        widget.modelVerses[index].arabicRead.toString().length <= 180) {
+    } else if (_floor[index] == 2) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
+        if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                62 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+        } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                120 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
+        } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
       returnScrollSize = size.height * 0.75;
-    } else if (widget.modelVerses[index].arabicRead.toString().length > 180 &&
-        widget.modelVerses[index].arabicRead.toString().length <= 240) {
+    } else if (_floor[index] == 3) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
-        if (widget.modelVerses[index - 1].arabicRead.toString().length <= 62) {
+        if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.35;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                62 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 120) {
+        } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.55;
-        } else if (widget.modelVerses[index - 1].arabicRead.toString().length >
-                120 &&
-            widget.modelVerses[index - 1].arabicRead.toString().length <= 180) {
+        } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
-      returnScrollSize = size.height * 0.90;
+      returnScrollSize = size.height * 0.80;
     }
 
     return returnScrollSize;
