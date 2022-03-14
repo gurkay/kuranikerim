@@ -367,6 +367,7 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   double getHeightScrollSize(Size size, int index) {
+    print(_floor);
     double returnScrollSize = 0;
     if (_floor[index] == 0) {
       if (index == 0) {
@@ -377,10 +378,13 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.55;
+              _heigthScrollSetting[index - 1] + size.height * 0.52;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.75;
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
 
@@ -394,16 +398,16 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.55;
+              _heigthScrollSetting[index - 1] + size.height * 0.52;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.75;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
-      returnScrollSize = size.height * 0.55;
+      returnScrollSize = size.height * 0.52;
     } else if (_floor[index] == 2) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
@@ -413,16 +417,16 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.55;
+              _heigthScrollSetting[index - 1] + size.height * 0.52;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.75;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
         }
       }
-      returnScrollSize = size.height * 0.75;
+      returnScrollSize = size.height * 0.65;
     } else if (_floor[index] == 3) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
@@ -432,10 +436,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.55;
+              _heigthScrollSetting[index - 1] + size.height * 0.52;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.75;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
@@ -483,112 +487,173 @@ class _ArrowReadState extends State<ArrowRead> {
               ),
               child: Card(
                 elevation: 7,
-                child: Column(
+                child: Row(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: cAccentColor),
-                      ),
-                      child: Stack(
+                    Expanded(
+                      child: Column(
                         children: [
-                          ArabicReadText(
-                            modelVerses: widget.modelVerses[index],
-                            size: size,
-                            valueSetter: (valueSetter) =>
-                                _floor[index] = valueSetter,
+                          Stack(
+                            children: [
+                              ArabicReadText(
+                                modelVerses: widget.modelVerses[index],
+                                size: size,
+                                valueSetter: (valueSetter) =>
+                                    _floor[index] = valueSetter,
+                              ),
+                              AnimatedPositioned(
+                                bottom: _bottomGreenArrow[index],
+                                right: _rightGreenArrow[index],
+                                child: _isGreenUpArrow[index] == true
+                                    ? Image.asset(
+                                        'assets/icons/up_arrow.png',
+                                        height: size.height * 0.020,
+                                      )
+                                    : Container(),
+                                duration: const Duration(milliseconds: 200),
+                              ),
+                            ],
                           ),
-                          AnimatedPositioned(
-                            bottom: _bottomGreenArrow[index],
-                            right: _rightGreenArrow[index],
-                            child: _isGreenUpArrow[index] == true
-                                ? Image.asset(
-                                    'assets/icons/up_arrow.png',
-                                    height: size.height * 0.020,
-                                  )
-                                : Container(),
-                            duration: const Duration(milliseconds: 200),
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
+                                Text(
+                                    ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                                IconButton(
+                                  onPressed: () {
+                                    addBookmark(
+                                        widget.modelVerses[index], index);
+                                  },
+                                  icon: _bookmarksFlag[index] == true
+                                      ? const Icon(
+                                          Icons.bookmark,
+                                          color: cAccentColor,
+                                        )
+                                      : const Icon(
+                                          Icons.bookmark_add_outlined,
+                                          color: cAccentColor,
+                                        ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
-                          Text(
-                              ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
-                          IconButton(
-                            onPressed: () {
-                              addBookmark(widget.modelVerses[index], index);
+
+                          InkWell(
+                            onTap: () {
+                              widget.onChangeEnd!(
+                                Duration(
+                                    milliseconds: (widget.modelVerses[index]
+                                                .versesAmountOfOrder ==
+                                            0)
+                                        ? 0
+                                        : widget.modelVerses[index - 1]
+                                                .versesDurationPosition!
+                                                .round() +
+                                            10),
+                              );
+                              widget.onPlayer!.play();
+                              setResetPastPosition(index);
+                              animateToIndex(index);
                             },
-                            icon: _bookmarksFlag[index] == true
-                                ? const Icon(
-                                    Icons.bookmark,
-                                    color: cAccentColor,
-                                  )
-                                : const Icon(
-                                    Icons.bookmark_add_outlined,
-                                    color: cAccentColor,
+                            child: Container(
+                              color: _selected[index]
+                                  ? const Color.fromARGB(255, 175, 219, 240)
+                                  : null,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Türkçe Okunuşu',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline1,
+                                    textAlign: TextAlign.justify,
                                   ),
+                                  Text(
+                                    '${widget.modelVerses[index].getTrRead()}',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline2,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    color: cDividerColor,
+                                  ),
+                                  Text(
+                                    '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .subtitle1,
+                                  ),
+                                  Text(
+                                    '${widget.modelMeal[index].getMeal()}',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .subtitle2,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                    ListTile(
-                      onTap: () {
-                        widget.onChangeEnd!(
-                          Duration(
-                              milliseconds: (widget.modelVerses[index]
-                                          .versesAmountOfOrder ==
-                                      0)
-                                  ? 0
-                                  : widget.modelVerses[index - 1]
-                                          .versesDurationPosition!
-                                          .round() +
-                                      10),
-                        );
-                        widget.onPlayer!.play();
-                        setResetPastPosition(index);
-                        animateToIndex(index);
-                      },
-                      tileColor: _selected[index]
-                          ? const Color.fromARGB(255, 175, 219, 240)
-                          : null,
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Türkçe Okunuşu',
-                            style: Theme.of(context).primaryTextTheme.headline1,
-                            textAlign: TextAlign.justify,
-                          ),
-                          Text(
-                            '${widget.modelVerses[index].getTrRead()}',
-                            style: Theme.of(context).primaryTextTheme.headline2,
-                            textAlign: TextAlign.justify,
-                          ),
-                        ],
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Divider(
-                            height: 10,
-                            color: cDividerColor,
-                          ),
-                          Text(
-                            '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
-                            style: Theme.of(context).primaryTextTheme.subtitle1,
-                          ),
-                          Text(
-                            '${widget.modelMeal[index].getMeal()}',
-                            style: Theme.of(context).primaryTextTheme.subtitle2,
-                          ),
+
+                          // ListTile(
+                          //   onTap: () {
+                          //     widget.onChangeEnd!(
+                          //       Duration(
+                          //           milliseconds: (widget.modelVerses[index]
+                          //                       .versesAmountOfOrder ==
+                          //                   0)
+                          //               ? 0
+                          //               : widget.modelVerses[index - 1]
+                          //                       .versesDurationPosition!
+                          //                       .round() +
+                          //                   10),
+                          //     );
+                          //     widget.onPlayer!.play();
+                          //     setResetPastPosition(index);
+                          //     animateToIndex(index);
+                          //   },
+                          //   tileColor: _selected[index]
+                          //       ? const Color.fromARGB(255, 175, 219, 240)
+                          //       : null,
+                          //   title: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       Text(
+                          //         'Türkçe Okunuşu',
+                          //         style: Theme.of(context).primaryTextTheme.headline1,
+                          //         textAlign: TextAlign.justify,
+                          //       ),
+                          //       Text(
+                          //         '${widget.modelVerses[index].getTrRead()}',
+                          //         style: Theme.of(context).primaryTextTheme.headline2,
+                          //         textAlign: TextAlign.justify,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   subtitle: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       const Divider(
+                          //         height: 10,
+                          //         color: cDividerColor,
+                          //       ),
+                          //       Text(
+                          //         '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
+                          //         style: Theme.of(context).primaryTextTheme.subtitle1,
+                          //       ),
+                          //       Text(
+                          //         '${widget.modelMeal[index].getMeal()}',
+                          //         style: Theme.of(context).primaryTextTheme.subtitle2,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
