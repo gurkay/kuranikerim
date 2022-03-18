@@ -140,28 +140,33 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       child: Column(
         children: [
-          StreamBuilder<PositionData>(
-            stream: _positionDataStream,
-            builder: (context, snapshot) {
-              final positionData = snapshot.data;
-              return ArrowRead(
-                duration: positionData?.duration ?? Duration.zero,
-                position: positionData?.position ?? Duration.zero,
-                bufferedPosition:
-                    positionData?.bufferedPosition ?? Duration.zero,
-                onChangeEnd: _player.seek,
-                modelVerses: _modelVerses,
-                modelPart: _modelPart,
-                modelMeal: _modelMeal,
-                modelMealPerson: _modelMealPerson,
-                modelSuras: widget.modelBookmark!.modelSuras,
-                modelBookmark: widget.modelBookmark!,
-                onPlayer: _player,
-              );
-            },
+          SizedBox(
+            height: (MediaQuery.of(context).orientation == Orientation.portrait)
+                ? MediaQuery.of(context).size.height * 0.80
+                : MediaQuery.of(context).size.height * 0.70,
+            child: StreamBuilder<PositionData>(
+              stream: _positionDataStream,
+              builder: (context, snapshot) {
+                final positionData = snapshot.data;
+                return ArrowRead(
+                  duration: positionData?.duration ?? Duration.zero,
+                  position: positionData?.position ?? Duration.zero,
+                  bufferedPosition:
+                      positionData?.bufferedPosition ?? Duration.zero,
+                  onChangeEnd: _player.seek,
+                  modelVerses: _modelVerses,
+                  modelPart: _modelPart,
+                  modelMeal: _modelMeal,
+                  modelMealPerson: _modelMealPerson,
+                  modelSuras: widget.modelBookmark!.modelSuras,
+                  modelBookmark: widget.modelBookmark!,
+                  onPlayer: _player,
+                );
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

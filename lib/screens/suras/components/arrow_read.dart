@@ -66,6 +66,10 @@ class _ArrowReadState extends State<ArrowRead> {
   int _generalIncreaseTwoFloor = 2;
   int _generalIncreaseThreeFloor = 3;
   int _generalIncreaseFourFloor = 4;
+  int _generalIncreaseFiveFloor = 5;
+  int _generalIncreaseSixFloor = 6;
+  int _generalIncreaseSevenFloor = 7;
+  int _generalIncreaseEightFloor = 8;
 
   List<String> _getBookmarksList = [];
   List<String> _getBookmarksScrollSizeList = [];
@@ -227,12 +231,92 @@ class _ArrowReadState extends State<ArrowRead> {
     _rightGreenArrow[index] = 0;
   }
 
+  void setResetFourFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setResetFiveFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setResetSixFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setResetSevenFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setResetEightFloorPosition(int index) {
+    _isGreenUpArrow[index] = false;
+    _selected[index] = false;
+
+    _rightGreenArrow[index] = 0;
+  }
+
+  void setEightFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 320;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
+  void setSevenFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 280;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
+  void setSixFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 240;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
+  void setFiveFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 200;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
+  void setFourFloorPosition(int index) {
+    SpeedRead _speedRead =
+        SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
+    _selected[index] = true;
+    _isGreenUpArrow[index] = true;
+    _bottomGreenArrow[index] = 160;
+    _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
+  }
+
   void setThreeFloorPosition(int index) {
     SpeedRead _speedRead =
         SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = 190;
+    _bottomGreenArrow[index] = 120;
     _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
@@ -241,7 +325,7 @@ class _ArrowReadState extends State<ArrowRead> {
         SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = 130;
+    _bottomGreenArrow[index] = 80;
     _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
@@ -250,7 +334,7 @@ class _ArrowReadState extends State<ArrowRead> {
         SpeedRead(widget.modelVerses, widget.modelSuras, _generalIndex);
     _selected[index] = true;
     _isGreenUpArrow[index] = true;
-    _bottomGreenArrow[index] = 65;
+    _bottomGreenArrow[index] = 40;
     _rightGreenArrow[index] += _speedRead.getSpeedReadArabicVoice();
   }
 
@@ -333,6 +417,241 @@ class _ArrowReadState extends State<ArrowRead> {
             setZeroFloorPosition(_generalIndex);
           }
           break;
+        case 4:
+          if (_generalIncreaseFourFloor == 4) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFourFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFourFloor = _generalIncreaseThreeFloor;
+              setResetFourFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFourFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFourFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFourFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFourFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFourFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFourFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        case 5:
+          if (_generalIncreaseFiveFloor == 5) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFiveFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFiveFloor = _generalIncreaseFourFloor;
+              setResetFiveFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFiveFloor == 4) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFourFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFiveFloor = _generalIncreaseThreeFloor;
+              setResetFourFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFiveFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFiveFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFiveFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFiveFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseFiveFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseFiveFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        case 6:
+          if (_generalIncreaseSixFloor == 6) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setSixFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseFiveFloor;
+              setResetSixFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSixFloor == 5) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFiveFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseFourFloor;
+              setResetFiveFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSixFloor == 4) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFourFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseThreeFloor;
+              setResetFourFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSixFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSixFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSixFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSixFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        case 7:
+          if (_generalIncreaseSevenFloor == 7) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setSevenFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseSixFloor;
+              setResetSevenFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 6) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setSixFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseFiveFloor;
+              setResetSixFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 5) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFiveFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseFourFloor;
+              setResetFiveFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 4) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFourFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseThreeFloor;
+              setResetFourFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseSevenFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseSevenFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
+        case 8:
+          if (_generalIncreaseEightFloor == 8) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setEightFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseSevenFloor;
+              setResetEightFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 7) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setSevenFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseSixFloor;
+              setResetSevenFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 6) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setSixFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseFiveFloor;
+              setResetSixFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 5) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFiveFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseFourFloor;
+              setResetFiveFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 4) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setFourFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseThreeFloor;
+              setResetFourFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 3) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setThreeFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseTwoFloor;
+              setResetThreeFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 2) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setTwoFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseOneFloor;
+              setResetTwoFloorPosition(_generalIndex);
+            }
+          } else if (_generalIncreaseEightFloor == 1) {
+            if (_rightGreenArrow[_generalIndex] < size.width * 0.95) {
+              setOneFloorPosition(_generalIndex);
+            } else {
+              _generalIncreaseEightFloor = _generalIncreaseZeroFloor;
+              setResetOneFloorPosition(_generalIndex);
+            }
+          } else {
+            setZeroFloorPosition(_generalIndex);
+          }
+          break;
         default:
       }
 
@@ -367,7 +686,69 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   double getHeightScrollSize(Size size, int index) {
-    print(_floor);
+    print('index:$index');
+
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: widget.modelVerses[index].arabicRead,
+        style: Theme.of(context).primaryTextTheme.headline3,
+      ),
+      strutStyle: const StrutStyle(
+        fontFamily: 'Abay',
+        height: 3.0,
+        forceStrutHeight: true,
+      ),
+      textDirection: TextDirection.rtl,
+      maxLines: 10,
+    )..layout(
+        minWidth: 0,
+        maxWidth: double.infinity,
+      );
+
+    final countLines =
+        (textPainter.size.width / MediaQuery.of(context).size.width * 0.95)
+            .ceil();
+    final arabicTextHeight = countLines * textPainter.size.height;
+    final arabicTextLine = textPainter;
+
+    if (arabicTextHeight < size.height * 0.051) {
+      print('size.height %0.051:${size.height * 0.051} floor:0');
+      _floor[index] = 0;
+    } else if (arabicTextHeight < size.height * 0.10) {
+      print('size.height %10:${size.height * 0.10} floor:1');
+      _floor[index] = 1;
+    } else if (arabicTextHeight < size.height * 0.14) {
+      print('size.height %14:${size.height * 0.14} floor:2');
+      _floor[index] = 2;
+    } else if (arabicTextHeight < size.height * 0.19) {
+      print('arabicTextLine:${arabicTextLine}');
+      print('_heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
+      print('size.height %19:${size.height * 0.19} floor:3');
+      _floor[index] = 3;
+    } else if (arabicTextHeight < size.height * 0.24) {
+      print('arabicTextLine:${arabicTextLine}');
+      print('_heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
+      print('size.height %24:${size.height * 0.24} floor:4');
+
+      _floor[index] = 4;
+    } else if (arabicTextHeight < size.height * 0.29) {
+      print('size.height %29:${size.height * 0.29} floor:5');
+      _floor[index] = 5;
+    } else if (arabicTextHeight < size.height * 0.34) {
+      print('size.height %34:${size.height * 0.34} floor:6');
+      _floor[index] = 6;
+    } else if (arabicTextHeight < size.height * 0.39) {
+      print('size.height %39:${size.height * 0.39} floor:7');
+      _floor[index] = 7;
+    } else if (arabicTextHeight < size.height * 0.44) {
+      print('size.height %44:${size.height * 0.44} floor:8');
+      _floor[index] = 8;
+    }
+    print(
+        'vid:${widget.modelVerses[index].versesId} arabicTextHeight:${arabicTextHeight}');
+    print(
+        'arabicLenght:${widget.modelVerses[index].arabicRead.toString().length}');
+
     double returnScrollSize = 0;
     if (_floor[index] == 0) {
       if (index == 0) {
@@ -375,77 +756,307 @@ class _ArrowReadState extends State<ArrowRead> {
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.35;
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.52;
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.65;
-        } else {
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
 
-      returnScrollSize = size.height * 0.35;
+      returnScrollSize = size.height * 0.30;
     } else if (_floor[index] == 1) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.35;
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.52;
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.65;
-        } else {
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
-      returnScrollSize = size.height * 0.52;
+      returnScrollSize = size.height * 0.40;
     } else if (_floor[index] == 2) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.35;
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.52;
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.65;
-        } else {
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
-      returnScrollSize = size.height * 0.65;
+      returnScrollSize = size.height * 0.50;
     } else if (_floor[index] == 3) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.35;
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.52;
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.65;
-        } else {
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
+        }
+      }
+      returnScrollSize = size.height * 0.60;
+    } else if (_floor[index] == 4) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (_floor[index - 1] == 0) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
+        } else if (_floor[index - 1] == 1) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
+        }
+      }
+      returnScrollSize = size.height * 0.70;
+    } else if (_floor[index] == 5) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (_floor[index - 1] == 0) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
+        } else if (_floor[index - 1] == 1) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
       returnScrollSize = size.height * 0.80;
+    } else if (_floor[index] == 6) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (_floor[index - 1] == 0) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
+        } else if (_floor[index - 1] == 1) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
+        }
+      }
+      returnScrollSize = size.height * 0.90;
+    } else if (_floor[index] == 7) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (_floor[index - 1] == 0) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
+        } else if (_floor[index - 1] == 1) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
+        }
+      }
+      returnScrollSize = size.height * 0.100;
+    } else if (_floor[index] == 8) {
+      if (index == 0) {
+        _heigthScrollSetting[index] = 0;
+      } else {
+        if (_floor[index - 1] == 0) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.30;
+        } else if (_floor[index - 1] == 1) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.40;
+        } else if (_floor[index - 1] == 2) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.50;
+        } else if (_floor[index - 1] == 3) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.60;
+        } else if (_floor[index - 1] == 4) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.70;
+        } else if (_floor[index - 1] == 5) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.80;
+        } else if (_floor[index - 1] == 6) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.90;
+        } else if (_floor[index - 1] == 7) {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.100;
+        } else {
+          _heigthScrollSetting[index] =
+              _heigthScrollSetting[index - 1] + size.height * 0.110;
+        }
+      }
+      returnScrollSize = size.height * 0.110;
     }
 
     return returnScrollSize;
@@ -463,207 +1074,146 @@ class _ArrowReadState extends State<ArrowRead> {
 
     Size size = MediaQuery.of(context).size;
 
-    return SizedBox(
-      height: size.height * 0.80,
-      child: ListView.builder(
-        controller: _scrollController,
-        itemCount: widget.modelVerses.length,
-        itemBuilder: (ctx, index) {
-          return SizedBox(
-            height: getHeightScrollSize(size, index),
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                color: cLightPrimaryColor,
-                boxShadow: const [
-                  BoxShadow(
-                    color: cLightPrimaryColor,
-                    spreadRadius: 7,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Card(
-                elevation: 7,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Stack(
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: widget.modelVerses.length,
+      itemBuilder: (ctx, index) {
+        return SizedBox(
+          height: getHeightScrollSize(size, index),
+          child: Container(
+            margin: const EdgeInsets.all(4.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              color: cLightPrimaryColor,
+              boxShadow: const [
+                BoxShadow(
+                  color: cLightPrimaryColor,
+                  spreadRadius: 7,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Card(
+              elevation: 7,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            ArabicReadText(
+                              modelVerses: widget.modelVerses[index],
+                            ),
+                            AnimatedPositioned(
+                              bottom: _bottomGreenArrow[index],
+                              right: _rightGreenArrow[index],
+                              child: _isGreenUpArrow[index] == true
+                                  ? Image.asset(
+                                      'assets/icons/up_arrow.png',
+                                      height: size.height * 0.020,
+                                    )
+                                  : Container(),
+                              duration: const Duration(milliseconds: 200),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ArabicReadText(
-                                modelVerses: widget.modelVerses[index],
-                                size: size,
-                                valueSetter: (valueSetter) =>
-                                    _floor[index] = valueSetter,
-                              ),
-                              AnimatedPositioned(
-                                bottom: _bottomGreenArrow[index],
-                                right: _rightGreenArrow[index],
-                                child: _isGreenUpArrow[index] == true
-                                    ? Image.asset(
-                                        'assets/icons/up_arrow.png',
-                                        height: size.height * 0.020,
+                              Text(
+                                  '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
+                              Text(
+                                  ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                              IconButton(
+                                onPressed: () {
+                                  addBookmark(widget.modelVerses[index], index);
+                                },
+                                icon: _bookmarksFlag[index] == true
+                                    ? const Icon(
+                                        Icons.bookmark,
+                                        color: cAccentColor,
                                       )
-                                    : Container(),
-                                duration: const Duration(milliseconds: 200),
+                                    : const Icon(
+                                        Icons.bookmark_add_outlined,
+                                        color: cAccentColor,
+                                      ),
                               ),
                             ],
                           ),
-
-                          Container(
-                            margin: const EdgeInsets.only(left: 4),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            widget.onChangeEnd!(
+                              Duration(
+                                  milliseconds: (widget.modelVerses[index]
+                                              .versesAmountOfOrder ==
+                                          0)
+                                      ? 0
+                                      : widget.modelVerses[index - 1]
+                                              .versesDurationPosition!
+                                              .round() +
+                                          10),
+                            );
+                            widget.onPlayer!.play();
+                            setResetPastPosition(index);
+                            animateToIndex(index);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                            color: _selected[index]
+                                ? const Color.fromARGB(255, 175, 219, 240)
+                                : null,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
+                                  'Türkçe Okunuşu',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline1,
+                                  textAlign: TextAlign.justify,
+                                ),
                                 Text(
-                                    ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
-                                IconButton(
-                                  onPressed: () {
-                                    addBookmark(
-                                        widget.modelVerses[index], index);
-                                  },
-                                  icon: _bookmarksFlag[index] == true
-                                      ? const Icon(
-                                          Icons.bookmark,
-                                          color: cAccentColor,
-                                        )
-                                      : const Icon(
-                                          Icons.bookmark_add_outlined,
-                                          color: cAccentColor,
-                                        ),
+                                  '${widget.modelVerses[index].getTrRead()}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline2,
+                                  textAlign: TextAlign.justify,
+                                ),
+                                const Divider(
+                                  height: 10,
+                                  color: cDividerColor,
+                                ),
+                                Text(
+                                  '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .subtitle1,
+                                ),
+                                Text(
+                                  '${widget.modelMeal[index].getMeal()}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .subtitle2,
                                 ),
                               ],
                             ),
                           ),
-
-                          InkWell(
-                            onTap: () {
-                              widget.onChangeEnd!(
-                                Duration(
-                                    milliseconds: (widget.modelVerses[index]
-                                                .versesAmountOfOrder ==
-                                            0)
-                                        ? 0
-                                        : widget.modelVerses[index - 1]
-                                                .versesDurationPosition!
-                                                .round() +
-                                            10),
-                              );
-                              widget.onPlayer!.play();
-                              setResetPastPosition(index);
-                              animateToIndex(index);
-                            },
-                            child: Container(
-                              color: _selected[index]
-                                  ? const Color.fromARGB(255, 175, 219, 240)
-                                  : null,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Türkçe Okunuşu',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline1,
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                  Text(
-                                    '${widget.modelVerses[index].getTrRead()}',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline2,
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                  const Divider(
-                                    height: 10,
-                                    color: cDividerColor,
-                                  ),
-                                  Text(
-                                    '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .subtitle1,
-                                  ),
-                                  Text(
-                                    '${widget.modelMeal[index].getMeal()}',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .subtitle2,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          // ListTile(
-                          //   onTap: () {
-                          //     widget.onChangeEnd!(
-                          //       Duration(
-                          //           milliseconds: (widget.modelVerses[index]
-                          //                       .versesAmountOfOrder ==
-                          //                   0)
-                          //               ? 0
-                          //               : widget.modelVerses[index - 1]
-                          //                       .versesDurationPosition!
-                          //                       .round() +
-                          //                   10),
-                          //     );
-                          //     widget.onPlayer!.play();
-                          //     setResetPastPosition(index);
-                          //     animateToIndex(index);
-                          //   },
-                          //   tileColor: _selected[index]
-                          //       ? const Color.fromARGB(255, 175, 219, 240)
-                          //       : null,
-                          //   title: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Text(
-                          //         'Türkçe Okunuşu',
-                          //         style: Theme.of(context).primaryTextTheme.headline1,
-                          //         textAlign: TextAlign.justify,
-                          //       ),
-                          //       Text(
-                          //         '${widget.modelVerses[index].getTrRead()}',
-                          //         style: Theme.of(context).primaryTextTheme.headline2,
-                          //         textAlign: TextAlign.justify,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   subtitle: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       const Divider(
-                          //         height: 10,
-                          //         color: cDividerColor,
-                          //       ),
-                          //       Text(
-                          //         '${widget.modelMealPerson[(widget.modelMeal[index].getMealPersonId()! - 1)].getMealPersonName()}',
-                          //         style: Theme.of(context).primaryTextTheme.subtitle1,
-                          //       ),
-                          //       Text(
-                          //         '${widget.modelMeal[index].getMeal()}',
-                          //         style: Theme.of(context).primaryTextTheme.subtitle2,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
