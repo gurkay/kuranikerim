@@ -686,8 +686,6 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   double getHeightScrollSize(Size size, int index) {
-    print('index:$index');
-
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: widget.modelVerses[index].arabicRead,
@@ -709,45 +707,47 @@ class _ArrowReadState extends State<ArrowRead> {
         (textPainter.size.width / MediaQuery.of(context).size.width * 0.95)
             .ceil();
     final arabicTextHeight = countLines * textPainter.size.height;
-    final arabicTextLine = textPainter;
+
+    print(
+        'vid:${widget.modelVerses[index].versesId} arabicTextHeight:${arabicTextHeight} arabicLenght:${widget.modelVerses[index].arabicRead.toString().length}');
 
     if (arabicTextHeight < size.height * 0.051) {
-      print('size.height %0.051:${size.height * 0.051} floor:0');
+      print(
+          'size.height %0.051:${size.height * 0.051} floor:0 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 0;
     } else if (arabicTextHeight < size.height * 0.10) {
-      print('size.height %10:${size.height * 0.10} floor:1');
+      print(
+          'size.height %10:${size.height * 0.10} floor:1 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 1;
-    } else if (arabicTextHeight < size.height * 0.14) {
-      print('size.height %14:${size.height * 0.14} floor:2');
+    } else if (arabicTextHeight < size.height * 0.15) {
+      print(
+          'size.height %14:${size.height * 0.15} floor:2 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 2;
     } else if (arabicTextHeight < size.height * 0.19) {
-      print('arabicTextLine:${arabicTextLine}');
-      print('_heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      print('size.height %19:${size.height * 0.19} floor:3');
+      print(
+          'size.height %19:${size.height * 0.19} floor:3 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 3;
     } else if (arabicTextHeight < size.height * 0.24) {
-      print('arabicTextLine:${arabicTextLine}');
-      print('_heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      print('size.height %24:${size.height * 0.24} floor:4');
-
+      print(
+          'size.height %24:${size.height * 0.24} floor:4 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 4;
     } else if (arabicTextHeight < size.height * 0.29) {
-      print('size.height %29:${size.height * 0.29} floor:5');
+      print(
+          'size.height %29:${size.height * 0.29} floor:5 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 5;
     } else if (arabicTextHeight < size.height * 0.34) {
-      print('size.height %34:${size.height * 0.34} floor:6');
+      print(
+          'size.height %34:${size.height * 0.34} floor:6 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 6;
     } else if (arabicTextHeight < size.height * 0.39) {
-      print('size.height %39:${size.height * 0.39} floor:7');
+      print(
+          'size.height %39:${size.height * 0.39} floor:7 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 7;
     } else if (arabicTextHeight < size.height * 0.44) {
-      print('size.height %44:${size.height * 0.44} floor:8');
+      print(
+          'size.height %44:${size.height * 0.44} floor:8 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
       _floor[index] = 8;
     }
-    print(
-        'vid:${widget.modelVerses[index].versesId} arabicTextHeight:${arabicTextHeight}');
-    print(
-        'arabicLenght:${widget.modelVerses[index].arabicRead.toString().length}');
 
     double returnScrollSize = 0;
     if (_floor[index] == 0) {
