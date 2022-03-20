@@ -6,7 +6,7 @@ import '../../../constants/constants_color.dart';
 class ArabicReadText extends StatelessWidget {
   final ModelVerses modelVerses;
 
-  ArabicReadText({
+  const ArabicReadText({
     required this.modelVerses,
     Key? key,
   }) : super(key: key);
@@ -59,8 +59,6 @@ class ArabicReadText extends StatelessWidget {
       child: text,
     );
 
-    print(
-        'arabic_read_text:::text height:${arabicTextHeight + MediaQuery.of(context).size.height * 0.030}');
     return container;
   }
 }

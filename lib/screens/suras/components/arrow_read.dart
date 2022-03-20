@@ -10,6 +10,7 @@ import 'package:kuranikerim/models/model_part.dart';
 import 'package:kuranikerim/models/model_suras.dart';
 import 'package:kuranikerim/screens/suras/components/arabic_read_text.dart';
 import 'package:kuranikerim/screens/suras/components/speed_read.dart';
+import 'package:kuranikerim/screens/suras/components/widget_size.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants_color.dart';
@@ -686,69 +687,6 @@ class _ArrowReadState extends State<ArrowRead> {
   }
 
   double getHeightScrollSize(Size size, int index) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: widget.modelVerses[index].arabicRead,
-        style: Theme.of(context).primaryTextTheme.headline3,
-      ),
-      strutStyle: const StrutStyle(
-        fontFamily: 'Abay',
-        height: 3.0,
-        forceStrutHeight: true,
-      ),
-      textDirection: TextDirection.rtl,
-      maxLines: 10,
-    )..layout(
-        minWidth: 0,
-        maxWidth: double.infinity,
-      );
-
-    final countLines =
-        (textPainter.size.width / MediaQuery.of(context).size.width * 0.95)
-            .ceil();
-    final arabicTextHeight = countLines * textPainter.size.height;
-
-    print(
-        'vid:${widget.modelVerses[index].versesId} arabicTextHeight:${arabicTextHeight} arabicLenght:${widget.modelVerses[index].arabicRead.toString().length}');
-
-    if (arabicTextHeight < size.height * 0.051) {
-      print(
-          'size.height %0.051:${size.height * 0.051} floor:0 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 0;
-    } else if (arabicTextHeight < size.height * 0.10) {
-      print(
-          'size.height %10:${size.height * 0.10} floor:1 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 1;
-    } else if (arabicTextHeight < size.height * 0.15) {
-      print(
-          'size.height %14:${size.height * 0.15} floor:2 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 2;
-    } else if (arabicTextHeight < size.height * 0.19) {
-      print(
-          'size.height %19:${size.height * 0.19} floor:3 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 3;
-    } else if (arabicTextHeight < size.height * 0.24) {
-      print(
-          'size.height %24:${size.height * 0.24} floor:4 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 4;
-    } else if (arabicTextHeight < size.height * 0.29) {
-      print(
-          'size.height %29:${size.height * 0.29} floor:5 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 5;
-    } else if (arabicTextHeight < size.height * 0.34) {
-      print(
-          'size.height %34:${size.height * 0.34} floor:6 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 6;
-    } else if (arabicTextHeight < size.height * 0.39) {
-      print(
-          'size.height %39:${size.height * 0.39} floor:7 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 7;
-    } else if (arabicTextHeight < size.height * 0.44) {
-      print(
-          'size.height %44:${size.height * 0.44} floor:8 _heigthScrollSetting[index]:${_heigthScrollSetting[index]}');
-      _floor[index] = 8;
-    }
-
     double returnScrollSize = 0;
     if (_floor[index] == 0) {
       if (index == 0) {
@@ -759,10 +697,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -794,10 +732,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -818,7 +756,7 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
-      returnScrollSize = size.height * 0.40;
+      returnScrollSize = size.height * 0.42;
     } else if (_floor[index] == 2) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
@@ -828,10 +766,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -852,7 +790,7 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.110;
         }
       }
-      returnScrollSize = size.height * 0.50;
+      returnScrollSize = size.height * 0.54;
     } else if (_floor[index] == 3) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
@@ -862,10 +800,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -896,10 +834,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -930,10 +868,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -964,10 +902,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -998,10 +936,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -1032,10 +970,10 @@ class _ArrowReadState extends State<ArrowRead> {
               _heigthScrollSetting[index - 1] + size.height * 0.30;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.40;
+              _heigthScrollSetting[index - 1] + size.height * 0.42;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.50;
+              _heigthScrollSetting[index - 1] + size.height * 0.54;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
               _heigthScrollSetting[index - 1] + size.height * 0.60;
@@ -1072,14 +1010,14 @@ class _ArrowReadState extends State<ArrowRead> {
       }
     }
 
-    Size size = MediaQuery.of(context).size;
-
+    Size generalSize = MediaQuery.of(context).size;
+    Size textSize;
     return ListView.builder(
       controller: _scrollController,
       itemCount: widget.modelVerses.length,
       itemBuilder: (ctx, index) {
         return SizedBox(
-          height: getHeightScrollSize(size, index),
+          height: getHeightScrollSize(generalSize, index),
           child: Container(
             margin: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(
@@ -1103,8 +1041,45 @@ class _ArrowReadState extends State<ArrowRead> {
                       children: [
                         Stack(
                           children: [
-                            ArabicReadText(
-                              modelVerses: widget.modelVerses[index],
+                            WidgetSize(
+                              child: ArabicReadText(
+                                modelVerses: widget.modelVerses[index],
+                              ),
+                              onChange: (Size size) {
+                                setState(() {
+                                  textSize = size;
+                                  if (textSize.height <
+                                      generalSize.height * 0.080) {
+                                    _floor[index] = 0;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.15) {
+                                    _floor[index] = 1;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.22) {
+                                    _floor[index] = 2;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.29) {
+                                    _floor[index] = 3;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.36) {
+                                    _floor[index] = 4;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.43) {
+                                    _floor[index] = 5;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.50) {
+                                    _floor[index] = 6;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.57) {
+                                    _floor[index] = 7;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.64) {
+                                    _floor[index] = 8;
+                                  }
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} _floor[$index]:${_floor[index]} generalSize.height * 0.32: ${generalSize.height * 0.32}}');
+                                });
+                              },
                             ),
                             AnimatedPositioned(
                               bottom: _bottomGreenArrow[index],
@@ -1112,13 +1087,14 @@ class _ArrowReadState extends State<ArrowRead> {
                               child: _isGreenUpArrow[index] == true
                                   ? Image.asset(
                                       'assets/icons/up_arrow.png',
-                                      height: size.height * 0.020,
+                                      height: generalSize.height * 0.020,
                                     )
                                   : Container(),
                               duration: const Duration(milliseconds: 200),
                             ),
                           ],
                         ),
+                        //Text('Size : $textSize'),
                         Container(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
                           margin: const EdgeInsets.symmetric(horizontal: 2.0),
