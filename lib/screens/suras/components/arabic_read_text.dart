@@ -46,7 +46,6 @@ class ArabicReadText extends StatelessWidget {
       ),
     );
     Container container = Container(
-      height: arabicTextHeight,
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 2.0),
       decoration: BoxDecoration(
