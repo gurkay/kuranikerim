@@ -694,310 +694,327 @@ class _ArrowReadState extends State<ArrowRead> {
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
 
-      returnScrollSize = size.height * 0.30;
+      returnScrollSize = size.height * 0.35;
     } else if (_floor[index] == 1) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.42;
+      returnScrollSize = size.height * 0.47;
     } else if (_floor[index] == 2) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.54;
+      returnScrollSize = size.height * 0.59;
     } else if (_floor[index] == 3) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.60;
+      returnScrollSize = size.height * 0.65;
     } else if (_floor[index] == 4) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.70;
+      returnScrollSize = size.height * 0.75;
     } else if (_floor[index] == 5) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.80;
+      returnScrollSize = size.height * 0.85;
     } else if (_floor[index] == 6) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.90;
+      returnScrollSize = size.height * 0.95;
     } else if (_floor[index] == 7) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.100;
+      returnScrollSize = size.height * 1.20;
     } else if (_floor[index] == 8) {
       if (index == 0) {
         _heigthScrollSetting[index] = 0;
       } else {
         if (_floor[index - 1] == 0) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.30;
+              _heigthScrollSetting[index - 1] + size.height * 0.35;
         } else if (_floor[index - 1] == 1) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.42;
+              _heigthScrollSetting[index - 1] + size.height * 0.47;
         } else if (_floor[index - 1] == 2) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.54;
+              _heigthScrollSetting[index - 1] + size.height * 0.59;
         } else if (_floor[index - 1] == 3) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.60;
+              _heigthScrollSetting[index - 1] + size.height * 0.65;
         } else if (_floor[index - 1] == 4) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.70;
+              _heigthScrollSetting[index - 1] + size.height * 0.75;
         } else if (_floor[index - 1] == 5) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.80;
+              _heigthScrollSetting[index - 1] + size.height * 0.85;
         } else if (_floor[index - 1] == 6) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.90;
+              _heigthScrollSetting[index - 1] + size.height * 0.95;
         } else if (_floor[index - 1] == 7) {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.100;
+              _heigthScrollSetting[index - 1] + size.height * 1.20;
         } else {
           _heigthScrollSetting[index] =
-              _heigthScrollSetting[index - 1] + size.height * 0.110;
+              _heigthScrollSetting[index - 1] + size.height * 1.35;
         }
       }
-      returnScrollSize = size.height * 0.110;
+      returnScrollSize = size.height * 1.35;
     }
 
     return returnScrollSize;
+  }
+
+  double value = 0;
+  void _secondData() {
+    new Timer.periodic(
+      Duration(seconds: 1),
+      (Timer timer) {
+        setState(() {
+          print('value:::$value');
+          if (value == 1) {
+            timer.cancel();
+          } else {
+            value = value + 0.01;
+          }
+        });
+      },
+    );
   }
 
   @override
@@ -1046,39 +1063,64 @@ class _ArrowReadState extends State<ArrowRead> {
                                 modelVerses: widget.modelVerses[index],
                               ),
                               onChange: (Size size) {
-                                setState(() {
-                                  textSize = size;
-                                  if (textSize.height <
-                                      generalSize.height * 0.080) {
-                                    _floor[index] = 0;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.15) {
-                                    _floor[index] = 1;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.22) {
-                                    _floor[index] = 2;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.29) {
-                                    _floor[index] = 3;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.36) {
-                                    _floor[index] = 4;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.43) {
-                                    _floor[index] = 5;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.50) {
-                                    _floor[index] = 6;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.57) {
-                                    _floor[index] = 7;
-                                  } else if (textSize.height <
-                                      generalSize.height * 0.64) {
-                                    _floor[index] = 8;
-                                  }
-                                  print(
-                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} _floor[$index]:${_floor[index]} generalSize.height * 0.32: ${generalSize.height * 0.32}}');
-                                });
+                                if (size != null) {
+                                  setState(() {
+                                    textSize = size;
+
+                                    if (textSize.height <
+                                        generalSize.height * 0.13) {
+                                      _floor[index] = 0;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.22) {
+                                      _floor[index] = 1;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.32) {
+                                      _floor[index] = 2;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.44) {
+                                      _floor[index] = 3;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.52) {
+                                      _floor[index] = 4;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.60) {
+                                      _floor[index] = 5;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.68) {
+                                      _floor[index] = 6;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.76) {
+                                      _floor[index] = 7;
+                                    } else if (textSize.height <
+                                        generalSize.height * 0.85) {
+                                      _floor[index] = 8;
+                                    }
+
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.10: ${generalSize.height * 0.13} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.15: ${generalSize.height * 0.15} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.22: ${generalSize.height * 0.22} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.32: ${generalSize.height * 0.32} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.36: ${generalSize.height * 0.36} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.43: ${generalSize.height * 0.43} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.50: ${generalSize.height * 0.50} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.57: ${generalSize.height * 0.57} floor:${_floor[index]}');
+                                    print(
+                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.64: ${generalSize.height * 0.64} floor:${_floor[index]}');
+                                  });
+                                } else {
+                                  SizedBox(
+                                    height: size.height * 0.10,
+                                    child: const CircularProgressIndicator(),
+                                  );
+                                }
                               },
                             ),
                             AnimatedPositioned(
@@ -1094,7 +1136,6 @@ class _ArrowReadState extends State<ArrowRead> {
                             ),
                           ],
                         ),
-                        //Text('Size : $textSize'),
                         Container(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
                           margin: const EdgeInsets.symmetric(horizontal: 2.0),

@@ -1,62 +1,46 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kuranikerim/models/model_verses.dart';
+import 'package:kuranikerim/models/model_verses_images.dart';
 
 import '../../../constants/constants_color.dart';
 
 class ArabicReadText extends StatelessWidget {
   final ModelVerses modelVerses;
 
-  const ArabicReadText({
+  ArabicReadText({
     required this.modelVerses,
-    Key? key,
-  }) : super(key: key);
+  }) {
+    final _findVersesImages = getModelVersesImages()
+        .where((element) => element.versesId == modelVerses.versesId);
+    for (final item in _findVersesImages) {
+      _modelVersesImages.add(item);
+    }
+  }
 
+  Future<void> _awaitSecond() async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  List<ModelVersesImages> _modelVersesImages = <ModelVersesImages>[];
   @override
   Widget build(BuildContext context) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: modelVerses.arabicRead,
-        style: Theme.of(context).primaryTextTheme.headline3,
-      ),
-      strutStyle: const StrutStyle(
-        fontFamily: 'Abay',
-        height: 3.0,
-        forceStrutHeight: true,
-      ),
-      textDirection: TextDirection.rtl,
-      maxLines: 10,
-    )..layout(
-        minWidth: 0,
-        maxWidth: double.infinity,
-      );
-
-    final countLines =
-        (textPainter.size.width / MediaQuery.of(context).size.width * 0.95)
-            .ceil();
-    final arabicTextHeight = countLines * textPainter.size.height;
-
-    Text text = Text(
-      modelVerses.arabicRead.toString(),
-      style: Theme.of(context).primaryTextTheme.headline3,
-      textAlign: TextAlign.right,
-      strutStyle: const StrutStyle(
-        fontFamily: 'Abay',
-        height: 3.5,
-        forceStrutHeight: true,
-      ),
-    );
     Container container = Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 2.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: cAccentColor,
-          width: 2.0,
-          style: BorderStyle.solid,
+      child: ClipRRect(
+        borderRadius: BorderRadius.zero,
+        child: Wrap(
+          textDirection: TextDirection.rtl,
+          children: [
+            for (var i = 0; i < _modelVersesImages.length; i++)
+              Image.network(
+                '${_modelVersesImages[i].versesImagesPath}',
+                height: MediaQuery.of(context).size.height * 0.10,
+              )
+          ],
         ),
-        borderRadius: BorderRadius.circular(4.0),
       ),
-      child: text,
     );
 
     return container;

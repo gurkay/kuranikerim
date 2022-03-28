@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../../../constants/constants_color.dart';
+
 class WidgetSize extends StatefulWidget {
   final Widget child;
   final Function onChange;
@@ -31,6 +33,15 @@ class _WidgetSizeState extends State<WidgetSize> {
   Widget build(BuildContext context) {
     SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
     return Container(
+      padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 2.0),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: cAccentColor,
+          width: 2.0,
+          style: BorderStyle.solid,
+        ),
+        borderRadius: BorderRadius.circular(4.0),
+      ),
       key: widgetKey,
       child: widget.child,
     );
