@@ -1017,6 +1017,7 @@ class _ArrowReadState extends State<ArrowRead> {
     );
   }
 
+  bool? _circularProcess = null;
   @override
   Widget build(BuildContext context) {
     if (widget.onChangeEnd != null) {
@@ -1059,68 +1060,63 @@ class _ArrowReadState extends State<ArrowRead> {
                         Stack(
                           children: [
                             WidgetSize(
-                              child: ArabicReadText(
-                                modelVerses: widget.modelVerses[index],
-                              ),
+                              child: (_circularProcess == null)
+                                  ? CircularProgressIndicator()
+                                  : ArabicReadText(
+                                      modelVerses: widget.modelVerses[index],
+                                    ),
                               onChange: (Size size) {
-                                if (size != null) {
-                                  setState(() {
-                                    textSize = size;
+                                setState(() {
+                                  textSize = size;
+                                  _circularProcess = true;
+                                  if (textSize.height <
+                                      generalSize.height * 0.13) {
+                                    _floor[index] = 0;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.22) {
+                                    _floor[index] = 1;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.32) {
+                                    _floor[index] = 2;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.44) {
+                                    _floor[index] = 3;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.52) {
+                                    _floor[index] = 4;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.60) {
+                                    _floor[index] = 5;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.68) {
+                                    _floor[index] = 6;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.76) {
+                                    _floor[index] = 7;
+                                  } else if (textSize.height <
+                                      generalSize.height * 0.85) {
+                                    _floor[index] = 8;
+                                  }
 
-                                    if (textSize.height <
-                                        generalSize.height * 0.13) {
-                                      _floor[index] = 0;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.22) {
-                                      _floor[index] = 1;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.32) {
-                                      _floor[index] = 2;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.44) {
-                                      _floor[index] = 3;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.52) {
-                                      _floor[index] = 4;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.60) {
-                                      _floor[index] = 5;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.68) {
-                                      _floor[index] = 6;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.76) {
-                                      _floor[index] = 7;
-                                    } else if (textSize.height <
-                                        generalSize.height * 0.85) {
-                                      _floor[index] = 8;
-                                    }
-
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.10: ${generalSize.height * 0.13} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.15: ${generalSize.height * 0.15} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.22: ${generalSize.height * 0.22} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.32: ${generalSize.height * 0.32} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.36: ${generalSize.height * 0.36} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.43: ${generalSize.height * 0.43} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.50: ${generalSize.height * 0.50} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.57: ${generalSize.height * 0.57} floor:${_floor[index]}');
-                                    print(
-                                        '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.64: ${generalSize.height * 0.64} floor:${_floor[index]}');
-                                  });
-                                } else {
-                                  SizedBox(
-                                    height: size.height * 0.10,
-                                    child: const CircularProgressIndicator(),
-                                  );
-                                }
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.10: ${generalSize.height * 0.13} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.15: ${generalSize.height * 0.15} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.22: ${generalSize.height * 0.22} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.32: ${generalSize.height * 0.32} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.36: ${generalSize.height * 0.36} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.43: ${generalSize.height * 0.43} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.50: ${generalSize.height * 0.50} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.57: ${generalSize.height * 0.57} floor:${_floor[index]}');
+                                  print(
+                                      '${widget.modelVerses[index].versesId}: textSize.height: ${textSize.height} generalSize.height * 0.64: ${generalSize.height * 0.64} floor:${_floor[index]}');
+                                });
                               },
                             ),
                             AnimatedPositioned(
