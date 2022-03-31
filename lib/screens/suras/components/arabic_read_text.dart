@@ -6,37 +6,70 @@ import 'package:kuranikerim/models/model_verses_images.dart';
 
 import '../../../constants/constants_color.dart';
 
-class ArabicReadText extends StatelessWidget {
+class ArabicReadText extends StatefulWidget {
   final ModelVerses modelVerses;
+  late final List<ModelVersesImages> _modelVersesImages;
+  late final MyCircularProcess _processIndicator;
 
-  const ArabicReadText({
-    required this.modelVerses,
+  ArabicReadText({
     Key? key,
-  }) : super(key: key);
+    required this.modelVerses,
+  }) : super(key: key) {
+    _modelVersesImages = MyImagePath(modelVerses: modelVerses)._imagePath();
+    _processIndicator = MyCircularProcess(modelVerses: modelVerses);
+  }
+
+  @override
+  State<ArabicReadText> createState() => _ArabicReadTextState();
+}
+
+class _ArabicReadTextState extends State<ArabicReadText> {
+  bool? myFlag = false;
+  Widget _circular() {
+    CircularProgressIndicator _circularPregressIndicator =
+        const CircularProgressIndicator();
+    _awaitSecond();
+
+    print('_circular:::$myFlag');
+    return _circularPregressIndicator;
+  }
+
+  Future<void> _awaitSecond() async {
+    print('_awaitSecond():::myFlag:::$myFlag');
+    await Future.delayed(const Duration(seconds: 1));
+    // Timer(const Duration(seconds: 5), () => print('5 seconds'));
+    setState(() {
+      myFlag = !myFlag!;
+    });
+    print('_awaitSecond():::myFlag:::$myFlag');
+  }
+
+  Widget getImagePath(String imagePath, BuildContext context) {
+    return Image.network(
+      imagePath,
+      height: MediaQuery.of(context).size.height * 0.10,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<ModelVersesImages> _modelVersesImages =
-        MyImagePath(modelVerses: modelVerses)._imagePath();
-    final MyCircularProcess _processIndicator =
-        MyCircularProcess(modelVerses: modelVerses);
+    print('arabicReadText:::${widget._modelVersesImages[0].versesImagesPath}');
     Container container = Container(
       width: double.infinity,
-      child: ClipRRect(
-        borderRadius: BorderRadius.zero,
-        child: Wrap(
-          textDirection: TextDirection.rtl,
-          children: [
-            for (var i = 0; i < _modelVersesImages.length; i++)
-              (_processIndicator == false)
-                  ? Image.network(
-                      '${_modelVersesImages[i].versesImagesPath}',
-                      height: MediaQuery.of(context).size.height * 0.10,
-                    )
-                  : MyCircularProcess(modelVerses: modelVerses),
-          ],
-        ),
-      ),
+      child: (myFlag == false)
+          ? _circular()
+          : ClipRRect(
+              borderRadius: BorderRadius.zero,
+              child: Wrap(
+                textDirection: TextDirection.rtl,
+                children: [
+                  for (var i = 0; i < widget._modelVersesImages.length; i++)
+                    getImagePath(
+                        '${widget._modelVersesImages[i].versesImagesPath}',
+                        context)
+                ],
+              ),
+            ),
     );
 
     return container;

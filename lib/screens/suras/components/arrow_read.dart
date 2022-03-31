@@ -1060,11 +1060,9 @@ class _ArrowReadState extends State<ArrowRead> {
                         Stack(
                           children: [
                             WidgetSize(
-                              child: (_circularProcess == null)
-                                  ? CircularProgressIndicator()
-                                  : ArabicReadText(
-                                      modelVerses: widget.modelVerses[index],
-                                    ),
+                              child: ArabicReadText(
+                                modelVerses: widget.modelVerses[index],
+                              ),
                               onChange: (Size size) {
                                 setState(() {
                                   textSize = size;
