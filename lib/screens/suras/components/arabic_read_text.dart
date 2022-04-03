@@ -57,8 +57,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
 
   @override
   Widget build(BuildContext context) {
-    print('count:::${count++}');
-    Container container = Container(
+    SizedBox sizedBox = SizedBox(
       width: double.infinity,
       child: ClipRRect(
         borderRadius: BorderRadius.zero,
@@ -89,7 +88,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
       ),
     );
 
-    return container;
+    return sizedBox;
   }
 }
 

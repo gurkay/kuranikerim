@@ -1342,9 +1342,13 @@ class _ArrowReadState extends State<ArrowRead> {
                                 print(
                                     '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.80: ${generalSize.height * 0.80} floor:${_floor[index]}');
                                 print(
-                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.57: ${generalSize.height * 0.57} floor:${_floor[index]}');
+                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.85: ${generalSize.height * 0.85} floor:${_floor[index]}');
                                 print(
-                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.80: ${generalSize.height * 0.80} floor:${_floor[index]}');
+                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 1.30: ${generalSize.height * 1.30} floor:${_floor[index]}');
+                                print(
+                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 1.50: ${generalSize.height * 1.50} floor:${_floor[index]}');
+                                print(
+                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 1.70: ${generalSize.height * 1.70} floor:${_floor[index]}');
                               },
                             ),
                             AnimatedPositioned(
