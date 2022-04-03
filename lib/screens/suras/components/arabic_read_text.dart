@@ -25,6 +25,8 @@ class ArabicReadText extends StatefulWidget {
 
 class _ArabicReadTextState extends State<ArabicReadText> {
   bool? myFlag = false;
+  int count = 0;
+
   Widget _circular() {
     CircularProgressIndicator _circularPregressIndicator =
         const CircularProgressIndicator();
@@ -38,13 +40,15 @@ class _ArabicReadTextState extends State<ArabicReadText> {
     print('_awaitSecond():::myFlag:::$myFlag');
     await Future.delayed(const Duration(seconds: 1));
     // Timer(const Duration(seconds: 5), () => print('5 seconds'));
-    setState(() {
-      myFlag = !myFlag!;
-    });
+
     print('_awaitSecond():::myFlag:::$myFlag');
   }
 
   Widget getImagePath(String imagePath, BuildContext context) {
+    print('arabicReadText:::${imagePath}');
+    setState(() {
+      myFlag = !myFlag!;
+    });
     return Image.network(
       imagePath,
       height: MediaQuery.of(context).size.height * 0.10,
@@ -53,23 +57,36 @@ class _ArabicReadTextState extends State<ArabicReadText> {
 
   @override
   Widget build(BuildContext context) {
-    print('arabicReadText:::${widget._modelVersesImages[0].versesImagesPath}');
+    print('count:::${count++}');
     Container container = Container(
       width: double.infinity,
-      child: (myFlag == false)
-          ? _circular()
-          : ClipRRect(
-              borderRadius: BorderRadius.zero,
-              child: Wrap(
-                textDirection: TextDirection.rtl,
-                children: [
-                  for (var i = 0; i < widget._modelVersesImages.length; i++)
-                    getImagePath(
-                        '${widget._modelVersesImages[i].versesImagesPath}',
-                        context)
-                ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.zero,
+        child: Wrap(
+          textDirection: TextDirection.rtl,
+          children: [
+            for (var i = 0; i < widget._modelVersesImages.length; i++)
+              Image.network(
+                '${widget._modelVersesImages[i].versesImagesPath}',
+                height: MediaQuery.of(context).size.height * 0.10,
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  return child;
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: cPrimaryColor,
+                      ),
+                    );
+                  }
+                },
               ),
-            ),
+          ],
+        ),
+      ),
     );
 
     return container;
