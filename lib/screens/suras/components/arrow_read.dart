@@ -1316,7 +1316,7 @@ class _ArrowReadState extends State<ArrowRead> {
                                     generalSize.height * 0.85) {
                                   _floor[index] = 7;
                                 } else if (textSize!.height <
-                                    generalSize.height * 1.30) {
+                                    generalSize.height * 0.95) {
                                   _floor[index] = 8;
                                 } else if (textSize!.height <
                                     generalSize.height * 1.50) {
@@ -1344,7 +1344,7 @@ class _ArrowReadState extends State<ArrowRead> {
                                 print(
                                     '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.85: ${generalSize.height * 0.85} floor:${_floor[index]}');
                                 print(
-                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 1.30: ${generalSize.height * 1.30} floor:${_floor[index]}');
+                                    '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 0.95: ${generalSize.height * 0.95} floor:${_floor[index]}');
                                 print(
                                     '${widget.modelVerses[index].versesId}: textSize.height: ${textSize!.height} generalSize.height * 1.50: ${generalSize.height * 1.50} floor:${_floor[index]}');
                                 print(
