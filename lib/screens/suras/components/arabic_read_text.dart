@@ -6,7 +6,7 @@ import 'package:kuranikerim/models/model_verses_images.dart';
 
 import '../../../constants/constants_color.dart';
 
-class ArabicReadText extends StatelessWidget {
+class ArabicReadText extends StatefulWidget {
   final ModelVerses modelVerses;
 
   ArabicReadText({
@@ -14,21 +14,23 @@ class ArabicReadText extends StatelessWidget {
     required this.modelVerses,
   }) : super(key: key);
 
-  final List<ModelVersesImages> _modelVersesImages = <ModelVersesImages>[];
-  List<ModelVersesImages> _imagePath() {
-    final _findVersesImages = getModelVersesImages()
-        .where((element) => element.versesId == modelVerses.versesId);
-    for (final item in _findVersesImages) {
-      _modelVersesImages.add(item);
-    }
+  @override
+  State<ArabicReadText> createState() => _ArabicReadTextState();
+}
 
-    return _modelVersesImages;
+class _ArabicReadTextState extends State<ArabicReadText> {
+  List<ModelVersesImages> _modelVersesImages = [];
+
+  @override
+  void initState() {
+    print('${widget.modelVerses.trRead}');
+    _modelVersesImages =
+        MyImagePath(widget.key, widget.modelVerses)._imagePath();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _imagePath();
-
     SizedBox sizedBox = SizedBox(
       width: double.infinity,
       child: ClipRRect(
@@ -64,9 +66,20 @@ class ArabicReadText extends StatelessWidget {
   }
 }
 
-class MyImagePath {
-  final ModelVerses modelVerses;
-  MyImagePath({
-    required this.modelVerses,
-  });
+class MyImagePath extends ArabicReadText {
+  MyImagePath(
+    Key? key,
+    ModelVerses modelVerses,
+  ) : super(key: key, modelVerses: modelVerses);
+
+  List<ModelVersesImages> _imagePath() {
+    final List<ModelVersesImages> _modelVersesImages = [];
+    final _findVersesImages = getModelVersesImages()
+        .where((element) => element.versesId == modelVerses.versesId);
+    for (final item in _findVersesImages) {
+      _modelVersesImages.add(item);
+    }
+
+    return _modelVersesImages;
+  }
 }

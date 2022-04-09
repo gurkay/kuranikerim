@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants_color.dart';
 import '../../../models/model_verses.dart';
+import '../../../models/model_verses_images.dart';
 
 class ArrowRead extends StatefulWidget {
   final Duration duration;

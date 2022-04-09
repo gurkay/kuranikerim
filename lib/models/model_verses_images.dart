@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -40,6 +40,10 @@ class ModelVersesImages {
   }
 }
 
+Future<String> _loadAsset() async {
+  return await rootBundle.loadString('assets/text/verses.txt');
+}
+
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
   return directory.path;
@@ -47,266 +51,260 @@ Future<String> get _localPath async {
 
 Future<File> get _localFile async {
   final path = await _localPath;
-  return File('$path/verses.txt');
+  return File('$path/assets/text/verses.txt');
 }
 
-Future<void> readVersesTxt() async {
-  try {
-    var filePath = p.join(Directory.current.path, 'assets/text', 'verses.txt');
-    File filePth = File(filePath);
-    var fileContent = await filePth.readAsLines();
-    print('fileContent: ${fileContent[0]}');
-    final file = await rootBundle.loadString('assets/text/verses.txt');
-    // final contents = await file.readAsString();
-    // File(file)
-    //     .openRead()
-    //     .transform(utf8.decoder)
-    //     .transform(const LineSplitter())
-    //     .forEach((l) => print('line: $l'));
-    // print('file: $file');
-  } catch (e) {
-    print('file read error: $e');
-  }
+Future<bool> readVersesTxt(String image) async {
+  var file = await _loadAsset();
+  var value = file.contains(image);
+
+  return value;
 }
 
 List<ModelVersesImages> getModelVersesImages() {
   List<ModelVersesImages> list = <ModelVersesImages>[];
   ModelVersesImages model = ModelVersesImages();
 
-  String imageUrl = "";
-  String destinationFile = "";
-  for (int i = 1; i < 2; i++) {
-    for (int j = 1; j < 3; j++) {
-      for (int k = 1; k < 3; k++) {
-        imageUrl = 'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png';
-        destinationFile = '${i}_${j}_$k.png';
-        // print('imageUrl: $imageUrl');
-        readVersesTxt();
-        //saveImage(imageUrl, destinationFile);
+  for (int i = 1, versesImageId = 1; i < 3; i++) {
+    for (int j = 1; j < 5; j++) {
+      for (int k = 1; k < 5; k++) {
+        final imageUrl =
+            'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png';
+
+        readVersesTxt(imageUrl).then((value) {
+          if (value) {
+            print('imageUrl: $imageUrl');
+            model = ModelVersesImages();
+            model.setVersesImagesId(versesImageId);
+            model.setVersesId(i);
+            model.setVersesImagesPath(imageUrl);
+
+            list.add(model);
+
+            versesImageId++;
+          }
+        });
       }
-      // imageUrl = "https://static.qurancdn.com/images/w/common/" + j + ".png";
-      // destinationFile = i + "_" + j + "_" + ".png";
-      // saveLastImage(imageUrl, destinationFile);
     }
   }
 
-  model = ModelVersesImages();
-  model.setVersesImagesId(1);
-  model.setVersesId(1);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/1/1.png');
-  list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(1);
+  // model.setVersesId(1);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/1/1.png');
+  // list.add(model);
 
-  model = ModelVersesImages();
-  model.setVersesImagesId(2);
-  model.setVersesId(1);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/1/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(3);
-  model.setVersesId(1);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/1/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(4);
-  model.setVersesId(1);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/1/4.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(5);
-  model.setVersesId(1);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(6);
-  model.setVersesId(2);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/2/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(7);
-  model.setVersesId(2);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/2/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(8);
-  model.setVersesId(2);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/2/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(9);
-  model.setVersesId(2);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/2/4.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(10);
-  model.setVersesId(2);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(11);
-  model.setVersesId(3);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/3/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(12);
-  model.setVersesId(3);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/3/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(13);
-  model.setVersesId(3);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(14);
-  model.setVersesId(4);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/4/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(15);
-  model.setVersesId(4);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/4/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(16);
-  model.setVersesId(4);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/4/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(17);
-  model.setVersesId(4);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/4.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(18);
-  model.setVersesId(5);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/5/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(19);
-  model.setVersesId(5);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/5/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(20);
-  model.setVersesId(5);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/5/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(21);
-  model.setVersesId(5);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/5/4.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(22);
-  model.setVersesId(5);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/5.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(23);
-  model.setVersesId(6);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/6/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(24);
-  model.setVersesId(6);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/6/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(25);
-  model.setVersesId(6);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/6/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(26);
-  model.setVersesId(6);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/6.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(27);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/1.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(28);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/2.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(29);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/3.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(30);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/4.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(31);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/5.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(32);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/6.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(33);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/7.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(34);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/8.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(35);
-  model.setVersesId(7);
-  model.setVersesImagesPath(
-      'https://static.qurancdn.com/images/w/rq-color/1/7/9.png');
-  list.add(model);
-  model = ModelVersesImages();
-  model.setVersesImagesId(36);
-  model.setVersesId(7);
-  model
-      .setVersesImagesPath('https://static.qurancdn.com/images/w/common/7.png');
-  list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(2);
+  // model.setVersesId(1);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/1/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(3);
+  // model.setVersesId(1);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/1/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(4);
+  // model.setVersesId(1);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/1/4.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(5);
+  // model.setVersesId(1);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(6);
+  // model.setVersesId(2);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/2/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(7);
+  // model.setVersesId(2);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/2/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(8);
+  // model.setVersesId(2);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/2/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(9);
+  // model.setVersesId(2);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/2/4.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(10);
+  // model.setVersesId(2);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(11);
+  // model.setVersesId(3);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/3/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(12);
+  // model.setVersesId(3);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/3/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(13);
+  // model.setVersesId(3);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(14);
+  // model.setVersesId(4);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/4/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(15);
+  // model.setVersesId(4);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/4/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(16);
+  // model.setVersesId(4);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/4/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(17);
+  // model.setVersesId(4);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/4.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(18);
+  // model.setVersesId(5);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/5/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(19);
+  // model.setVersesId(5);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/5/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(20);
+  // model.setVersesId(5);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/5/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(21);
+  // model.setVersesId(5);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/5/4.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(22);
+  // model.setVersesId(5);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/5.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(23);
+  // model.setVersesId(6);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/6/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(24);
+  // model.setVersesId(6);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/6/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(25);
+  // model.setVersesId(6);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/6/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(26);
+  // model.setVersesId(6);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/6.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(27);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/1.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(28);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/2.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(29);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/3.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(30);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/4.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(31);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/5.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(32);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/6.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(33);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/7.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(34);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/8.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(35);
+  // model.setVersesId(7);
+  // model.setVersesImagesPath(
+  //     'https://static.qurancdn.com/images/w/rq-color/1/7/9.png');
+  // list.add(model);
+  // model = ModelVersesImages();
+  // model.setVersesImagesId(36);
+  // model.setVersesId(7);
+  // model
+  //     .setVersesImagesPath('https://static.qurancdn.com/images/w/common/7.png');
+  // list.add(model);
 
   // model = ModelVersesImages();
   // model.setVersesImagesId(37);
