@@ -23,7 +23,6 @@ class _ArabicReadTextState extends State<ArabicReadText> {
 
   @override
   void initState() {
-    print('${widget.modelVerses.trRead}');
     _modelVersesImages =
         MyImagePath(widget.key, widget.modelVerses)._imagePath();
     super.initState();
@@ -74,12 +73,13 @@ class MyImagePath extends ArabicReadText {
 
   List<ModelVersesImages> _imagePath() {
     final List<ModelVersesImages> _modelVersesImages = [];
+
     final _findVersesImages = getModelVersesImages()
         .where((element) => element.versesId == modelVerses.versesId);
     for (final item in _findVersesImages) {
       _modelVersesImages.add(item);
     }
-
+    print('imageList: ${_modelVersesImages.toList()}');
     return _modelVersesImages;
   }
 }
