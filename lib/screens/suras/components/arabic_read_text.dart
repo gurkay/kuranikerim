@@ -79,7 +79,7 @@ class MyImagePath extends ArabicReadText {
     for (final item in _findVersesImages) {
       _modelVersesImages.add(item);
     }
-    print('imageList: ${_modelVersesImages.toList()}');
+    print('arabicReadText:::imageList: ${_modelVersesImages.toList()}');
     return _modelVersesImages;
   }
 }

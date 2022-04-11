@@ -79,15 +79,16 @@ List<ModelVersesImages> getModelVersesImages() {
             model.setVersesId(i);
             model.setVersesImagesPath(
                 'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png');
-            // print('model path: ${model.versesImagesPath}');
+            print('model path: ${model.versesImagesPath}');
             list.add(model);
+            print(list);
             versesImageId++;
           } else {}
         });
-        print('list: $list');
       }
     }
   }
+  print('list: $list');
 
   // model = ModelVersesImages();
   // model.setVersesImagesId(1);
