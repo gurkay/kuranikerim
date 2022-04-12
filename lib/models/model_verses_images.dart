@@ -64,27 +64,41 @@ List<ModelVersesImages> getModelVersesImages() {
   List<ModelVersesImages> list = <ModelVersesImages>[];
   ModelVersesImages model = ModelVersesImages();
 
-  for (int i = 1, versesImageId = 1; i < 3; i++) {
-    for (int j = 1; j < 5; j++) {
-      for (int k = 1; k < 5; k++) {
+  for (int i = 1, versesImageId = 1; i < 2; i++) {
+    for (int j = 1; j < 2; j++) {
+      for (int k = 1; k < 2; k++) {
         final imageUrl =
             'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png';
+
+        print(readVersesTxt(imageUrl));
 
         readVersesTxt(
                 'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png')
             .then((value) {
           if (value) {
             model = ModelVersesImages();
+
             model.setVersesImagesId(versesImageId);
             model.setVersesId(i);
             model.setVersesImagesPath(
                 'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png');
-            print('model path: ${model.versesImagesPath}');
+
             list.add(model);
-            print(list);
+
             versesImageId++;
           } else {}
         });
+
+        // model = ModelVersesImages();
+
+        // model.setVersesImagesId(versesImageId);
+        // model.setVersesId(i);
+        // model.setVersesImagesPath(
+        //     'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png');
+
+        // list.add(model);
+
+        // versesImageId++;
       }
     }
   }
