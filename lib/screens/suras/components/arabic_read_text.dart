@@ -76,7 +76,8 @@ class MyImagePath extends ArabicReadText {
   ) : super(key: key, modelVerses: modelVerses);
 
   Future<String> _loadAsset() async {
-    return await rootBundle.loadString('assets/text/verses.txt');
+    return await rootBundle
+        .loadString('assets/text/verses_${modelVerses.surasId}.txt');
   }
 
   Future<bool> readVersesTxt(String image) async {
@@ -92,25 +93,24 @@ class MyImagePath extends ArabicReadText {
 
     ModelVersesImages model = ModelVersesImages();
     var file = await _loadAsset();
+    final splitted = file.split('\n');
 
-    for (int i = 1, versesImageId = 1; i < 2; i++) {
-      for (int j = 1; j < 5; j++) {
-        for (int k = 1; k < 5; k++) {
-          if (file.contains(
-              'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png')) {
-            model = ModelVersesImages();
+    print('splitted: ${splitted[1].substring(46, 47)}');
 
-            model.setVersesImagesId(versesImageId);
-            model.setVersesId(i);
-            model.setVersesImagesPath(
-                'https://static.qurancdn.com/images/w/rq-color/$i/$j/$k.png');
-
-            _modelVersesImages1.add(model);
-
-            versesImageId++;
-          }
-        }
+    print(modelVerses.versesId);
+    int versesId = 0;
+    for (int i = 0; i < splitted.length; i++) {
+      if (int.parse(splitted[i].substring(36, 37)).toInt() == true) {
+        print('versesId : $versesId');
+        versesId = int.parse(splitted[i].substring(36, 37));
       }
+
+      model = ModelVersesImages();
+
+      model.setVersesImagesId(i + 1);
+      model.setVersesId(versesId);
+      model.setVersesImagesPath(splitted[i]);
+      _modelVersesImages1.add(model);
     }
 
     final _findVersesImages = _modelVersesImages1
