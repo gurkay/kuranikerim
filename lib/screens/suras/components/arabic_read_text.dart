@@ -100,17 +100,20 @@ class MyImagePath extends ArabicReadText {
     print(modelVerses.versesId);
     int versesId = 0;
     for (int i = 0; i < splitted.length; i++) {
-      if (int.parse(splitted[i].substring(36, 37)).toInt() == true) {
-        print('versesId : $versesId');
-        versesId = int.parse(splitted[i].substring(36, 37));
+      try {
+        if (int.parse(splitted[i].substring(46, 47)) > 0) {
+          print('versesId : $versesId');
+          versesId = int.parse(splitted[i].substring(46, 47));
+          model = ModelVersesImages();
+
+          model.setVersesImagesId(i + 1);
+          model.setVersesId(versesId);
+          model.setVersesImagesPath(splitted[i]);
+          _modelVersesImages1.add(model);
+        }
+      } catch (e) {
+        print('error: $e');
       }
-
-      model = ModelVersesImages();
-
-      model.setVersesImagesId(i + 1);
-      model.setVersesId(versesId);
-      model.setVersesImagesPath(splitted[i]);
-      _modelVersesImages1.add(model);
     }
 
     final _findVersesImages = _modelVersesImages1
