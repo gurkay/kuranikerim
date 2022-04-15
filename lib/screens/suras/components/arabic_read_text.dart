@@ -95,22 +95,19 @@ class MyImagePath extends ArabicReadText {
     var file = await _loadAsset();
     final splitted = file.split('\n');
 
-    print('splitted: ${splitted[1].substring(46, 47)}');
-
-    print(modelVerses.versesId);
-    int versesId = 0;
     for (int i = 0; i < splitted.length; i++) {
       try {
-        if (int.parse(splitted[i].substring(46, 47)) > 0) {
-          print('versesId : $versesId');
-          versesId = int.parse(splitted[i].substring(46, 47));
-          model = ModelVersesImages();
-
-          model.setVersesImagesId(i + 1);
-          model.setVersesId(versesId);
-          model.setVersesImagesPath(splitted[i]);
-          _modelVersesImages1.add(model);
-        }
+        final splittedSpace = splitted[i].split(' ');
+        print('splittedSpace: ${splittedSpace}');
+        model = ModelVersesImages();
+        print('int.parse(splittedSpace[0]): ${int.parse(splittedSpace[0])}');
+        print('int.parse(splittedSpace[1]): ${int.parse(splittedSpace[1])}');
+        print('splittedSpace[2]: ${splittedSpace[2]}');
+        model.setVersesImagesId(int.parse(splittedSpace[0]));
+        model.setVersesId(int.parse(splittedSpace[1]));
+        model.setVersesImagesPath(splittedSpace[2]);
+        print('model: ${model.getVersesImagesPath()}');
+        _modelVersesImages1.add(model);
       } catch (e) {
         print('error: $e');
       }
