@@ -64,8 +64,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       ),
     );
 
-    print(
-        'widget.modelBookmark!:::${widget.modelBookmark!.modelVerses.trRead}');
     _init();
 
     super.initState();
