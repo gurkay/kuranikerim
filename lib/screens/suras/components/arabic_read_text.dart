@@ -8,6 +8,7 @@ import 'package:kuranikerim/models/model_verses_images.dart';
 import 'package:kuranikerim/models/model_verses_maide.dart';
 
 import '../../../constants/constants_color.dart';
+import '../../../models/model_verses_enam.dart';
 import '../../../models/model_verses_nisa.dart';
 
 class ArabicReadText extends StatefulWidget {
@@ -28,6 +29,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
   final List<ModelVersesAliImran> _modelVersesAliImran = [];
   final List<ModelVersesNisa> _modelVersesNisa = [];
   final List<ModelVersesMaide> _modelVersesMaide = [];
+  final List<ModelVersesEnam> _modelVersesEnam = [];
 
   int _forLenght = 0;
 
@@ -95,6 +97,15 @@ class _ArabicReadTextState extends State<ArabicReadText> {
         });
         break;
       case 6:
+        final _findModelVersesId = getModelVersesEnam().where(
+            (element) => element.versesId == widget.modelVerses.versesId);
+
+        for (final element in _findModelVersesId) {
+          _modelVersesEnam.add(element);
+        }
+        setState(() {
+          _forLenght = _modelVersesEnam.length;
+        });
         break;
       case 7:
         break;
