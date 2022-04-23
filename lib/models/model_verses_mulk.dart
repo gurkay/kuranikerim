@@ -1,9 +1,9 @@
-class ModelVersesEnam {
+class ModelVersesMulk {
   int? versesImagesId;
   int? versesId;
   String? versesImagesPath;
 
-  ModelVersesEnam({
+  ModelVersesMulk({
     this.versesImagesId,
     this.versesId,
     this.versesImagesPath,
@@ -33,9 +33,9 @@ class ModelVersesEnam {
   }
 }
 
-List<ModelVersesEnam> getModelVersesEnam() {
-  List<ModelVersesEnam> list = <ModelVersesEnam>[];
-  ModelVersesEnam model = ModelVersesEnam();
+List<ModelVersesMulk> getModelVersesMulk() {
+  List<ModelVersesMulk> list = <ModelVersesMulk>[];
+  ModelVersesMulk model = ModelVersesMulk();
 
   return list;
 }

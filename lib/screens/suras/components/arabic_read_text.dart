@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:kuranikerim/models/model_verses.dart';
 import 'package:kuranikerim/models/model_verses_Ali_Imran.dart';
+import 'package:kuranikerim/models/model_verses_araf.dart';
 import 'package:kuranikerim/models/model_verses_bakara.dart';
 import 'package:kuranikerim/models/model_verses_fatiha.dart';
-import 'package:kuranikerim/models/model_verses_images.dart';
+
 import 'package:kuranikerim/models/model_verses_maide.dart';
 
 import '../../../constants/constants_color.dart';
@@ -30,6 +31,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
   final List<ModelVersesNisa> _modelVersesNisa = [];
   final List<ModelVersesMaide> _modelVersesMaide = [];
   final List<ModelVersesEnam> _modelVersesEnam = [];
+  final List<ModelVersesAraf> _modelVersesAraf = [];
 
   int _forLenght = 0;
 
@@ -108,6 +110,15 @@ class _ArabicReadTextState extends State<ArabicReadText> {
         });
         break;
       case 7:
+        final _findModelVersesId = getModelVersesAraf().where(
+            (element) => element.versesId == widget.modelVerses.versesId);
+
+        for (final element in _findModelVersesId) {
+          _modelVersesAraf.add(element);
+        }
+        setState(() {
+          _forLenght = _modelVersesAraf.length;
+        });
         break;
       case 8:
         break;

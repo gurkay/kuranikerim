@@ -1,9 +1,9 @@
-class ModelVersesEnam {
+class ModelVersesHakka {
   int? versesImagesId;
   int? versesId;
   String? versesImagesPath;
 
-  ModelVersesEnam({
+  ModelVersesHakka({
     this.versesImagesId,
     this.versesId,
     this.versesImagesPath,
@@ -33,9 +33,9 @@ class ModelVersesEnam {
   }
 }
 
-List<ModelVersesEnam> getModelVersesEnam() {
-  List<ModelVersesEnam> list = <ModelVersesEnam>[];
-  ModelVersesEnam model = ModelVersesEnam();
+List<ModelVersesHakka> getModelVersesHakka() {
+  List<ModelVersesHakka> list = <ModelVersesHakka>[];
+  ModelVersesHakka model = ModelVersesHakka();
 
   return list;
 }

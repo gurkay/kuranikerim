@@ -1,9 +1,9 @@
-class ModelVersesEnam {
+class ModelVersesZariyat {
   int? versesImagesId;
   int? versesId;
   String? versesImagesPath;
 
-  ModelVersesEnam({
+  ModelVersesZariyat({
     this.versesImagesId,
     this.versesId,
     this.versesImagesPath,
@@ -33,9 +33,9 @@ class ModelVersesEnam {
   }
 }
 
-List<ModelVersesEnam> getModelVersesEnam() {
-  List<ModelVersesEnam> list = <ModelVersesEnam>[];
-  ModelVersesEnam model = ModelVersesEnam();
+List<ModelVersesZariyat> getModelVersesZariyat() {
+  List<ModelVersesZariyat> list = <ModelVersesZariyat>[];
+  ModelVersesZariyat model = ModelVersesZariyat();
 
   return list;
 }
