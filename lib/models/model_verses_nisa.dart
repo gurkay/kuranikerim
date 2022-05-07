@@ -43,6 +43,7 @@ List<ModelVersesNisa> getModelVersesNisa() {
   model.setVersesImagesPath(
       'https://static.qurancdn.com/images/w/rq-color/4/1/1.png');
   list.add(model);
+
   model = ModelVersesNisa();
   model.setVersesImagesId(10121);
   model.setVersesId(294);

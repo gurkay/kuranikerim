@@ -86,6 +86,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
         setState(() {
           _forLenght = _modelVersesNisa.length;
         });
+        print('arabic read text: nisa ${_modelVersesNisa}');
         break;
       case 5:
         final _findModelVersesId = getModelVersesMaide().where(
