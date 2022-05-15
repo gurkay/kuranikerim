@@ -81,6 +81,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
             (element) => element.versesId == widget.modelVerses.versesId);
 
         for (final element in _findModelVersesId) {
+          print('arabic read path: nisa ${element.versesImagesPath}');
           _modelVersesNisa.add(element);
         }
         setState(() {
