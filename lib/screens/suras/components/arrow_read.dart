@@ -1457,6 +1457,7 @@ class _ArrowReadState extends State<ArrowRead> {
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .subtitle2,
+                                  textAlign: TextAlign.justify,
                                 ),
                               ],
                             ),
