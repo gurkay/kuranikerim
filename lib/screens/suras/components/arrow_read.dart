@@ -1256,6 +1256,7 @@ class _ArrowReadState extends State<ArrowRead> {
     Size generalSize = MediaQuery.of(context).size;
 
     return ListView.builder(
+      shrinkWrap: true,
       controller: _scrollController,
       itemCount: widget.modelVerses.length,
       itemBuilder: (ctx, index) {
@@ -1372,9 +1373,19 @@ class _ArrowReadState extends State<ArrowRead> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}'),
+                                '${widget.modelPart[(widget.modelVerses[index].partId)! - 1].partName}',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline2,
+                                textAlign: TextAlign.justify,
+                              ),
                               Text(
-                                  ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet'),
+                                ' ${widget.modelSuras.surasName} ${widget.modelVerses[index].versesId}. Ayet',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline2,
+                                textAlign: TextAlign.justify,
+                              ),
                               IconButton(
                                 onPressed: () {
                                   addBookmark(widget.modelVerses[index], index);

@@ -1424,7 +1424,7 @@ class _ArabicReadTextState extends State<ArabicReadText> {
   }
 
   String _widgetModelVersesPath(int i, int surasId) {
-    String _versesImagesPath = '';
+    late final String _versesImagesPath;
 
     if (surasId == 1) {
       _versesImagesPath = _modelVersesFatiha[i].versesImagesPath!;
